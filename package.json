@@ -4,6 +4,7 @@
   "description": "FEC project or something",
   "main": "server/index.js",
   "scripts": {
+    "server-dev": "npx nodemon --watch server server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "react-dev": "webpack --mode development --watch"
   },
