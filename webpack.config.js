@@ -46,7 +46,7 @@ module.exports = {
     // within client-side files at build-time:
     new webpack.DefinePlugin({
       "process.env": {
-        AUTH_SECRET: JSON.stringify(process.env.AUTH_SECRET),
+        TOKEN: JSON.stringify(process.env.TOKEN),
       },
     }),
   ],
