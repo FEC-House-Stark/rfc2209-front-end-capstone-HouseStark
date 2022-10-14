@@ -79,10 +79,10 @@ const App = () => {
   return (
     <div>
       <h1>House Stark</h1>
-      <Overview/>
-      <QandA/>
-      <Reviews/>
-      <Related/>
+      <Overview product_id={product_id} numReviews={numReviews} avgRating={avgRating} productInfo={productInfo} styles={styles}/>
+      <Related product_id={product_id} numReviews={numReviews} avgRating={avgRating} productInfo={productInfo} styles={styles}/>
+      <QandA product_id={product_id}/>
+      <Reviews product_id={product_id} numReviews={numReviews} avgRating={avgRating} characteristics={characteristics} recommended={recommended}/>
     </div>
   )
 
