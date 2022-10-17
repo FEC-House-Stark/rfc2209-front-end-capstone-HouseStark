@@ -1,12 +1,20 @@
 import React from 'react';
+import ProductInfo from './components/ProductInfo.jsx';
+import ImageGallery from './components/ImageGallery.jsx';
+import StyleSelector from './components/StyleSelector.jsx';
+import AddToCart from './components/AddToCart.jsx';
+import ProductDesc from './components/ProductDesc.jsx';
 
 const Overview = (props) =>  {
 
   return (
-    <div widget='Overview' element-name='overviewelement' id='somethingrandom'  onClick={(e)=> {
-
-      props.handleClick(e);
-    }}>Overview</div>
+    <>
+    <ImageGallery handleClick={props.handleClick}/>
+    <ProductInfo handleClick={props.handleClick}/>
+    <StyleSelector handleClick={props.handleClick}/>
+    <AddToCart handleClick={props.handleClick}/>
+    <ProductDesc handleClick={props.handleClick}/>
+    </>
   )
 }
 
