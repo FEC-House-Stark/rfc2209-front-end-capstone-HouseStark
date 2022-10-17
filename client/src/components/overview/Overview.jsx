@@ -40,7 +40,7 @@ const Overview = (props) => {
         <ImageGallery handleClick={props.handleClick} photos={style.photos}/>
         <ProductInfo handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style}/>
         <StyleSelector handleClick={props.handleClick} styles={props.styles.results} style={style}/>
-        <AddToCart handleClick={props.handleClick} />
+        <AddToCart handleClick={props.handleClick} skus={style.skus}/>
         <ProductDesc handleClick={props.handleClick} productInfo={props.productInfo}/>
         <ProductFeat handleClick={props.handleClick} features={props.productInfo.features}/>
     </OverviewStyle>

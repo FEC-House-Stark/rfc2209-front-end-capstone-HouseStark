@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+const { useEffect, useState } = React;
 
 const AddToCartStyle = styled.div `
   grid-column-start: 3;
@@ -13,11 +14,16 @@ const addCartStyle = {
 }
 
 const AddToCart = (props) =>  {
+  useEffect(() => {
+    if(props.skus !== undefined) {
+      console.log('props.skus: ', props.skus);
+    }
+  })
 
   return (
   //    <AddToCartStyle>
     <div widget='Overview' style={addCartStyle} element-name='AddToCart' onClick={props.handleClick}>
-      AddToCart
+      Add To Cart
       </div>
   //    </AddToCartStyle>
   )
