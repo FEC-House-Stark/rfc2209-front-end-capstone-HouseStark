@@ -6,8 +6,8 @@ const StyleSelectorStyle = styled.div`
 `;
 
 const selectorStyle = {
-  'grid-column-start': '3',
-  'grid-row-start': '2',
+  'gridColumnStart': '3',
+  'gridRowStart': '2',
   height: '100%',
   width: '100%'
 }

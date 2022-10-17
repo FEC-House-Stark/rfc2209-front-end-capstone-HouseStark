@@ -6,20 +6,23 @@ const ProductInfoStyle = styled.div`
 `;
 
 const prodInfoStyle = {
-  'grid-column-start': '3',
+  'gridColumnStart': '3',
   height: '100%',
   width: '100%'
 }
 
-const ProductInfo = (props) =>  {
+const ProductInfo = (props) => {
   console.log('Product Info', props.productInfo);
 
   return (
-    //<ProductInfoStyle>
+    //<ProductInfoStyle widget="Overview">
     <div style={prodInfoStyle} widget='Overview' element-name='ProductInfo' onClick={props.handleClick}>
-      ProdInfo
-      </div>
-      //</ProductInfoStyle>
+      <div>{props.avgRating} ({props.numReviews})</div>
+      <h3>{props.productInfo.category}</h3>
+      <h1>{props.productInfo.name}</h1>
+      <h4>${props.style.original_price}</h4>
+    </div>
+    //</ProductInfoStyle>
   )
 }
 

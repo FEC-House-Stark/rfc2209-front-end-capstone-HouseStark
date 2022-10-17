@@ -8,19 +8,21 @@ const ProductDescStyle = styled.div`
 `;
 
 const prodDescStyle = {
-  'grid-column-start': '2',
-  'grid-column-end': '4',
-  'grid-row-start': '4',
+  'gridColumnStart': '2',
+  'gridRowStart': '4',
   height: '100%',
   width: '100%'
 }
 
-const ProductDesc = (props) =>  {
+const ProductDesc = (props) => {
 
   return (
     //<ProductDescStyle>
-      <div style={prodDescStyle} widget='Overview' element-name='Product Description' onClick={props.handleClick}>Product Desc</div>
-      //</ProductDescStyle>
+    <div style={prodDescStyle}>
+      <h2 widget='Overview' element-name='Product Slogan' onClick={props.handleClick}>{props.productInfo.slogan}</h2>
+      <p widget='Overview' element-name='Product Description' onClick={props.handleClick}>{props.productInfo.slogan}>{props.productInfo.description}</p>
+    </div>
+    //</ProductDescStyle>
   )
 }
 

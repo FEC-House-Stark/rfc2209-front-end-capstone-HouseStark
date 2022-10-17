@@ -8,9 +8,9 @@ const ImageGalleryStyle = styled.div`
   grid-row-end: 4;
 `;
 const imageGalleryStyle = {
-  'grid-column-start': '2',
-  'grid-row-start': '1',
-  'grid-row-end': '4',
+  'gridColumnStart': '2',
+  'gridRowStart': '1',
+  'gridRowEnd': '4',
   height: '100%',
   width: '100%'
 }
