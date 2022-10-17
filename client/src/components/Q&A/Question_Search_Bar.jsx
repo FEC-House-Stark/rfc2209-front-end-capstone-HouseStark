@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
-const QuestionSearchBar = ({questions, setFilter}) =>  {
+const QuestionSearchBar = ({questions, setFilter, handleTrackingClick}) =>  {
 
   const [value, setValue] = useState('');
 
@@ -14,10 +14,14 @@ const QuestionSearchBar = ({questions, setFilter}) =>  {
   }
 
   return (
-    <form onSubmit={ (e) => {
-      e.preventDefault();
-      handleSubmit();
-    }
+    <form
+      widget='QandA'
+      element-name='Question_Search_Bar'
+      onSubmit={ (e) => {
+        e.preventDefault();
+        handleSubmit();
+        handleTrackingClick(e);
+      }
     }>
       <input type="text" value={value}
         placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS'

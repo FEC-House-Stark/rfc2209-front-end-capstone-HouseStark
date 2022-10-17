@@ -4,10 +4,12 @@ import AnswerView from './Answer_View.jsx'
 
 const AnswersListView = ({question_id}) =>  {
 
+  let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/qa/questions/${question_id}`
+
   const [answers, setAnswers] = useState ([]);
 
   const config = {
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/qa/questions/${question_id}/answers`,
+    url: `${url}/answers`,
     method: 'get',
     headers: {
       'Authorization': process.env.TOKEN,

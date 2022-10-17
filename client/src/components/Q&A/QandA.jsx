@@ -3,7 +3,7 @@ import axios from 'axios';
 import QuestionsView from './Questions_View.jsx';
 import QuestionSearchBar from './Question_Search_Bar.jsx';
 
-const QandA = ({product_id}) =>  {
+const QandA = ({product_id,handleClick}) =>  {
 
   const [questions,setQuestions] = useState([]);
   const [filter, setFilter] = useState([]);
@@ -33,10 +33,14 @@ const QandA = ({product_id}) =>  {
       <h4>QUESTION {'&'} ANSWERS</h4>
       <QuestionSearchBar
         questions={questions}
-        setFilter={setFilter}/>
+        setFilter={setFilter}
+        handleTrackingClick={handleClick}/>
       <QuestionsView
+        product_id={product_id}
         questions={questions}
-        filter={filter} />
+        setQuestions={setQuestions}
+        filter={filter}
+        handleTrackingClick={handleClick} />
   </div>
   )
 }

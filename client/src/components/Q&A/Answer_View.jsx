@@ -24,7 +24,6 @@ const AnswerView = ({answer}) =>  {
         <div>By {answer.answerer_name}</div>
         <Moment style={childGap} format="MMMM,DD,YYYY">{answer.date}</Moment>
         <div style={childGap}>Helpful? Yes{'('+answer.helpfulness+')'}</div>
-        <div style={childGap}>Report</div>
       </div>
     </div>
   )

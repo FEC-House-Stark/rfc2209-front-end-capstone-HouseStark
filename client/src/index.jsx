@@ -69,7 +69,7 @@ const ClickTracking = (props) => {
 
 
 const App = () => {
-  const [product_id, setProductId] = useState(66644);
+  const [product_id, setProductId] = useState(66645);
   const [numReviews, setNumReviews] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
   const [characteristics, setCharacteristics] = useState({});
