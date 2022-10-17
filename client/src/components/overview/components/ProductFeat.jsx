@@ -13,7 +13,13 @@ const ProductFeat = (props) => {
   return (
     //<ProductDescStyle>
     <div style={prodFeatStyle}>
-      Product Features
+      <ul>
+      {props.features !== undefined &&
+        props.features.map((feature) => {
+          return <li>{feature.value}</li>
+        })
+      }
+      </ul>
     </div>
     //</ProductDescStyle>
   )

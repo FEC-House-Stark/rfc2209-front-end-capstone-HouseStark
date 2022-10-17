@@ -37,7 +37,7 @@ const Overview = (props) => {
         <StyleSelector handleClick={props.handleClick} />
         <AddToCart handleClick={props.handleClick} />
         <ProductDesc handleClick={props.handleClick} productInfo={props.productInfo}/>
-        <ProductFeat handleClick={props.handleClick}/>
+        <ProductFeat handleClick={props.handleClick} features={props.productInfo.features}/>
     </OverviewStyle>
   );
 }
