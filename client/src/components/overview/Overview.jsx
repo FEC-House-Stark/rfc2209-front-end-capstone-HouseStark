@@ -13,6 +13,7 @@ const OverviewStyle = styled.div`
   display: grid;
   grid-template-columns: 1fr 500px 300px 1fr;
   grid-template-rows: 200px 100px 100px 200px;
+  padding: 15px 0px;
 `;
 
 const Overview = (props) => {
@@ -24,15 +25,19 @@ const Overview = (props) => {
     //set the price
     //if on sale
     if (props.styles.results !== undefined) {
-      setStyle(props.styles.results[0]);
-      console.log('styles:', props.styles.results);
-    }
-    }, [props.styles])
+      for (const style of props.styles.results) {
+        if (style['default?']) {
+          setStyle(style);
+          console.log('style:', style);
+          break;
+        }
+      }
+    }}, [props.styles])
 
 
   return (
     <OverviewStyle>
-        <ImageGallery handleClick={props.handleClick} />
+        <ImageGallery handleClick={props.handleClick} style/>
         <ProductInfo handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style}/>
         <StyleSelector handleClick={props.handleClick} />
         <AddToCart handleClick={props.handleClick} />

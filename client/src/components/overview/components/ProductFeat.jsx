@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const prodFeatStyle = {
+  'border-left': '1px solid gray',
   'gridColumnStart': '3',
   'gridRowStart': '4',
   height: '100%',
