@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ProductInfoStyle = styled.div`
-  grid-column-start: 3;
+  grid-column-start: 4;
 `;
 
 const prodInfoStyle = {
-  'gridColumnStart': '3',
+  'gridColumnStart': '4',
   height: '100%',
   width: '100%'
 }

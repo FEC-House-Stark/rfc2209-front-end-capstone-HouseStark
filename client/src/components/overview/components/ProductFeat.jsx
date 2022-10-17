@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const prodFeatStyle = {
   'border-left': '1px solid gray',
-  'gridColumnStart': '3',
+  'gridColumnStart': '4',
   'gridRowStart': '4',
   height: '100%',
   width: '100%'

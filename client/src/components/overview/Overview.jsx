@@ -11,7 +11,7 @@ import styled from 'styled-components';
 const OverviewStyle = styled.div`
   border-bottom: 1pt solid #666;
   display: grid;
-  grid-template-columns: 1fr 500px 300px 1fr;
+  grid-template-columns: 1fr 50% 10px 30% 1fr;
   grid-template-rows: 200px 100px 100px 200px;
   padding: 15px 0px;
 `;
@@ -39,7 +39,7 @@ const Overview = (props) => {
     <OverviewStyle>
         <ImageGallery handleClick={props.handleClick} photos={style.photos}/>
         <ProductInfo handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style}/>
-        <StyleSelector handleClick={props.handleClick} />
+        <StyleSelector handleClick={props.handleClick} styles={props.styles.results} style={style}/>
         <AddToCart handleClick={props.handleClick} />
         <ProductDesc handleClick={props.handleClick} productInfo={props.productInfo}/>
         <ProductFeat handleClick={props.handleClick} features={props.productInfo.features}/>

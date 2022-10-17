@@ -6,7 +6,7 @@ const AddToCartStyle = styled.div `
   grid-row-start: 3;
 `;
 const addCartStyle = {
-  'gridColumnStart': '3',
+  'gridColumnStart': '4',
   'gridRowStart': '3',
   height: '100%',
   width: '100%'

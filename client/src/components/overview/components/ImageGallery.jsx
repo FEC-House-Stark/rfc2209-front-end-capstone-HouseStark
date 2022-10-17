@@ -22,8 +22,8 @@ const imageGalleryStyle = {
   height: '100%',
   width: '100%',
   display: 'flex',
-  'justify-content': 'center',
-  'align-items': 'center',
+  'justifyContent': 'center',
+  'alignItems': 'center',
   'overflow': 'hidden'
 }
 
