@@ -34,6 +34,40 @@ max-height: 100%;
 
 const host_url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/'
 
+const ClickTracking = (props) => {
+
+  const handleClick = (e) => {
+    let element = e.target.getAttribute('element-name').toString();
+    let widget = e.target.getAttribute('widget').toString();
+    let time = e.timeStamp.toString();
+    let config = {
+      url: host_url+'interactions',
+      method: 'post',
+      headers: {
+        'Authorization': process.env.TOKEN,
+      },
+      data:{
+        element,widget,time
+      }
+    };
+
+  axios(config)
+  .then((result)=> {
+    console.log(result);
+   })
+  .catch((err)=> {
+    console.log(err);
+   })
+  };
+
+  return (
+    <>
+      {props.children(handleClick)}
+    </>
+  )
+}
+
+
 const App = () => {
   const [product_id, setProductId] = useState(66644);
   const [numReviews, setNumReviews] = useState(0);
@@ -102,15 +136,44 @@ const App = () => {
 
 
   return (
-    <div>
-      <Header><Logo src={logo} /> House Stark
-        <Search></Search>
-      </Header>
-      <Overview product_id={product_id} numReviews={numReviews} avgRating={avgRating} productInfo={productInfo} styles={styles} />
-      <Related product_id={product_id} numReviews={numReviews} avgRating={avgRating} productInfo={productInfo} styles={styles} />
-      <QandA product_id={product_id} />
-      <Reviews product_id={product_id} numReviews={numReviews} avgRating={avgRating} characteristics={characteristics} recommended={recommended} />
-    </div>
+    <ClickTracking>
+      {
+        (value) => {
+          return(
+            <>
+              <Header>
+                <Logo src={logo} /> House Stark
+                <Search></Search>
+              </Header>
+              <Overview
+                handleClick={value}
+                product_id={product_id}
+                numReviews={numReviews}
+                avgRating={avgRating}
+                productInfo={productInfo}
+                styles={styles} />
+              <Related
+                handleClick={value}
+                product_id={product_id}
+                numReviews={numReviews}
+                avgRating={avgRating}
+                productInfo={productInfo}
+                styles={styles} />
+              <QandA
+                handleClick={value}
+                product_id={product_id} />
+              <Reviews
+                handleClick={value}
+                product_id={product_id}
+                numReviews={numReviews}
+                avgRating={avgRating}
+                characteristics={characteristics}
+                recommended={recommended} />
+            </>
+          )
+        }
+      }
+    </ClickTracking>
   )
 
 }
