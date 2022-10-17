@@ -37,7 +37,7 @@ const Overview = (props) => {
 
   return (
     <OverviewStyle>
-        <ImageGallery handleClick={props.handleClick} style/>
+        <ImageGallery handleClick={props.handleClick} photos={style.photos}/>
         <ProductInfo handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style}/>
         <StyleSelector handleClick={props.handleClick} />
         <AddToCart handleClick={props.handleClick} />
