@@ -60,7 +60,7 @@ const AddanAnswer = ({handleTrackingClick,question_id}) =>  {
         e.preventDefault();
         setIsOpen(!openModal);
         handleTrackingClick(e);
-      }}>Add an Answer</div>
+      }}>| Add an Answer</div>
       <Modal
         isOpen={openModal}
         style={customStyles}

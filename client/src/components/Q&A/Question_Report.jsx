@@ -11,7 +11,7 @@ const QuestionReport = ({handleReportClick}) =>  {
       handleReportClick();
     }}
     >
-      Report
+      | Report
   </div>
   )
 }

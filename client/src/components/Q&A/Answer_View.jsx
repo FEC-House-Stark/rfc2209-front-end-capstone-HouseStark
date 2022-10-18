@@ -50,7 +50,7 @@ const AnswerView = ({answer,handleTrackingClick}) =>  {
       </div>
       <AnswerPhotos photos={answer.photos}/>
       <div style={answerStyle}>
-        <div>By {answer.answerer_name}</div>
+        <div>By {answer.answerer_name} |</div>
         <Moment
           style={childGap}
           format="MMMM,DD,YYYY">

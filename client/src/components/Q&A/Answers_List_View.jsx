@@ -45,7 +45,7 @@ const AnswersListView = ({question_id,handleTrackingClick}) =>  {
       </div>
       <div>
         {
-          !moreAnswers
+          !moreAnswers && answers.length>2
           ?
           <button
           widget='QandA'
@@ -55,7 +55,7 @@ const AnswersListView = ({question_id,handleTrackingClick}) =>  {
             setShowAnswers(answers);
             setMoreAnswers(!moreAnswers);
             handleTrackingClick(e);
-          }}>More Answers</button>
+          }}>LOAD MORE ANSWERS</button>
           : null
         }
       </div>

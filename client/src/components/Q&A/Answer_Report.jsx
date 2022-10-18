@@ -4,7 +4,7 @@ const AnswerReport = ({handleReportClick,handleTrackingClick}) =>  {
 
   return (
     <div
-    style={{marginLeft:'10px',marginRight:'10px'}}
+    style={{marginLeft:'10px'}}
     widget='QandA'
     element-name='Answer_Helpfulness'
     onClick={(e)=> {
@@ -12,7 +12,7 @@ const AnswerReport = ({handleReportClick,handleTrackingClick}) =>  {
       handleTrackingClick(e);
     }}
     >
-      Report
+     | Report
   </div>
   )
 }
