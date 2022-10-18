@@ -27,28 +27,33 @@ const imageGalleryStyle = {
 
 const ImageGallery = (props) => {
   const [displayPhoto, setDisplayPhoto] = useState("");
-  const [photoUrls, setPhotoUrls] = useState([]);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [translate, setTranslate] = useState(0);
-  const [transition, setTransition] = useState(0.45);
+  const transition = 0.45;
 
-  useEffect(() => {
-    if (props.photos !== undefined) {
-      setDisplayPhoto(props.photos[0].url);
-      let urls = props.photos.map((photo) => (
-        photo.url
-      ))
-      setPhotoUrls(urls);
+  const handleLeftClick = () => {
+    if (photoIndex > 0) {
+      setPhotoIndex(photoIndex - 1);
+      setTranslate(translate - props.image_width);
     }
-  }, [props.photos])
+  }
+  const handleRightClick = () => {
+    if (photoIndex < props.photos.length - 1) {
+      setPhotoIndex(photoIndex + 1);
+      setTranslate(translate + props.image_width);
+    }
+  }
+
   return (
+    <>
+    {
+      props.photos !== undefined &&
     <div widget='Overview' style={imageGalleryStyle} element-name='ImageGallery' onClick={(e) => {
       //  console.log(`ImageGalleryClick | currentTarget: ${e.currentTarget.getAttribute('widget')}
       // target:`,e.target);
    //   props.handleClick(e);
     }}>
-      {
-        props.photos !== undefined &&
+
         <div
           style={{
             transform: `translateX(-${translate}px)`,
@@ -68,10 +73,11 @@ const ImageGallery = (props) => {
             }} />
           ))}
         </div>
-      }
-      <ArrowButton direction="left" index={photoIndex}/>
-      <ArrowButton direction="right" index={photoIndex}/>
+      <ArrowButton direction="left" index={photoIndex} handleClick={handleLeftClick} active={photoIndex > 0}/>
+      <ArrowButton direction="right" index={photoIndex} handleClick={handleRightClick} active={photoIndex < props.photos.length-1}/>
     </div>
+          }
+          </>
   )
 }
 

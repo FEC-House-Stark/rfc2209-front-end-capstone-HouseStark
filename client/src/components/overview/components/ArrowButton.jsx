@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 const { useEffect, useState } = React;
 
-const ArrowButton = ({handleClick, direction, index}) =>  {
+const ArrowButton = ({handleClick, direction, active}) =>  {
   return (
     <div
       onClick={handleClick}
@@ -12,10 +12,14 @@ const ArrowButton = ({handleClick, direction, index}) =>  {
       top: 50%;
       ${direction === 'right' ? `right: 25px` : `left: 25px`};
       height: 25px;
-      color: white;
+      ${active ?
+        `color: white;
+      background: #ccc;` :
+      `color: #bbb;
+      background: #999;`}
+
       width: 25px;
       justify-content: center;
-      background: #666;
       border-radius: 50%;
       cursor: pointer;
       align-items: center;
