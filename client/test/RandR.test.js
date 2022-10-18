@@ -1,6 +1,6 @@
 import { expect, jest, test } from '@jest/globals';
-describe("Overview", () => {
-  test("First overview test", () => {
+describe("Ratings & Reviews", () => {
+  test("First R&R test", () => {
     expect(true).toBe(true);
   });
 });

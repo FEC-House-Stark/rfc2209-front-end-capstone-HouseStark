@@ -6,6 +6,10 @@
   "scripts": {
     "server-dev": "npx nodemon --watch server server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test-overview": "npx jest client/test/Overview.test.js",
+    "test-questions": "npx jest client/test/QandA.test.js",
+    "test-reviews": "npx jest client/test/RandR.test.js",
+    "test-related": "npx jest client/test/Related.test.js",
     "react-dev": "webpack --mode development --watch"
   },
   "repository": {
