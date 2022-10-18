@@ -18,7 +18,7 @@ const ProductInfo = (props) => {
     //<ProductInfoStyle widget="Overview">
     <div style={prodInfoStyle} widget='Overview' element-name='ProductInfo' onClick={props.handleClick}>
       <div>{props.avgRating} ({props.numReviews})</div>
-      <h3>{props.productInfo.category}</h3>
+      <h3 className="product-category">{props.productInfo.category}</h3>
       <h1>{props.productInfo.name}</h1>
       <h4>${props.style.original_price}</h4>
     </div>
