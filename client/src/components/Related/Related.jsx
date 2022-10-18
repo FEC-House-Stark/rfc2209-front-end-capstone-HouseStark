@@ -37,10 +37,15 @@ const Related = ({ handleClick, product_id, numReviews, avgRating, productInfo, 
   useEffect(() => { //gets related styles
     if (related_ids.length) {
       let promises = related_ids.map((id) => {
+        //return
         return axios(host_url + `products/${id}/styles`, config)
+        .then((data) => console.log(data))
       })
-      Promise.all(promises)
-        .then((res) => setThumbnails(res))
+      // Promise.all(promises)
+      //   .then((res) => {
+      //     console.log(res)
+      //     setThumbnails(res)
+      //   })
     }
   }, [related_ids])
 
