@@ -37,7 +37,11 @@ const ImageGallery = (props) =>  {
   }, [props.photos])
   return (
     //<ImageGalleryStyle>
-      <div widget='Overview' style={imageGalleryStyle} element-name='ImageGallery' onClick={props.handleClick}>
+      <div widget='Overview' style={imageGalleryStyle} element-name='ImageGallery' onClick={(e)=> {
+        console.log(`ImageGalleryClick | currentTarget: ${e.currentTarget.getAttribute('widget')}
+        target:`,e.target);
+        props.handleClick(e);
+      }}>
         <Image src={displayPhoto}/>
       </div>
    // </ImageGalleryStyle>
