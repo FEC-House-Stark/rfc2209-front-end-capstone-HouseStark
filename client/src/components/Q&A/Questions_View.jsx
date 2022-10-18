@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import QuestionView from './Question_View.jsx';
 import AddaQuestion from './Add_A_Question.jsx';
+import styled from 'styled-components';
 
 const QuestionsView = ({questions,setQuestions,filter,handleTrackingClick,product_id}) =>  {
 
@@ -22,8 +23,16 @@ const QuestionsView = ({questions,setQuestions,filter,handleTrackingClick,produc
     flexDirection: 'row'
   }
 
+  const QandASearchView = styled.div`
+  display: grid;
+  align-items: stretch;
+  grid-template-columns: 100%;
+  grid-template-rows: 90% 10%;
+  gap: 10px
+  `;
+
   return (
-    <div>
+    <QandASearchView>
       <div>
         {
           showQuestion.map((q) => {
@@ -57,7 +66,7 @@ const QuestionsView = ({questions,setQuestions,filter,handleTrackingClick,produc
         product_id={product_id}
         handleTrackingClick={handleTrackingClick}/>
     </span>
-  </div>
+  </QandASearchView>
   )
 }
 

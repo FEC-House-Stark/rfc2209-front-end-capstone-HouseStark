@@ -4,14 +4,10 @@ import AnswersListView from './Answers_List_View.jsx'
 import AddanAnswer from './Add_An_Answer.jsx';
 import QuestionHelpfulness from './Question_Helpfulness.jsx';
 import QuestionReport from './Question_Report.jsx'
+import styled from 'styled-components';
 
 
 const QuestionView = ({question, handleTrackingClick}) =>  {
-
-  const columnFlex = {
-    display: 'flex',
-    flexDirection: 'column'
-  }
 
   const rowFlex = {
     display: 'flex',
@@ -46,28 +42,46 @@ const QuestionView = ({question, handleTrackingClick}) =>  {
     handleRequestClick('report','put');
   }
 
-  // console.log(question);
+
+  const QandAQuestionListView = styled.div`
+    display: grid;
+    align-items: stretch;
+    gap: 5px
+  `;
+
+
+  const QuestionBar = styled.div`
+    display: grid;
+    align-items: stretch;
+    grid-template-columns: 60% 40% ;
+    height: 20px;
+  `
+  const QuestionBarActionItem = styled.span`
+    display: grid;
+    grid-template-columns: 30% 30% 30% ;
+
+  `
 
   return (
-    <div style={columnFlex}>
-      <div style={{...rowFlex, justifyContent:'space-between'}}>
+    <QandAQuestionListView>
+      <QuestionBar>
         <div>
           Q: {question.question_body}
         </div>
-        <span style={rowFlex}>
+        <QuestionBarActionItem >
           <QuestionHelpfulness
             handleTrackingClick={handleTrackingClick}
             handleHelpfulClick={handleHelpfulClick}
             question_helpfulness={question.question_helpfulness}
-            rowFlex={rowFlex}/>
+            />
           <AddanAnswer
             handleTrackingClick={handleTrackingClick}
             question_id={question.question_id}/>
           <QuestionReport
             handleTrackingClick={handleTrackingClick}
             handleReportClick={handleReportClick}/>
-        </span>
-      </div>
+        </QuestionBarActionItem>
+      </QuestionBar>
       <div style={rowFlex}>
         <div>A: </div>
         <div>
@@ -76,7 +90,7 @@ const QuestionView = ({question, handleTrackingClick}) =>  {
             question_id={question.question_id}/>
         </div>
       </div>
-    </div>
+    </QandAQuestionListView>
   )
 }
 

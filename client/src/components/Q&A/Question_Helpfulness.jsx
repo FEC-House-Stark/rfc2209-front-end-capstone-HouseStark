@@ -1,12 +1,11 @@
 import {useState, useEffect} from 'react';
 
-const QuestionHelpfulness = ({handleTrackingClick, handleHelpfulClick,question_helpfulness,rowFlex}) =>  {
+const QuestionHelpfulness = ({handleTrackingClick, handleHelpfulClick,question_helpfulness}) =>  {
 
   const [helpfulCount, setHelpfulCount] = useState(question_helpfulness);
 
 
   return (
-    <div style={rowFlex}>Helpful?
       <div
         style={{marginLeft:'5px'}}
         widget='QandA'
@@ -16,9 +15,8 @@ const QuestionHelpfulness = ({handleTrackingClick, handleHelpfulClick,question_h
           setHelpfulCount(helpfulCount+1);
           handleTrackingClick(e);
         }}>
-        { 'Yes ('+ helpfulCount +')'}
+        Helpful?{ 'Yes ('+ helpfulCount +')'}
       </div>
-    </div>
   )
 }
 

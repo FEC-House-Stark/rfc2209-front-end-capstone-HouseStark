@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import QuestionsView from './Questions_View.jsx';
 import QuestionSearchBar from './Question_Search_Bar.jsx';
+import styled from 'styled-components';
 
 const QandA = ({product_id,handleClick}) =>  {
 
@@ -23,14 +24,25 @@ const QandA = ({product_id,handleClick}) =>  {
     })
   },[]);
 
-  const divStyle = {
-    display: 'flex',
-    flexDirection: 'column'
-  }
+
+  const QandAOverViewStyle = styled.div`
+    border-bottom: 1pt solid #666;
+    display: grid;
+    grid-template-rows:5ch 5ch / auto auto;
+    padding: 10px 10px;
+    gap: 10px;
+    font-family: serif;
+`;
+
+  const QandAHeader = styled.div`
+    display: grid;
+    align-items: flex-start;
+    text-align: left;
+    `;
 
   return (
-    <div style={divStyle} >
-      <h4>QUESTION {'&'} ANSWERS</h4>
+    <QandAOverViewStyle >
+      <QandAHeader>QUESTION {'&'} ANSWERS</QandAHeader>
       <QuestionSearchBar
         questions={questions}
         setFilter={setFilter}
@@ -41,7 +53,7 @@ const QandA = ({product_id,handleClick}) =>  {
         setQuestions={setQuestions}
         filter={filter}
         handleTrackingClick={handleClick} />
-  </div>
+  </QandAOverViewStyle>
   )
 }
 
