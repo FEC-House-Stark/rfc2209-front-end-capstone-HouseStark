@@ -12,7 +12,7 @@ const QandA = ({product_id,handleClick}) =>  {
     headers: {
       'Authorization': process.env.TOKEN,
     },
-    params: { product_id },
+    params: { product_id, page: 1, count: 20 },
   }
 
   useEffect (() => {

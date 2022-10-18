@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 
-const QuestionHelpfulness = ({handleHelpfulClick,question_helpfulness,rowFlex}) =>  {
+const QuestionHelpfulness = ({handleTrackingClick, handleHelpfulClick,question_helpfulness,rowFlex}) =>  {
 
   const [helpfulCount, setHelpfulCount] = useState(question_helpfulness);
 
@@ -14,6 +14,7 @@ const QuestionHelpfulness = ({handleHelpfulClick,question_helpfulness,rowFlex}) 
         onClick={(e)=> {
           handleHelpfulClick();
           setHelpfulCount(helpfulCount+1);
+          handleTrackingClick(e);
         }}>
         { 'Yes ('+ helpfulCount +')'}
       </div>

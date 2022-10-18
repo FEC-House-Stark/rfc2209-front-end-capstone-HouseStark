@@ -29,6 +29,7 @@ const QuestionsView = ({questions,setQuestions,filter,handleTrackingClick,produc
           showQuestion.map((q) => {
             return <QuestionView
             key={q.question_id}
+            product_id={product_id}
             question={q}
             handleTrackingClick={handleTrackingClick}/>
           })

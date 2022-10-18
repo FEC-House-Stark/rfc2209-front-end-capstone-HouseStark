@@ -6,7 +6,7 @@ import QuestionHelpfulness from './Question_Helpfulness.jsx';
 import QuestionReport from './Question_Report.jsx'
 
 
-const QuestionView = ({question, handleClick}) =>  {
+const QuestionView = ({question, handleTrackingClick}) =>  {
 
   const columnFlex = {
     display: 'flex',
@@ -20,13 +20,14 @@ const QuestionView = ({question, handleClick}) =>  {
 
 
 
-  const handleHelpfulReportClick = (endpoint) => {
+  const handleRequestClick = (endpoint,method,data={}) => {
     let config = {
       url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/qa/questions/${question.question_id}/${endpoint}`,
-      method: 'put',
+      method: method,
       headers: {
         'Authorization': process.env.TOKEN,
       },
+      data : data
     }
     axios(config)
     .then((result)=> {
@@ -38,14 +39,14 @@ const QuestionView = ({question, handleClick}) =>  {
   }
 
   const handleHelpfulClick = () => {
-    handleHelpfulReportClick('helpful');
+    handleRequestClick('helpful','put');
   }
 
   const handleReportClick = () => {
-    handleHelpfulReportClick('report');
+    handleRequestClick('report','put');
   }
 
-  console.log(question);
+  // console.log(question);
 
   return (
     <div style={columnFlex}>
@@ -55,12 +56,15 @@ const QuestionView = ({question, handleClick}) =>  {
         </div>
         <span style={rowFlex}>
           <QuestionHelpfulness
+            handleTrackingClick={handleTrackingClick}
             handleHelpfulClick={handleHelpfulClick}
             question_helpfulness={question.question_helpfulness}
             rowFlex={rowFlex}/>
           <AddanAnswer
-            handleClick={handleClick}/>
+            handleTrackingClick={handleTrackingClick}
+            question_id={question.question_id}/>
           <QuestionReport
+            handleTrackingClick={handleTrackingClick}
             handleReportClick={handleReportClick}/>
         </span>
       </div>
@@ -68,8 +72,8 @@ const QuestionView = ({question, handleClick}) =>  {
         <div>A: </div>
         <div>
           <AnswersListView
-            question_id={question.question_id}
-            handleClick={handleClick}/>
+            handleTrackingClick={handleTrackingClick}
+            question_id={question.question_id}/>
         </div>
       </div>
     </div>

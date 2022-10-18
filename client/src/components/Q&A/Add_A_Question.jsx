@@ -30,6 +30,7 @@ const AddaQuestion = ({questions,setQuestions,product_id,handleTrackingClick}) =
     justifyContent: 'space-between',
   }
 
+
   let config = {
     url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/qa/questions',
     method: 'post',
@@ -39,11 +40,15 @@ const AddaQuestion = ({questions,setQuestions,product_id,handleTrackingClick}) =
     data: {body,name, email, product_id },
   }
 
+
   const handleQuestionSubmit = () => {
-    return axios(config)
+     axios(config)
     .then((result)=> {
       console.log(result);
-      setQuestions(questions.concat([result]));
+      axios.get(url)
+      .then((result)=> {
+        console.log(result);
+      })
     })
     .then((err)=> {
       console.log(err);
@@ -53,10 +58,14 @@ const AddaQuestion = ({questions,setQuestions,product_id,handleTrackingClick}) =
 
   return (
     <div style={{marginLeft:'50px'}}>
-      <button onClick={(e) => {
-        e.preventDefault();
-        setIsOpen(!openModal);
-      }}>Add a Question</button>
+      <button
+        widget='QandA'
+        element-name='Add_A_Question'
+        onClick={(e) => {
+          e.preventDefault();
+          setIsOpen(!openModal);
+          handleTrackingClick(e);
+        }}>Add a Question</button>
       <Modal
         isOpen={openModal}
         style={customStyles}
@@ -64,7 +73,13 @@ const AddaQuestion = ({questions,setQuestions,product_id,handleTrackingClick}) =
       >
         <span style={columnFlex}>
           <div >
-            <button onClick={(e)=> {setIsOpen(!openModal)}}>
+            <button
+              widget='QandA'
+              element-name='Add_A_Question_Modal_Close'
+              onClick={(e)=> {
+                setIsOpen(!openModal);
+                handleTrackingClick(e);
+                }}>
               <FontAwesomeIcon icon={faCircleXmark} />
             </button>
           </div>
@@ -87,9 +102,12 @@ const AddaQuestion = ({questions,setQuestions,product_id,handleTrackingClick}) =
                 setEmail(e.target.value);
               }}/>
           <button
+            widget='QandA'
+            element-name='Add_A_Question_Submit'
             disabled={!name, !body, !email}
             onClick={(e)=> {
               handleQuestionSubmit();
+              handleTrackingClick(e);
             }}>submit</button>
         </span>
       </Modal>

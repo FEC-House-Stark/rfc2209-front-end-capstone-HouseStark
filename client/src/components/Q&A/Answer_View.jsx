@@ -14,6 +14,8 @@ const AnswerView = ({answer}) =>  {
     marginLeft:'15px',
   }
 
+  console.log(answer);
+
   return (
     <div>
       <div>
