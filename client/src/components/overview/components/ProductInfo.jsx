@@ -12,7 +12,7 @@ const prodInfoStyle = {
 }
 
 const ProductInfo = (props) => {
-  //console.log('Product Info', props.productInfo);
+ // console.log('Product Info', props.productInfo);
 
   return (
     //<ProductInfoStyle widget="Overview">
