@@ -18,14 +18,14 @@ const config = {
 const Related = ({ handleClick, product_id, numReviews, avgRating, productInfo, styles }) => {
   const [related_ids, setRelatedIds] = useState([]);
   const [related, setRelated] = useState([]);
+  const [thumbnails, setThumbnails] = useState([])
 
-  useEffect(() => {
+  useEffect(() => { //gets related IDs
     axios(host_url + `products/${product_id}/related`, config)
       .then((res) => setRelatedIds(res.data))
       .catch((err) => console.log(err))
   }, [])
-
-  useEffect(() => {
+  useEffect(() => { //gets related products
     if (related_ids.length) {
       let promises = related_ids.map((id) => {
         return axios(host_url + `products/${id}`, config)
@@ -34,10 +34,19 @@ const Related = ({ handleClick, product_id, numReviews, avgRating, productInfo, 
         .then((res) => setRelated(res))
     }
   }, [related_ids])
+  useEffect(() => { //gets related styles
+    if (related_ids.length) {
+      let promises = related_ids.map((id) => {
+        return axios(host_url + `products/${id}/styles`, config)
+      })
+      Promise.all(promises)
+        .then((res) => setThumbnails(res))
+    }
+  }, [related_ids])
 
   return (
     <Container>
-      <ProductList />
+      <ProductList related={related} thumbnails={thumbnails} />
       <OutfitList />
     </Container>
   )
