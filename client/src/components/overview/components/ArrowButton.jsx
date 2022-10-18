@@ -10,14 +10,14 @@ const ArrowButton = ({handleClick, direction, active}) =>  {
       display: flex;
       position: absolute;
       top: 50%;
-      ${direction === 'right' ? `right: 25px` : `left: 25px`};
+      ${direction === 'right' ? `right: 25px` : `left: 100px`};
       height: 25px;
       ${active ?
         `color: white;
       background: #ccc;` :
       `color: #bbb;
       background: #999;`}
-
+      border: 1pt solid white;
       width: 25px;
       justify-content: center;
       border-radius: 50%;
