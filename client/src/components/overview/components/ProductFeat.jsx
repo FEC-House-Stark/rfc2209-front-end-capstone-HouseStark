@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const prodFeatStyle = {
-  'border-left': '1px solid gray',
+  'borderLeft': '1px solid gray',
   'gridColumnStart': '4',
   'gridRowStart': '4',
   height: '100%',
@@ -16,8 +16,8 @@ const ProductFeat = (props) => {
     <div style={prodFeatStyle}>
       <ul>
       {props.features !== undefined &&
-        props.features.map((feature) => {
-          return <li>{feature.value}</li>
+        props.features.map((feature, i) => {
+          return <li key={feature + i}>{feature.value}</li>
         })
       }
       </ul>

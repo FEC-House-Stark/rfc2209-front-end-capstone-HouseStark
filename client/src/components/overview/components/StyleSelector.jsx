@@ -19,8 +19,8 @@ const StyleSelector = (props) => {
     <div style={selectorStyle} widget='Overview' element-name='StyleSelector' onClick={props.handleClick}>
         Style > {props.style.name}<br/>
       {props.styles !== undefined &&
-        props.styles.map((style) => (
-        <span>
+        props.styles.map((style, i) => (
+        <span key={style + i}>
           {style.name}
         </span>
         ))}
