@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const CardContainer = styled.div`
@@ -11,7 +11,7 @@ width:200px;
 height: 300px;
 margin-left:10px;
 margin-right:10px;
-border: solid;
+border: 1px solid;
 border-color: black;
 display: flex;
 flex-direction: column;
@@ -21,14 +21,35 @@ const Photos = styled.img`
 max-width: 100%;
 height: 220px;
 `
+const Info = styled.p`
+margin: 0px;
+`
 
-const ProductList = ({ related, thumbnails }) => {
+const ProductList = ({ related, thumbnails, ratings }) => {
+  const [data, setData] = useState([])
+  useEffect(() => {
+    if (related.length && thumbnails.length && ratings.length) {
+      for (let i = 0; i < related.length; i++) {
+        if (thumbnails[i].thumbnail_url) {
+          setData((data) => [...data, {
+            ...related[i],
+            ...thumbnails[i],
+            ...ratings[i]
+          }])
+        }
+      }
+    }
+  }, [related, thumbnails, ratings])
+
   return (
     <CardContainer>
-      {thumbnails.map((product, i) =>
+      {data.map((product, i) =>
         <Card key={i} >
-          <Photos src={product.data.results[0].photos[0].thumbnail_url} />
-
+          <Photos src={product.thumbnail_url} />
+          <Info>{'Category: ' +product.category}</Info>
+          <Info>{product.name}</Info>
+          <Info>{'$' + product.price}</Info>
+          <Info>{product.totalReviews+ ' reviews: ' + product.avg}</Info>
         </Card>
       )}
     </CardContainer>
