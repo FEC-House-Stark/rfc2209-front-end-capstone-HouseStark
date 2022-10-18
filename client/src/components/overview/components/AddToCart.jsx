@@ -16,7 +16,7 @@ const addCartStyle = {
 const AddToCart = (props) =>  {
   useEffect(() => {
     if(props.skus !== undefined) {
-      console.log('props.skus: ', props.skus);
+      //console.log('props.skus: ', props.skus);
     }
   })
 

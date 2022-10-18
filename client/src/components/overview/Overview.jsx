@@ -28,7 +28,7 @@ const Overview = (props) => {
       for (const style of props.styles.results) {
         if (style['default?']) {
           setStyle(style);
-          console.log('style:', style);
+         // console.log('style:', style);
           break;
         }
       }
