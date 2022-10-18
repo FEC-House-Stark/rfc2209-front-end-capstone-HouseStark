@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ArrowButton from './ArrowButton.jsx';
+import ThumbnailCarousel from './ThumbnailCarousel.jsx';
 const { useState, useEffect } = React;
 
 
@@ -75,6 +76,7 @@ const ImageGallery = (props) => {
         </div>
       <ArrowButton direction="left" index={photoIndex} handleClick={handleLeftClick} active={photoIndex > 0}/>
       <ArrowButton direction="right" index={photoIndex} handleClick={handleRightClick} active={photoIndex < props.photos.length-1}/>
+      <ThumbnailCarousel/>
     </div>
           }
           </>

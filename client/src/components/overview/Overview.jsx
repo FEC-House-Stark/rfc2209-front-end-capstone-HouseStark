@@ -8,7 +8,7 @@ import ProductDesc from './components/ProductDesc.jsx';
 import ProductFeat from './components/ProductFeat.jsx';
 import styled from 'styled-components';
 
-const image_width = 500;
+const image_width = 600;
 const image_height = 400;
 
 const OverviewStyle = styled.div`
