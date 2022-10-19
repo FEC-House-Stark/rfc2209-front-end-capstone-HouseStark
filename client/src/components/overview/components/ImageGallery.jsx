@@ -17,6 +17,8 @@ const Image = styled.div`
 `;
 
 const imageGalleryStyle = {
+  'border': '1pt solid #eee',
+  'borderRadius': '5px',
   'gridColumnStart': '2',
   'gridRowStart': '1',
   'gridRowEnd': '4',
@@ -74,9 +76,9 @@ const ImageGallery = (props) => {
             }} />
           ))}
         </div>
-      <ArrowButton direction="left" index={photoIndex} handleClick={handleLeftClick} active={photoIndex > 0}/>
-      <ArrowButton direction="right" index={photoIndex} handleClick={handleRightClick} active={photoIndex < props.photos.length-1}/>
-      <ThumbnailCarousel/>
+      <ArrowButton direction="left" index={photoIndex} handleClick={handleLeftClick} active={photoIndex > 0} height={props.image_height}/>
+      <ArrowButton direction="right" index={photoIndex} handleClick={handleRightClick} active={photoIndex < props.photos.length-1} height={props.image_height}/>
+      <ThumbnailCarousel photos={props.photos}/>
     </div>
           }
           </>

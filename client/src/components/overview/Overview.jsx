@@ -8,14 +8,17 @@ import ProductDesc from './components/ProductDesc.jsx';
 import ProductFeat from './components/ProductFeat.jsx';
 import styled from 'styled-components';
 
-const image_width = 600;
-const image_height = 400;
+const info_height = 200;
+const style_height = 125;
+const cart_height = 125;
+const image_height = info_height + style_height + cart_height;
+const image_width = image_height * 1.2;
 
 const OverviewStyle = styled.div`
   border-bottom: 1pt solid #666;
   display: grid;
   grid-template-columns: 1fr ${image_width}px 10px 300px 1fr;
-  grid-template-rows: 200px 100px 100px 200px;
+  grid-template-rows: ${info_height}px ${style_height}px ${cart_height}px 200px;
   padding: 15px 0px;
 `;
 
