@@ -44,12 +44,12 @@ const ProductList = ({ related, thumbnails, ratings }) => {
   return (
     <CardContainer>
       {data.map((product, i) =>
-        <Card key={i} >
+        <Card  className="card" key={i} >
           <Photos src={product.thumbnail_url} />
-          <Info>{'Category: ' +product.category}</Info>
+          <Info>{'Category: ' + product.category}</Info>
           <Info>{product.name}</Info>
           <Info>{'$' + product.price}</Info>
-          <Info>{product.totalReviews+ ' reviews: ' + product.avg}</Info>
+          <Info>{product.totalReviews + ' reviews: ' + product.avg}</Info>
         </Card>
       )}
     </CardContainer>
