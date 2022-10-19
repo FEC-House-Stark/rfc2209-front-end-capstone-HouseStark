@@ -7,17 +7,14 @@ const ArrowButton = ({handleClick, direction, active, height}) =>  {
     <div
       onClick={handleClick}
       css={css`
-      display: flex;
+      ${active ? `display: flex;` : `display: none;`}
       position: absolute;
       top: ${(height - 25)/2}px;
       ${direction === 'right' ? `right: 25px` : `left: 75px`};
       height: 25px;
-      ${active ?
-        `color: white;
-      background: #ccc;` :
-      `color: #bbb;
-      background: #999;`}
-      border: 1pt solid #eee;
+      color: white;
+      background: #ccc;
+      border: .25pt solid #eee;
       width: 25px;
       justify-content: center;
       border-radius: 50%;

@@ -19,7 +19,7 @@ const thumbnailCarouselStyle = {
   'overflow': 'hidden'
 }
 
-const ThumbnailCarousel = ({photos, photoIndex}) => {
+const ThumbnailCarousel = ({photos, photoIndex, handleClick}) => {
 
   return (
     <>
@@ -34,7 +34,7 @@ const ThumbnailCarousel = ({photos, photoIndex}) => {
               alignItems: 'center',
               justifyContent: 'center'
             }}>
-              <Thumbnail photoUrl={photo.thumbnail_url} width={thumbnail_width} selected={i===photoIndex}/>
+              <Thumbnail photoUrl={photo.thumbnail_url} i={i} width={thumbnail_width} selected={i===photoIndex} handleClick={handleClick}/>
               </div>
           ))}
         </div>

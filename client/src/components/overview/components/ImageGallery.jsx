@@ -46,16 +46,22 @@ const ImageGallery = (props) => {
       setTranslate(translate + props.image_width);
     }
   }
+  const handleThumbnailClick = (e, index) => {
+    e.preventDefault();
+    console.log('thumbnail click!', index)
+    setPhotoIndex(index);
+    setTranslate((index * props.image_width) + 1);
+  }
 
-  return (
-    <>
+return (
+  <>
     {
       props.photos !== undefined &&
-    <div widget='Overview' style={imageGalleryStyle} element-name='ImageGallery' onClick={(e) => {
-      //  console.log(`ImageGalleryClick | currentTarget: ${e.currentTarget.getAttribute('widget')}
-      // target:`,e.target);
-   //   props.handleClick(e);
-    }}>
+      <div widget='Overview' style={imageGalleryStyle} element-name='ImageGallery' onClick={(e) => {
+        //  console.log(`ImageGalleryClick | currentTarget: ${e.currentTarget.getAttribute('widget')}
+        // target:`,e.target);
+        //   props.handleClick(e);
+      }}>
 
         <div
           style={{
@@ -76,13 +82,13 @@ const ImageGallery = (props) => {
             }} />
           ))}
         </div>
-      <ArrowButton direction="left" index={photoIndex} handleClick={handleLeftClick} active={photoIndex > 0} height={props.image_height}/>
-      <ArrowButton direction="right" index={photoIndex} handleClick={handleRightClick} active={photoIndex < props.photos.length-1} height={props.image_height}/>
-      <ThumbnailCarousel photos={props.photos} photoIndex={photoIndex}/>
-    </div>
-          }
-          </>
-  )
+        <ArrowButton direction="left" index={photoIndex} handleClick={handleLeftClick} active={photoIndex > 0} height={props.image_height} />
+        <ArrowButton direction="right" index={photoIndex} handleClick={handleRightClick} active={photoIndex < props.photos.length - 1} height={props.image_height} />
+        <ThumbnailCarousel photos={props.photos} photoIndex={photoIndex} handleClick={handleThumbnailClick} />
+      </div>
+    }
+  </>
+)
 }
 
 export default ImageGallery;
