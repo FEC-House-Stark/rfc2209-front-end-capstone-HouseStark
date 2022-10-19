@@ -51,7 +51,7 @@ const AddanAnswer = ({handleTrackingClick,question_id}) =>  {
 
 
   return (
-    <div style={{marginLeft:'20px'}}>
+    <div style={{marginLeft:'5px', display:'flex', justifyContent:'flex-end'}}>
       <div
         widget='QandA'
         element-name='Add_Answer'
