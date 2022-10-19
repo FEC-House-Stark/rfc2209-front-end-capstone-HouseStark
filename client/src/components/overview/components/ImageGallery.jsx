@@ -25,7 +25,8 @@ const imageGalleryStyle = {
   position: 'relative',
   height: '100%',
   width: '100%',
-  'overflow': 'hidden'
+  'overflow': 'hidden',
+  cursor: 'zoom-in',
 }
 
 const ImageGallery = (props) => {
