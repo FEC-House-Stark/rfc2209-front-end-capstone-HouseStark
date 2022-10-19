@@ -19,6 +19,7 @@ const Thumbnail = ({ photoUrl, width, i, selected, handleClick }) => {
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
+        cursor: pointer;
       `}/>
     }
     </>

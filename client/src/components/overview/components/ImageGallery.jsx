@@ -82,9 +82,9 @@ return (
             }} />
           ))}
         </div>
-        <ArrowButton direction="left" index={photoIndex} handleClick={handleLeftClick} active={photoIndex > 0} height={props.image_height} />
-        <ArrowButton direction="right" index={photoIndex} handleClick={handleRightClick} active={photoIndex < props.photos.length - 1} height={props.image_height} />
-        <ThumbnailCarousel photos={props.photos} photoIndex={photoIndex} handleClick={handleThumbnailClick} />
+        <ArrowButton direction="left" handleClick={handleLeftClick} active={photoIndex > 0} height={props.image_height} />
+        <ArrowButton direction="right" handleClick={handleRightClick} active={photoIndex < props.photos.length - 1} height={props.image_height} />
+        <ThumbnailCarousel photos={props.photos} photoIndex={photoIndex} handleClick={handleThumbnailClick} height={props.image_height}/>
       </div>
     }
   </>
