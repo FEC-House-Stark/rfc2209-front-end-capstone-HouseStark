@@ -34,13 +34,15 @@ const ImageGallery = (props) => {
   const [translate, setTranslate] = useState(0);
   const transition = 0.45;
 
-  const handleLeftClick = () => {
+  const handleLeftClick = (e) => {
+    e.preventDefault();
     if (photoIndex > 0) {
       setPhotoIndex(photoIndex - 1);
       setTranslate(translate - props.image_width);
     }
   }
-  const handleRightClick = () => {
+  const handleRightClick = (e) => {
+    e.preventDefault();
     if (photoIndex < props.photos.length - 1) {
       setPhotoIndex(photoIndex + 1);
       setTranslate(translate + props.image_width);
@@ -48,7 +50,6 @@ const ImageGallery = (props) => {
   }
   const handleThumbnailClick = (e, index) => {
     e.preventDefault();
-    console.log('thumbnail click!', index)
     setPhotoIndex(index);
     setTranslate((index * props.image_width) + 1);
   }

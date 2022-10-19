@@ -8,9 +8,11 @@ const { useState, useEffect } = React;
 const ThumbnailCarousel = ({ photos, photoIndex, handleClick, height }) => {
   const gallery_height = height;
   const carousel_height = 350;
-  const n_max_thumbnails = 4;
+  const n_max_thumbnails = 3;
+  const min_thumbnail_index = n_max_thumbnails - 1;
   let carousel_spacing = carousel_height / n_max_thumbnails;
   const thumbnail_width = .8 * carousel_spacing;
+  const transition = 0.3;
   const thumbnailCarouselStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -20,18 +22,27 @@ const ThumbnailCarousel = ({ photos, photoIndex, handleClick, height }) => {
     position: 'absolute',
     top: `${height/2 - carousel_height/2}px`
   }
-
   const [translate, setTranslate] = useState(0);
-  const [thumbnailIndex, setThumbnailIndex] = useState(n_max_thumbnails);
+  const [thumbnailIndex, setThumbnailIndex] = useState(min_thumbnail_index);
+  useEffect(() => {
+    if (photoIndex > thumbnailIndex) {
+      setTranslate((photoIndex - min_thumbnail_index) * carousel_spacing);
+      setThumbnailIndex(photoIndex);
+    } else if ((thumbnailIndex - photoIndex) > min_thumbnail_index) {
+      console.log('too high');
+      setTranslate(photoIndex * carousel_spacing);
+      setThumbnailIndex(photoIndex + min_thumbnail_index);
+    }
+  }, [photoIndex])
 
   const handleUpClick = () => {
-    if (thumbnailIndex > n_max_thumbnails) {
-      setTranslate(translate - carousel_spacing);
+    if (thumbnailIndex > n_max_thumbnails - 1) {
+      setTranslate(Math.ceil(translate - carousel_spacing));
       setThumbnailIndex(thumbnailIndex - 1);
     }
   }
   const handleDownClick = () => {
-    if (thumbnailIndex < photos.length) {
+    if (thumbnailIndex < photos.length - 1) {
       setTranslate(translate + carousel_spacing);
       setThumbnailIndex(thumbnailIndex + 1);
     }
@@ -52,14 +63,14 @@ const ThumbnailCarousel = ({ photos, photoIndex, handleClick, height }) => {
           height: `${gallery_height}px`,
           width: `${carousel_spacing}px`,
         }}>
-          <ArrowButton direction="up" handleClick={handleUpClick} active={thumbnailIndex > n_max_thumbnails} height={height} carousel_height={carousel_height} />
+          <ArrowButton direction="up" handleClick={handleUpClick} active={thumbnailIndex > n_max_thumbnails - 1} height={height} carousel_height={carousel_height} />
           <div style={thumbnailCarouselStyle}>
             {photos.map((photo, i) => (
               <div key={photo + i} style={{
                 height: `${carousel_spacing}px`,
                 width: `${carousel_spacing}px`,
                 transform: `translateY(-${translate}px)`,
-                transition: `transform ease-out 0.45s`,
+                transition: `transform ease-out ${transition}s`,
                 flexShrink: '0',
                 display: 'flex',
                 alignItems: 'center',
@@ -69,7 +80,7 @@ const ThumbnailCarousel = ({ photos, photoIndex, handleClick, height }) => {
               </div>
             ))}
           </div>
-          <ArrowButton direction="down" handleClick={handleDownClick} active={thumbnailIndex < photos.length} height={height} carousel_height={carousel_height} />
+          <ArrowButton direction="down" handleClick={handleDownClick} active={thumbnailIndex < photos.length - 1} height={height} carousel_height={carousel_height} />
         </div>
       }
     </>
