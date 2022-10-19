@@ -1,5 +1,6 @@
 import React from 'react';
 const { useState, useEffect } = React;
+
 import axios from 'axios';
 import { createRoot } from 'react-dom/client';
 import Overview from './components/overview/Overview.jsx';
@@ -41,23 +42,19 @@ const ClickTracking = (props) => {
     let widget = e.target.getAttribute('widget').toString();
     let time = e.timeStamp.toString();
     let config = {
-      url: host_url+'interactions',
+      url: '/interactions',
       method: 'post',
-      headers: {
-        'Authorization': process.env.TOKEN,
-      },
       data:{
         element,widget,time
       }
     };
-
   axios(config)
   .then((result)=> {
     console.log(result);
-   })
+    })
   .catch((err)=> {
     console.log(err);
-   })
+    })
   };
 
   return (
@@ -79,9 +76,6 @@ const App = () => {
 
   useEffect(() => {
     let config = {
-      headers: {
-        'Authorization': process.env.TOKEN,
-      },
       params: { product_id },
     }
 
@@ -103,7 +97,7 @@ const App = () => {
       setAvgRating(avg);
     }
 
-    axios.get(host_url + 'reviews/meta', config)
+    axios.get('/reviews/meta', config)
       .then((result) => {
         /* console.log('GET reviews/meta result: ', result.data); */
         calcReviewData(result.data.ratings);
@@ -116,7 +110,7 @@ const App = () => {
       .catch((err) => {
         console.log('Initialize GET ERROR:', err);
       })
-    axios.get(host_url + 'products/' + product_id, config)
+    axios.get('/products/' + product_id, config)
       .then((result) => {
         //console.log('GET /products/:product_id results', result.data);
         setProductInfo(result.data);
@@ -124,7 +118,7 @@ const App = () => {
       .catch((err) => {
         console.log('GET /products/:product_id ERROR:', err);
       });
-    axios.get(host_url + 'products/' + product_id + '/styles', config)
+    axios.get('/products/' + product_id + '/styles', config)
       .then((result) => {
         /* console.log('GET /products/:product_id/styles results', result.data); */
         setStyles(result.data);
