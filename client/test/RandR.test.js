@@ -1,28 +1,20 @@
 import { expect, jest, test } from '@jest/globals';
-import renderer from 'react-test-renderer';
-import { render, cleanup, screen } from "@testing-library/react";
+import React from "react";
+import Enzyme, { shallow, mount } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 import Reviews from '../src/components/R&R/Reviews.jsx';
-import axios from 'axios';
-
+Enzyme.configure({ adapter: new Adapter() });
 //client/test/RandR.test.js
 describe("Ratings & Reviews", () => {
   test("First R&R test", () => {
     expect(true).toBe(true);
   });
 
-  test("shows more reviews", () => {
+  test("renders review component", () => {
     // render the component on virtual dom
-    render(<Reviews />);
+    const wrapper = shallow(<Reviews />);
+    expect(wrapper.exists()).toBe(true);
 
-    //select the elements you want to interact with
-    const incrementBtn = screen.getByTestId("increment");
-
-    //interact with those elements
-    fireEvent.click(incrementBtn);
-    // fireEvent.click(incrementBtn);
-
-    //assert the expected result
-    expect(incrementBtn).toBeInTheDocument()
     });
 
 });
