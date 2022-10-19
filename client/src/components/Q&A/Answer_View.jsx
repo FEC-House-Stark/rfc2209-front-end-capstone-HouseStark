@@ -41,7 +41,7 @@ const AnswerView = ({answer,handleTrackingClick}) =>  {
     handleRequestClick('report','put');
   }
 
-  console.log(answer);
+  //console.log(answer);
 
   return (
     <div >

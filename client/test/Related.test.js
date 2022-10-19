@@ -2,9 +2,9 @@ import { expect, jest, test } from '@jest/globals';
 import React from "react";
 import Enzyme, { shallow, mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import Related from '../src/components//Related/Related.jsx';
-import OutfitList from '../src/components//Related/Related.jsx';
-import ProductList from '../src/components//Related/Related.jsx';
+import Related from '../src/components/Related/Related.jsx';
+import OutfitList from '../src/components/Related/Related.jsx';
+import ProductList from '../src/components/Related/Related.jsx';
 
 Enzyme.configure({ adapter: new Adapter() });
 
