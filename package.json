@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "test-overview": "npx jest client/test/Overview.test.js",
     "test-questions": "npx jest client/test/QandA.test.js",
-    "test-reviews": "npx jest client/test/RandR.test.js --env=jsdom",
+    "test-reviews": "npx jest client/test/RandR.test.js",
     "test-related": "npx jest client/test/Related.test.js",
     "react-dev": "webpack --mode development --watch"
   },
@@ -55,6 +55,7 @@
     "react-modal": "^3.15.1",
     "react-moment": "^1.1.2",
     "react-test-renderer": "^18.2.0",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "util": "^0.12.5"
   }
 }
