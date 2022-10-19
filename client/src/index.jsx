@@ -1,5 +1,6 @@
 import React from 'react';
 const { useState, useEffect } = React;
+
 import axios from 'axios';
 import { createRoot } from 'react-dom/client';
 import Overview from './components/overview/Overview.jsx';
@@ -50,7 +51,6 @@ const ClickTracking = (props) => {
         element,widget,time
       }
     };
-
   axios(config)
   .then((result)=> {
     console.log(result);
