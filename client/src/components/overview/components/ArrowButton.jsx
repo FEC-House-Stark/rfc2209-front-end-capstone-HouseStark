@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight, faChevronLeft, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 const { useEffect, useState } = React;
 
 const button_height = 25;
@@ -12,10 +14,10 @@ const sideOffset = {
 }
 
 const arrowSymbols = {
-  'right': '→',
-  'left': '←',
-  'up': '↑',
-  'down': '↓',
+  'right': faChevronRight,
+  'left': faChevronLeft,
+  'up': faChevronUp,
+  'down': faChevronDown,
 }
 
 const ArrowButton = ({handleClick, direction, active, height, carousel_height}) =>  {
@@ -53,7 +55,7 @@ const ArrowButton = ({handleClick, direction, active, height, carousel_height}) 
       transition: transform ease-in 0.1s;
       `}
     >
-      {arrowSymbols[direction]}
+      <FontAwesomeIcon icon={arrowSymbols[direction]}/>
     </div>
   )
 }
