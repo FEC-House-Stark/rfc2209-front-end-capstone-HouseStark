@@ -5,34 +5,94 @@ import OutfitList from './OutfitList.jsx';
 import axios from 'axios'
 
 const Container = styled.div`
+/* width:900px; */
 display: flex;
 flex-direction: column;
-margin-left: 260px;
+align-content: center;
+margin-left: 315px;
 margin-right: 260px;
 `;
-const ProdHeader = styled.h4`
-`
-const OutfitHeader = styled.h4`
+const ProdHeader = styled.div`
+font-family: system-ui;
+font-size: 13px;
+margin-top: 20px;
+margin-bottom: 20px;
+color: #313131;
+`;
+
+const OutfitHeader = styled.div`
 margin-top:40px;
 margin-bottom:18px;
+font-family: system-ui;
+font-size: 13px;
+color: #313131;
 `
-//const host_url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/'
-// const config = {
-//   headers: {
-//     'Authorization': process.env.TOKEN,
-//   }
-// }
+
 const Related = ({ handleClick, product_id, numReviews, avgRating, productInfo, styles }) => {
   const [related_ids, setRelatedIds] = useState([]);
   const [related, setRelated] = useState([]);
   const [thumbnails, setThumbnails] = useState([])
   const [all_ratings, setAllRatings] = useState([])
+  const [data, setData] = useState([])
 
   useEffect(() => { //gets related IDs
     axios(`/products/${product_id}/related`)
       .then((res) => setRelatedIds(res.data))
       .catch((err) => console.log(err))
   }, [])
+
+  // useEffect(() => { //TESTING
+  //   if (related_ids.length) {
+  //     const calcReviewData = (ratings, id) => {
+  //       let totalReviews = 0;
+  //       let totalSum = 0
+  //       for (const rating in ratings) {
+  //         totalSum += rating * Number(ratings[rating]);
+  //         totalReviews += Number(ratings[rating]);
+  //       }
+  //       let avg = Number((totalSum / totalReviews).toFixed(2));
+  //       setAllRatings((all_ratings) => [...all_ratings, { id, avg, totalReviews }])
+  //     }
+  //     let ratings = related_ids.map((product_id) => {
+  //       let config = {
+  //         params: { product_id }
+  //       }
+  //       return axios('reviews/meta', config)
+  //     })
+  //     let relatedProducts = related_ids.map((id) => {
+  //       return axios(`products/${id}`)
+  //     })
+  //     let productStyles = related_ids.map((id) => {
+  //       return axios(`products/${id}/styles`)
+  //     })
+  //     Promise.all(relatedProducts)
+  //       .then((res) => {
+  //         let info = res.map(prod => (
+  //           {
+  //             id: prod.data.id,
+  //             category: prod.data.category,
+  //             name: prod.data.name,
+  //             price: prod.data.default_price,
+  //             features: prod.data.features
+  //           }
+  //         ))
+  //         setRelated(info)
+  //       }).catch((err) => console.log('relatedProducts error ', err))
+
+  //     Promise.all(productStyles)
+  //       .then((res) => {
+  //         let thumbnail = res.map(prod => (
+  //           prod.data.results[0].photos[0]
+  //         ))
+  //         setThumbnails(thumbnail)
+  //       }).catch((err) => console.log('productStyles error ', err))
+
+  //     Promise.all(ratings)
+  //       .then((res) => {
+  //         res.map(prod => calcReviewData(prod.data.ratings, prod.data.product_id))
+  //       }).catch((err) => console.log('err getting ratings', err))
+  //   }
+  // }, [related_ids])
 
   useEffect(() => { //gets related products
     if (related_ids.length) {
@@ -95,11 +155,25 @@ const Related = ({ handleClick, product_id, numReviews, avgRating, productInfo, 
     }
   }, [related_ids])
 
+  useEffect(() => { //Gathers all info needed in one state
+    if (related.length && thumbnails.length && all_ratings.length) {
+      for (let i = 0; i < related.length; i++) {
+        if (thumbnails[i].thumbnail_url) {
+          setData((data) => [...data, {
+            ...related[i],
+            ...thumbnails[i],
+            ...all_ratings[i]
+          }])
+        }
+      }
+    }
+  }, [related, thumbnails, all_ratings])
+
   return (
     <Container>
-      <ProdHeader>Related Products</ProdHeader>
-      <ProductList related={related} thumbnails={thumbnails} ratings={all_ratings} />
-      <OutfitHeader>Your Outfit</OutfitHeader>
+      <ProdHeader>RELATED PRODUCTS</ProdHeader>
+      <ProductList data={data} />
+      <OutfitHeader>YOUR OUTFIT</OutfitHeader>
       <OutfitList />
     </Container>
   )
