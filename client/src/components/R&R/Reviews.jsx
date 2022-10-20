@@ -39,7 +39,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
 
     axios.get(host_url + 'reviews/', config)
       .then((data) => {
-        console.log(data.data.results[0])
+        //console.log(data.data.results[0])
         setReviewList(data.data.results)
       })
       .catch((err) => {
