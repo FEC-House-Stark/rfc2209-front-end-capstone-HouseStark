@@ -9,8 +9,8 @@ import ProductFeat from './components/ProductFeat.jsx';
 import styled from 'styled-components';
 
 const info_height = 200;
-const style_height = 125;
-const cart_height = 125;
+const style_height = 150;
+const cart_height = 150;
 const image_height = info_height + style_height + cart_height;
 const image_width = image_height * 1.2;
 
