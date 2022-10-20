@@ -19,6 +19,7 @@ const StyleSelectorItem = ({photo, selected, handleClick, index}) => {
     background-position: center;
     border: '.5pt solid #eee';
     border-radius: 50%;
+    cursor: pointer;
   `;
 
   return (

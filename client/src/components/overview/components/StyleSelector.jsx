@@ -17,13 +17,14 @@ const selectorStyle = {
 const selectorContainerStyle = {
   display: 'flex',
   width: '90%',
+  height: '100%',
   alignItems: 'center',
   justifyContent: 'flex-start',
   flexWrap: 'wrap',
 }
 
 const selectorItemContainerStyle = {
-  width: '25%',
+  width: '50px',
   aspectRatio : '1 / 1',
   display: 'flex',
   flexShrink: 0,
