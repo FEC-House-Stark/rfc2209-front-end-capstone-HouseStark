@@ -7,7 +7,6 @@ const QuestionHelpfulness = ({handleTrackingClick, handleHelpfulClick,question_h
 
   return (
       <div
-        style={{marginLeft:'5px'}}
         widget='QandA'
         element-name='Question_Helpfulness'
         onClick={(e)=> {
@@ -15,7 +14,7 @@ const QuestionHelpfulness = ({handleTrackingClick, handleHelpfulClick,question_h
           setHelpfulCount(helpfulCount+1);
           handleTrackingClick(e);
         }}>
-        Helpful?{ 'Yes ('+ helpfulCount +')'}
+        Helpful? { ' Yes ('+ helpfulCount +')'}
       </div>
   )
 }
