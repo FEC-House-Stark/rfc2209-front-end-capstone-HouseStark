@@ -9,8 +9,8 @@ const Container = styled.div`
 display: flex;
 flex-direction: column;
 align-content: center;
-margin-left: 315px;
-margin-right: 255px;
+/* margin-left: 315px;
+margin-right: 255px; */
 `;
 const ProdHeader = styled.div`
 font-family: system-ui;
