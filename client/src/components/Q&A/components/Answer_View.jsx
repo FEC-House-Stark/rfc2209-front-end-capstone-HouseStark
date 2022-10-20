@@ -4,25 +4,15 @@ import AnswerPhotos from './Answer_Photos.jsx';
 import AnswerHelpfulness from './Answer_Helpfulness.jsx';
 import AnswerReport from './Answer_Report.jsx';
 import Moment from 'react-moment';
+import styled from 'styled-components';
+import {AnswerActionItemStyle} from './Q&A_Styles.jsx';
 
 const AnswerView = ({answer,handleTrackingClick}) =>  {
 
-  const answerStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-  }
-
-  const childGap = {
-    marginLeft:'15px',
-  }
-
   const handleRequestClick = (endpoint,method) => {
     let config = {
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/qa/answers/${answer.answer_id}/${endpoint}`,
+      url: `/qa/answers/${answer.answer_id}/${endpoint}`,
       method: method,
-      headers: {
-        'Authorization': process.env.TOKEN,
-      },
     }
     axios(config)
     .then((result)=> {
@@ -41,29 +31,31 @@ const AnswerView = ({answer,handleTrackingClick}) =>  {
     handleRequestClick('report','put');
   }
 
-  console.log(answer);
+
 
   return (
     <div >
-      <div>
+      <div style={{fontSize:'medium'}}>
         {answer.body}
       </div>
       <AnswerPhotos photos={answer.photos}/>
-      <div style={answerStyle}>
-        <div>By {answer.answerer_name} |</div>
+      <AnswerActionItemStyle >
+        <div>By {answer.answerer_name} </div>
+        <div>|</div>
         <Moment
-          style={childGap}
           format="MMMM,DD,YYYY">
             {answer.date}
         </Moment>
+        <div>|</div>
         <AnswerHelpfulness
           handleTrackingClick={handleTrackingClick}
           helpfulness={answer.helpfulness}
           handleHelpfulClick = {handleHelpfulClick}/>
+        <div>|</div>
         <AnswerReport
           handleTrackingClick={handleTrackingClick}
           handleReportClick={handleReportClick}/>
-      </div>
+      </AnswerActionItemStyle>
     </div>
   )
 }

@@ -1,29 +1,23 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-import AnswersListView from './Answers_List_View.jsx'
-import AddanAnswer from './Add_An_Answer.jsx';
-import QuestionHelpfulness from './Question_Helpfulness.jsx';
-import QuestionReport from './Question_Report.jsx'
 import styled from 'styled-components';
+import AddanAnswer from './Add_An_Answer.jsx';
+import QuestionReport from './Question_Report.jsx'
+import AnswersListView from './Answers_List_View.jsx'
+import QuestionHelpfulness from './Question_Helpfulness.jsx';
+import {QandAQuestionListView,QuestionBar,QuestionBarActionItem,rowFlex} from './Q&A_Styles.jsx';
 
 
-const QuestionView = ({question, handleTrackingClick}) =>  {
+const QuestionView = ({
+  question,
+  handleTrackingClick,
+  ButtonStyle,
+}) =>  {
 
-  const rowFlex = {
-    display: 'flex',
-    flexDirection: 'row',
-  }
-
-
-
-  const handleRequestClick = (endpoint,method,data={}) => {
+  const handleRequestClick = (endpoint,method) => {
     let config = {
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/qa/questions/${question.question_id}/${endpoint}`,
+      url: `/qa/questions/${question.question_id}/${endpoint}`,
       method: method,
-      headers: {
-        'Authorization': process.env.TOKEN,
-      },
-      data : data
     }
     axios(config)
     .then((result)=> {
@@ -43,47 +37,28 @@ const QuestionView = ({question, handleTrackingClick}) =>  {
   }
 
 
-  const QandAQuestionListView = styled.div`
-    display: grid;
-    align-items: stretch;
-    gap: 5px
-  `;
-
-
-  const QuestionBar = styled.div`
-    display: grid;
-    align-items: stretch;
-    grid-template-columns: 60% 40% ;
-    height: 20px;
-  `
-  const QuestionBarActionItem = styled.span`
-    display: grid;
-    grid-template-columns: 30% 30% 30% ;
-
-  `
-
   return (
     <QandAQuestionListView>
       <QuestionBar>
-        <div>
+        <div style={{fontWeight: 'bold', fontSize: 'medium'}}>
           Q: {question.question_body}
         </div>
         <QuestionBarActionItem >
+          <QuestionReport
+            handleTrackingClick={handleTrackingClick}
+            handleReportClick={handleReportClick}/>
+          <AddanAnswer
+            handleTrackingClick={handleTrackingClick}
+            question_id={question.question_id}/>
           <QuestionHelpfulness
             handleTrackingClick={handleTrackingClick}
             handleHelpfulClick={handleHelpfulClick}
             question_helpfulness={question.question_helpfulness}
             />
-          <AddanAnswer
-            handleTrackingClick={handleTrackingClick}
-            question_id={question.question_id}/>
-          <QuestionReport
-            handleTrackingClick={handleTrackingClick}
-            handleReportClick={handleReportClick}/>
         </QuestionBarActionItem>
       </QuestionBar>
       <div style={rowFlex}>
-        <div>A: </div>
+        <div style={{fontWeight: 'bold'}}>A: </div>
         <div>
           <AnswersListView
             handleTrackingClick={handleTrackingClick}

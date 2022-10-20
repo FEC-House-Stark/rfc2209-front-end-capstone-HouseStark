@@ -3,9 +3,14 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import {modalBoxStyle, modalViewStyle,} from './Q&A_Styles.jsx';
 
-
-const AddaQuestion = ({questions,setQuestions,product_id,handleTrackingClick}) =>  {
+const AddaQuestion = ({
+  setQuestions,
+  product_id,
+  handleTrackingClick,
+  buttonStyle,
+}) =>  {
 
   const [openModal, setIsOpen] = useState(false);
 
@@ -13,42 +18,17 @@ const AddaQuestion = ({questions,setQuestions,product_id,handleTrackingClick}) =
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
-  const customStyles = {
-    content: {
-      top: '500px',
-      left: '500px',
-      right: '500px',
-      bottom: '500px',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  };
-
-  const columnFlex = {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  }
-
 
   let config = {
-    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/qa/questions',
+    url: '/qa/questions',
     method: 'post',
-    headers: {
-      'Authorization': process.env.TOKEN,
-    },
     data: {body,name, email, product_id },
   }
-
 
   const handleQuestionSubmit = () => {
      axios(config)
     .then((result)=> {
       console.log(result);
-      axios.get(url)
-      .then((result)=> {
-        console.log(result);
-      })
     })
     .then((err)=> {
       console.log(err);
@@ -58,21 +38,22 @@ const AddaQuestion = ({questions,setQuestions,product_id,handleTrackingClick}) =
 
   return (
     <div style={{marginLeft:'50px'}}>
-      <button
+      <div
+        style={buttonStyle}
         widget='QandA'
         element-name='Add_A_Question'
         onClick={(e) => {
           e.preventDefault();
           setIsOpen(!openModal);
           handleTrackingClick(e);
-        }}>Add a Question</button>
+        }}>Add a Question + </div>
       <Modal
         isOpen={openModal}
-        style={customStyles}
+        style={modalBoxStyle}
         ariaHideApp={false}
       >
-        <span style={columnFlex}>
-          <div >
+        <span style={modalViewStyle}>
+          <div style={{display:'flex', flexDirection:'row-reverse'}}>
             <button
               widget='QandA'
               element-name='Add_A_Question_Modal_Close'
@@ -108,6 +89,7 @@ const AddaQuestion = ({questions,setQuestions,product_id,handleTrackingClick}) =
             onClick={(e)=> {
               handleQuestionSubmit();
               handleTrackingClick(e);
+              setIsOpen(!openModal);
             }}>submit</button>
         </span>
       </Modal>
