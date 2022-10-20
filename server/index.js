@@ -55,6 +55,25 @@ app.post('/*', (req, res) => {
 
 })
 
+app.put('/*', (req, res) => {
+  let config = {
+    url: host_url + req.url,
+    method: 'put',
+    headers: {
+      'Authorization': process.env.TOKEN,
+    },
+  }
+  axios(config)
+  .then((result) => {
+    res.send(result.data)
+  })
+  .catch((err) => {
+    console.log(err)
+    res.send(err)
+  })
+
+})
+
 
 
 app.listen(port, function () {

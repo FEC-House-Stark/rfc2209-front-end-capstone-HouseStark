@@ -1,29 +1,26 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import AnswerView from './Answer_View.jsx'
+import styled from 'styled-components';
+import {AnswersListStyle,moreAnswersButton} from './Q&A_Styles.jsx';
 
-const AnswersListView = ({question_id,handleTrackingClick}) =>  {
-
-  let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/qa/questions/${question_id}`
+const AnswersListView = ({
+  question_id,
+  handleTrackingClick,
+}) =>  {
 
   const [answers, setAnswers] = useState ([]);
   const [showAnswers, setShowAnswers] = useState([])
-  const [moreAnswers, setMoreAnswers] = useState(false);
 
   const config = {
-    url: `${url}/answers`,
-    method: 'get',
-    headers: {
-      'Authorization': process.env.TOKEN,
-    },
     params: {
       page: 1,
-      count: 5
+      count: 100
     },
   }
 
   useEffect (() => {
-    axios(config)
+    axios.get(`/qa/questions/${question_id}/answers`,config)
     .then((result)=> {
       return result.data;
     })
@@ -33,9 +30,10 @@ const AnswersListView = ({question_id,handleTrackingClick}) =>  {
     })
   },[])
 
+
   return (
-    <div>
-      <div style={{width:'700px'}}>
+    <AnswersListStyle>
+      <div style={{width:'700px', fontFamily:'Times New Roman', fontSize:'smaller', color:'#686868'}}>
         { showAnswers.map((a) => {
           return <AnswerView
           key={a.answer_id}
@@ -44,22 +42,30 @@ const AnswersListView = ({question_id,handleTrackingClick}) =>  {
         })}
       </div>
       <div>
-        {
-          !moreAnswers && answers.length>2
+        { showAnswers.length < answers.length
           ?
-          <button
+          <div
+          style={moreAnswersButton}
           widget='QandA'
           element-name='More_Answers'
           onClick={(e) => {
             e.preventDefault();
             setShowAnswers(answers);
-            setMoreAnswers(!moreAnswers);
             handleTrackingClick(e);
-          }}>LOAD MORE ANSWERS</button>
-          : null
+          }}>LOAD MORE ANSWERS</div>
+          :
+          <div
+          style={moreAnswersButton}
+          widget='QandA'
+          element-name='Less_Answers'
+          onClick={(e) => {
+            e.preventDefault();
+            setShowAnswers(answers.slice(0,2));
+            handleTrackingClick(e);
+          }}>{answers.length>2? 'LOAD LESS ANSWERS' : null}</div>
         }
       </div>
-    </div>
+    </AnswersListStyle>
   )
 }
 

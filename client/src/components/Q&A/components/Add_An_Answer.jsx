@@ -2,9 +2,13 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCircleXmark, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons'
+import {modalBoxStyle, modalViewStyle} from './Q&A_Styles.jsx';
 
-const AddanAnswer = ({handleTrackingClick,question_id}) =>  {
+const AddanAnswer = ({
+  handleTrackingClick,
+  question_id,
+}) =>  {
 
   const [openModal, setIsOpen] = useState(false);
   const [body, setBody] = useState('');
@@ -13,29 +17,10 @@ const AddanAnswer = ({handleTrackingClick,question_id}) =>  {
   const [newphoto, setNewPhoto] = useState('');
   const [photos, setPhotos] = useState([]);
 
-  const customStyles = {
-    content: {
-      top: '500px',
-      left: '500px',
-      right: '500px',
-      bottom: '500px',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  };
-
-  const columnFlex = {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  }
 
   let config = {
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/qa/questions/${question_id}/answers`,
+    url: `/qa/questions/${question_id}/answers`,
     method: 'post',
-    headers: {
-      'Authorization': process.env.TOKEN,
-    },
     data: {body,name, email, photos,question_id },
   }
 
@@ -51,35 +36,41 @@ const AddanAnswer = ({handleTrackingClick,question_id}) =>  {
 
 
   return (
-    <div style={{marginLeft:'5px', display:'flex', justifyContent:'flex-end'}}>
+    <div >
       <div
+        style={{textDecorationLine: 'underline'}}
         widget='QandA'
         element-name='Add_Answer'
         onClick={(e) => {
-        console.log(e.target);
         e.preventDefault();
         setIsOpen(!openModal);
         handleTrackingClick(e);
-      }}>| Add an Answer</div>
+      }}> Add an Answer </div>
       <Modal
         isOpen={openModal}
-        style={customStyles}
+        style={modalBoxStyle}
         ariaHideApp={false}
       >
-        <span style={columnFlex}>
-          <div >
-            <button
+        <span style={modalViewStyle}>
+          <div style={{display:'flex', flexDirection:'row-reverse'}}>
+            <div
               widget='QandA'
               element-name='Add_Answer_Modal_Close'
               onClick={(e)=> {
+                console.log(e)
                 setIsOpen(!openModal)
-                handleTrackingClick(e)}}>
+                const newTarget = {
+                  target: e.target.parentElement.parentElement,
+                  timeStamp: new Date()
+                }
+                handleTrackingClick(newTarget)}}>
               <FontAwesomeIcon icon={faCircleXmark} />
-            </button>
+            </div>
           </div>
-          Answer:
+           <label for="Answer">Answer:</label>
             <input
               type='text'
+              name='Answer'
               onChange={(e)=> {
                 setBody(e.target.value);
               }}/>
@@ -95,7 +86,7 @@ const AddanAnswer = ({handleTrackingClick,question_id}) =>  {
               onChange={(e)=> {
                 setEmail(e.target.value);
               }}/>
-          Photos:
+          Photos URL:
             <form
               widget='QandA'
               element-name='Add_Answer_Add_Photo_Button'
@@ -115,9 +106,11 @@ const AddanAnswer = ({handleTrackingClick,question_id}) =>  {
               <button
                 disabled={!newphoto}
                 type='submit'>add Photo</button>
-              {photos.map((p,index)=> {
-                return <li key={index}>{p}</li>
-              })}
+              <div>
+                {photos.map((p,index)=> {
+                  return  <img src={p}></img>
+                })}
+              </div>
             </form>
           <button
             widget='QandA'
@@ -126,7 +119,6 @@ const AddanAnswer = ({handleTrackingClick,question_id}) =>  {
             onClick={(e)=> {
               handleQuestionSubmit();
               handleTrackingClick(e);
-              setIsOpen(false);
             }}>submit</button>
         </span>
       </Modal>
