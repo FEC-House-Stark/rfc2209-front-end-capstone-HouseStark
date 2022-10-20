@@ -9,13 +9,14 @@ const StyleSelectorStyle = styled.div`
 
 const StyleSelectorItem = ({photo, selected, handleClick, index}) => {
   const selectorItemStyle = css`
-    width: 50px;
-    height: 50px;
+    width: 80%;
+    height: 80%;
     background-image: url(${photo});
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    border: ${selected && '1pt solid red'};
+    border: ${selected ? '1pt solid red' : '.5pt solid #eee'};
+    border-radius: 50%;
   `;
 
   return (

@@ -11,8 +11,24 @@ const selectorStyle = {
   'gridColumnStart': '4',
   'gridRowStart': '2',
   height: '100%',
-  width: '100%',
+  width: '90%',
+};
+
+const selectorContainerStyle = {
   display: 'flex',
+  width: '90%',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  flexWrap: 'wrap',
+}
+
+const selectorItemContainerStyle = {
+  width: '25%',
+  aspectRatio : '1 / 1',
+  display: 'flex',
+  flexShrink: 0,
+  justifyContent: 'center',
+  alignItems: 'center'
 }
 
 const StyleSelector = (props) => {
@@ -24,13 +40,18 @@ const StyleSelector = (props) => {
   return (
     //<StyleSelectorStyle>
     <>
-      <div>Style > {props.style.name}</div><br />
-      <div style={selectorStyle} widget='Overview' element-name='StyleSelector' onClick={props.handleClick}>
 
+      <div style={selectorStyle} widget='Overview' element-name='StyleSelector'>
+        <div>Style > {props.style.name}</div>
+        {/* onClick={props.handleClick}> */}
+        <div style={selectorContainerStyle}>
         {props.styles !== undefined &&
           props.styles.map((style, i) => (
+            <div style={selectorItemContainerStyle}>
             <StyleSelectorItem key={style + i} photo={style.photos[0].thumbnail_url} selected={style.name === props.style.name} handleClick={handleStyleClick} index={i}/>
+            </div>
           ))}
+          </div>
       </div>
     </>
     //  </StyleSelectorStyle>
