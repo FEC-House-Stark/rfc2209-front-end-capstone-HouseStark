@@ -27,6 +27,7 @@ const selectorItemContainerStyle = {
   aspectRatio : '1 / 1',
   display: 'flex',
   flexShrink: 0,
+  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center'
 }
