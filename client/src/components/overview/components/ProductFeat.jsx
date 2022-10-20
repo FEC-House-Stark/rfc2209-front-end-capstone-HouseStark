@@ -2,9 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const prodFeatStyle = {
-  'borderLeft': '1px solid gray',
   'gridColumnStart': '4',
-  'gridRowStart': '4',
+  'gridRowStart': '5',
   height: '100%',
   width: '100%'
 }
