@@ -1,18 +1,19 @@
 import styled from 'styled-components';
 
 const QandASearchView = styled.div`
-display: grid;
+display: flex;
+flex-direction: column;
 align-items: stretch;
-grid-template-columns: 100%;
-grid-template-rows: 85% 15%;
-gap: 10px
+gap: 20px
 `;
 
 const QandAQuestionActions = styled.span`
 display: flex;
 flex-direction: row;
 align-items: flex-end;
-padding-bottom: 25px;
+padding-top: 10px;
+padding-bottom: 15px;
+height: fit-content;
 `;
 
 const buttonStyle = {
