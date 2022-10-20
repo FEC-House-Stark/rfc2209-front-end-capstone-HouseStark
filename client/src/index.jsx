@@ -15,7 +15,9 @@ import logo from './assets/WolfLogo.png';
 const Header = styled.h1`
 color: white;
 margin:0px;
+min-width: 800px;
 height: 60px;
+box-sizing: border-box;
 display: flex;
 padding-left: 10px;
 padding-right: 10px;
@@ -31,6 +33,15 @@ const Logo = styled.img`
 max-width: 100%;
 max-height: 100%;
 `;
+const Body = styled.div`
+max-width: 1000px;
+min-width: 800px;
+margin: 0 auto;
+padding: 0 20px;
+box-sizing: border-box;
+/* margin-left: clamp(50px, auto, auto);
+margin-right: clamp(50px, auto, auto); */
+`;
 
 
 const host_url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/'
@@ -44,17 +55,17 @@ const ClickTracking = (props) => {
     let config = {
       url: '/interactions',
       method: 'post',
-      data:{
-        element,widget,time
+      data: {
+        element, widget, time
       }
     };
-  axios(config)
-  .then((result)=> {
-    console.log(result);
-    })
-  .catch((err)=> {
-    console.log(err);
-    })
+    axios(config)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
   return (
@@ -133,36 +144,38 @@ const App = () => {
     <ClickTracking>
       {
         (value) => {
-          return(
+          return (
             <>
               <Header>
                 <Logo src={logo} /> House Stark
                 <Search></Search>
               </Header>
-              <Overview
-                handleClick={value}
-                product_id={product_id}
-                numReviews={numReviews}
-                avgRating={avgRating}
-                productInfo={productInfo}
-                styles={styles} />
-              <Related
-                handleClick={value}
-                product_id={product_id}
-                numReviews={numReviews}
-                avgRating={avgRating}
-                productInfo={productInfo}
-                styles={styles} />
-              <QandA
-                handleClick={value}
-                product_id={product_id} />
-              <Reviews
-                handleClick={value}
-                product_id={product_id}
-                numReviews={numReviews}
-                avgRating={avgRating}
-                characteristics={characteristics}
-                recommended={recommended} />
+              <Body className='widget-body'>
+                <Overview
+                  handleClick={value}
+                  product_id={product_id}
+                  numReviews={numReviews}
+                  avgRating={avgRating}
+                  productInfo={productInfo}
+                  styles={styles} />
+                <Related
+                  handleClick={value}
+                  product_id={product_id}
+                  numReviews={numReviews}
+                  avgRating={avgRating}
+                  productInfo={productInfo}
+                  styles={styles} />
+                <QandA
+                  handleClick={value}
+                  product_id={product_id} />
+                <Reviews
+                  handleClick={value}
+                  product_id={product_id}
+                  numReviews={numReviews}
+                  avgRating={avgRating}
+                  characteristics={characteristics}
+                  recommended={recommended} />
+              </Body>
             </>
           )
         }
