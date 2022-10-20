@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
 const StyleSelectorStyle = styled.div`
   grid-column-start: 3;
@@ -16,7 +16,7 @@ const StyleSelectorItem = ({photo, selected, handleClick, index}) => {
     background-repeat: no-repeat;
     background-position: center;
     border: ${selected && '1pt solid red'};
-  `
+  `;
 
   return (
     <div css={selectorItemStyle} widget='Overview' element-name='StyleSelectorItem' onClick={(e) => handleClick(e, index)}/>
