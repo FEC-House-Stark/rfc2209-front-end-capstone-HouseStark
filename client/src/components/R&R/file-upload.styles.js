@@ -1,5 +1,61 @@
 import styled from "styled-components";
 
+export const ReviewContainer = styled.section`
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin: auto;
+`;
+
+export const BreakdownContainer = styled.section`
+  position: relative;
+  margin: 25px 0 15px;
+  border: 2px solid black;
+  padding: 35px 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  display: flex;
+            align-items: left;
+            justify-content: left;
+            flex-direction: column;
+            text-align: left;
+            margin: 13% 0;
+            min-height: 300px;
+            background-color:white;
+            align-items: left;
+            box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+  margin: 20px;
+  width: 400px;
+  height: 400px;
+`;
+
+export const ListContainer = styled.section`
+  position: relative;
+  margin: 25px 0 15px;
+  border: 2px solid black;
+  padding: 35px 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  display: flex;
+            align-items: left;
+            justify-content: left;
+            flex-direction: column;
+            text-align: left;
+            margin: 13% 0;
+            min-height: 300px;
+            background-color:white;
+            align-items: left;
+            box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+  margin: 20px;
+  width: 750px;
+
+`;
+
+
 export const FileUploadContainer = styled.section`
   position: relative;
   margin: 25px 0 15px;
@@ -10,6 +66,7 @@ export const FileUploadContainer = styled.section`
   flex-direction: column;
   align-items: center;
   background-color: white;
+
 `;
 
 export const FormField = styled.input`
