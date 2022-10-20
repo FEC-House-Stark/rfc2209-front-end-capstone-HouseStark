@@ -5,7 +5,7 @@ import { faArrowRight, faArrowLeft, faChevronUp, faChevronDown } from '@fortawes
 const { useEffect, useState } = React;
 
 const button_height = 25;
-const button_margin = 5;
+const button_margin = 0;
 const sideOffset = {
   'right': 'right: 25px;',
   'left': 'left: 75px;',

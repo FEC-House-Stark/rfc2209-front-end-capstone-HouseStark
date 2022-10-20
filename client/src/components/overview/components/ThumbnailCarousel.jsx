@@ -8,7 +8,7 @@ const { useState, useEffect } = React;
 const ThumbnailCarousel = ({ photos, photoIndex, handleClick, height }) => {
   const gallery_height = height;
   const carousel_height = 400;
-  const n_max_thumbnails = 4;
+  const n_max_thumbnails = 7;
   const min_thumbnail_index = n_max_thumbnails - 1;
   let carousel_spacing = carousel_height / n_max_thumbnails;
   const thumbnail_width = .8 * carousel_spacing;
@@ -20,7 +20,10 @@ const ThumbnailCarousel = ({ photos, photoIndex, handleClick, height }) => {
     width: `${carousel_spacing}px`,
     'overflow': 'hidden',
     position: 'absolute',
-    top: `${height/2 - carousel_height/2}px`
+    //top: `${height/2 - carousel_height/2}px`
+    top: '0',
+    bottom: '0',
+    margin: 'auto 0',
   }
   const [translate, setTranslate] = useState(0);
   const [thumbnailIndex, setThumbnailIndex] = useState(min_thumbnail_index);
@@ -53,7 +56,9 @@ const ThumbnailCarousel = ({ photos, photoIndex, handleClick, height }) => {
         photos !== undefined &&
         <div style={{
           position: 'absolute',
-          top: `${(450 - gallery_height) / 2}px`,
+          top: '0',
+          bottom: '0',
+          margin: 'auto 0',
           left: '5px',
           display: 'flex',
           flexShrink: '0',
