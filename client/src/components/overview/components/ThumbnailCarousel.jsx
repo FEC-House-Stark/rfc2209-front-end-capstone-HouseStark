@@ -7,8 +7,8 @@ const { useState, useEffect } = React;
 
 const ThumbnailCarousel = ({ photos, photoIndex, handleClick, height }) => {
   const gallery_height = height;
-  const carousel_height = 350;
-  const n_max_thumbnails = 7;
+  const carousel_height = 400;
+  const n_max_thumbnails = 4;
   const min_thumbnail_index = n_max_thumbnails - 1;
   let carousel_spacing = carousel_height / n_max_thumbnails;
   const thumbnail_width = .8 * carousel_spacing;
