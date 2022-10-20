@@ -4,14 +4,14 @@ const QuestionReport = ({handleReportClick}) =>  {
 
   return (
     <div
-    style={{marginLeft:'10px',marginRight:'10px'}}
+    style={{textDecorationLine: 'underline'}}
     widget='QandA'
     element-name='Question_Helpfulness'
     onClick={(e)=> {
       handleReportClick();
     }}
     >
-      | Report
+      Report
   </div>
   )
 }
