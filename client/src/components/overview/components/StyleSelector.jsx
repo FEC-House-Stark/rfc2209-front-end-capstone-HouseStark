@@ -48,8 +48,10 @@ const StyleSelector = (props) => {
         <div style={selectorContainerStyle}>
         {props.styles !== undefined &&
           props.styles.map((style, i) => (
+            <div key={style + i}>
             <div style={selectorItemContainerStyle}>
-            <StyleSelectorItem key={style + i} photo={style.photos[0].thumbnail_url} selected={style.name === props.style.name} handleClick={handleStyleClick} index={i}/>
+            <StyleSelectorItem photo={style.photos[0].thumbnail_url} selected={style.name === props.style.name} handleClick={handleStyleClick} index={i}/>
+            </div>
             </div>
           ))}
           </div>
