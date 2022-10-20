@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react';
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import styled from 'styled-components';
+import {QandAHSearchBar , SearchQustionMagnifyGlass} from './Q&A_Styles.jsx';
 
 const QuestionSearchBar = ({questions, setFilter, handleTrackingClick}) =>  {
 
@@ -14,24 +15,8 @@ const QuestionSearchBar = ({questions, setFilter, handleTrackingClick}) =>  {
     setFilter(filteredQuestion);
   }
 
-  const QandAHSearchBar = styled.form`
-  display: grid;
-  align-items: stretch;
-  grid-template-columns: 95% 5% ;
-  height: 30px;
-  gap: 10px 0px;
-  `;
-
   return (
-    <QandAHSearchBar
-      widget='QandA'
-      element-name='Question_Search_Bar'
-      onSubmit={ (e) => {
-        e.preventDefault();
-        handleSubmit();
-        handleTrackingClick(e);
-      }
-    }>
+    <QandAHSearchBar>
       <input
         type="text"
         value={value}
@@ -40,7 +25,16 @@ const QuestionSearchBar = ({questions, setFilter, handleTrackingClick}) =>  {
           setValue(e.target.value);
         }
         }/>
-      <button type="submit"><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+      <div
+        style={SearchQustionMagnifyGlass}
+        widget='QandA'
+        element-name='Question_Search_Bar'
+        onClick={ (e) => {
+          e.preventDefault();
+          handleSubmit();
+          handleTrackingClick(e);
+        }
+      }><FontAwesomeIcon icon={faMagnifyingGlass} /></div>
   </QandAHSearchBar>
   )
 }

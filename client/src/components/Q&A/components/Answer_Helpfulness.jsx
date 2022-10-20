@@ -13,7 +13,7 @@ const AnswerHelpfulness = ({handleTrackingClick,helpfulness,handleHelpfulClick})
           handleHelpfulClick();
           setHelpfulCount(helpfulCount+1);
           handleTrackingClick(e);
-        }}> | Helpful? { 'Yes ('+ helpfulCount +')'}
+        }}> Helpful? { 'Yes ('+ helpfulCount +')'}
       </div>
   )
 }
