@@ -8,17 +8,18 @@ const StyleSelectorStyle = styled.div`
 
 
 const StyleSelectorItem = ({photo, selected, handleClick, index}) => {
-  const selectorStyle = {
-    width: '50px',
-    height: '50px',
-    backgroundImage: `url(${photo})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center'
-  }
+  const selectorItemStyle = css`
+    width: 50px;
+    height: 50px;
+    background-image: url(${photo});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: ${selected && '1pt solid red'};
+  `
 
   return (
-    <div style={selectorStyle} widget='Overview' element-name='StyleSelectorItem' onClick={(e) => handleClick(e, index)}/>
+    <div css={selectorItemStyle} widget='Overview' element-name='StyleSelectorItem' onClick={(e) => handleClick(e, index)}/>
   )
 }
 
