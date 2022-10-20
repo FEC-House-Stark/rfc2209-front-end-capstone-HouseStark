@@ -119,11 +119,12 @@ const photoStyle = {
 
 const modalBoxStyle = {
   content: {
-    top: '500px',
-    left: '500px',
-    right: '500px',
-    bottom: '500px',
-    marginRight: '-50%',
+    top: '50%',
+    left: '50%',
+    right: '50%',
+    bottom: '50%',
+    minHeight:'300px',
+    minWidth:'500px',
     transform: 'translate(-50%, -50%)',
   },
 };
