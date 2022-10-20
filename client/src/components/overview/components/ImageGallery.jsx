@@ -27,6 +27,7 @@ const imageGalleryStyle = {
   width: '100%',
   'overflow': 'hidden',
   cursor: 'zoom-in',
+  boxSizing: 'border-box'
 }
 
 const ImageGallery = (props) => {
