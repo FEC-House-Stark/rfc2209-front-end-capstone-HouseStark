@@ -5,7 +5,6 @@ import OutfitList from './OutfitList.jsx';
 import axios from 'axios'
 
 const Container = styled.div`
-/* width:900px; */
 display: flex;
 flex-direction: column;
 align-content: center;

@@ -26,35 +26,52 @@ cursor: pointer;
 `;
 
 const ProductList = ({ data }) => {
-  const [temp, setTemp] = useState([])
+  const [temp, setTemp] = useState([]);
+  const [length, setLength] = useState(0);
+  const [count, setCount] = useState(0);
+  const [button, setButton] = useState(true);
+
   useEffect(() => {
     if (data.length) {
       setTemp(data.concat(data))
+      setLength(data.length * 2);
     }
   }, [data])
 
+  useEffect(() => {
+    if (count && count === (length / 2)) {
+      setButton(false);
+    }
+  }, [count])
+
   const handleScrollR = () => {
-    // let cardContainer = [...document.querySelectorAll('.card-container')]
+    setCount(count + 1);
     let cards = document.getElementById('card-container');
-    let cardDimentions = cards.getBoundingClientRect();
-    let cardWidth = cardDimentions.width;
-    // console.log(cardDimentions, cardWidth)
     cards.scrollLeft += 212
-  }
-  const handleScrollL = () => {
     // let cardContainer = [...document.querySelectorAll('.card-container')]
-    let cards = document.getElementById('card-container');
     // let cardDimentions = cards.getBoundingClientRect();
     // let cardWidth = cardDimentions.width;
     // console.log(cardDimentions, cardWidth)
-    cards.scrollLeft -= 212
   }
+  const handleScrollL = () => {
+    setCount(count - 1);
+    let container = document.getElementById('card-container');
+    container.scrollLeft -= 212
+    // let cardContainer = [...document.querySelectorAll('.card-container')]
+    // let cards = document.getElementById('product-card');
+    // let cardDimentions = cards.getBoundingClientRect();
+    // let cardWidth = cardDimentions.width;
+    // console.log(cardDimentions, cardWidth)
+  }
+
+
+
 
   return (
     <ProdList>
-      <BackButton className='back-button' onClick={handleScrollL}>{leftArrow}</BackButton>
+      {!button && <BackButton className='back-button' onClick={handleScrollL}>{leftArrow}</BackButton>}
       <ProductCards data={data} temp={temp} />
-      <NextButton className='next-button' onClick={handleScrollR}>{rightArrow}</NextButton>
+      {button && <NextButton className='next-button' onClick={handleScrollR}>{rightArrow}</NextButton>}
     </ProdList>
   )
 }
