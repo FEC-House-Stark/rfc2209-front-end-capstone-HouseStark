@@ -23,7 +23,7 @@ export const BreakdownContainer = styled.section`
             text-align: left;
             margin: 13% 0;
             min-height: 300px;
-            background-color:#cdd7d6;
+            background-color:white;
             align-items: left;
             box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
   margin: 20px;
@@ -47,7 +47,7 @@ export const ListContainer = styled.section`
             text-align: left;
             margin: 13% 0;
             min-height: 300px;
-            background-color:#cdd7d6;
+            background-color:white;
             align-items: left;
             box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
   margin: 20px;

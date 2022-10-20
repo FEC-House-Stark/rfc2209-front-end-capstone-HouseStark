@@ -35,6 +35,15 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     'backgrounColor': 'green'
   }
 
+  const textStyles = {
+    'border': "1px solid #a9a9a9",
+    'borderRadius': '5',
+    'padding': '10',
+    'margin': "20px 0",
+    'minHeight': '100',
+    'width': '300'
+  }
+
 
 
   // console.log(numReviews)
@@ -116,7 +125,10 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
           <h2>About the item</h2>
           <form onSubmit={(e) => {
             e.preventDefault()
-            console.log('test', newRecomended, comfortRating, sizeRating)
+            toggleModal()
+            setTimeout(() => {
+              alert('Review submitted 🎉')
+            }, 100);
           }}>
             <div>
               <StarRating currentValue={currentValue} setCurrentValue={setCurrentValue} />
@@ -160,7 +172,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
             </li>
             <li>
               <label>Review</label>
-              <input type='text' placeholder='...' value={review} onChange={(e) => { setReview(e.target.value) }} />
+              <textarea type='text' placeholder='...' value={review} onChange={(e) => { setReview(e.target.value) }} />
               <label>{review.length > 49 ? 'Minimum reached' : `Minimum required characters left: ${50 - review.length}`}</label>
             </li>
             <div className='file-upload'>
