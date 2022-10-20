@@ -12,12 +12,12 @@ const info_height = 175;
 const style_height = 150;
 const cart_height = 150;
 const image_height = info_height + style_height + cart_height;
-const image_width = image_height * 1.2;
+const image_width = image_height * 1.1;
 
 const OverviewStyle = styled.div`
   display: grid;
-  grid-template-columns: 1px ${image_width}px 10px minmax(250px, 1fr) 1px;
-  grid-template-rows: ${info_height}px ${style_height}px ${cart_height}px 200px;
+  grid-template-columns: 1px ${image_width}px minmax(15px,75px) minmax(250px, 1fr) 1px;
+  grid-template-rows: ${info_height}px ${style_height}px ${cart_height}px 10px 200px;
   padding: 15px 0px;
 `;
 
