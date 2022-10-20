@@ -1,15 +1,30 @@
 import React from 'react';
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const StyleSelectorStyle = styled.div`
   grid-column-start: 3;
   grid-row-start: 2;
 `;
+const Checkmark = styled.div`
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background-color: white;
+  border: 1pt solid #222;
+  position: absolute;
+  top: 10%;
+  left: 70%;
+  z-index: 10;
+  display: flex:
+  justify-content: center;
+  align-items: center;
+`;
 
 
-const StyleSelectorItem = ({photo, selected, handleClick, index}) => {
+const StyleSelectorItem = ({ photo, selected, handleClick, index }) => {
   const selectorItemStyle = css`
     width: 80%;
     height: 80%;
@@ -20,16 +35,19 @@ const StyleSelectorItem = ({photo, selected, handleClick, index}) => {
     border: '.5pt solid #eee';
     border-radius: 50%;
     cursor: pointer;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    z-index: 0;
   `;
 
   return (
     <>
-    {selected && <FontAwesomeIcon style={{
-      position: 'relative',
-      top: '1%',
-      left: '30%',
-    }}icon={faCircleCheck}/>}
-    <div css={selectorItemStyle} widget='Overview' element-name='StyleSelectorItem' onClick={(e) => handleClick(e, index)}/>
+      <div css={selectorItemStyle} widget='Overview' element-name='StyleSelectorItem' onClick={(e) => handleClick(e, index)} />
+      {selected &&
+        <Checkmark>
+          <FontAwesomeIcon icon={faCheck} />
+        </Checkmark>}
     </>
   )
 }

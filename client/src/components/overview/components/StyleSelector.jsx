@@ -24,19 +24,21 @@ const selectorContainerStyle = {
 }
 
 const selectorItemContainerStyle = {
-  width: '50px',
-  aspectRatio : '1 / 1',
-  display: 'flex',
-  flexShrink: 0,
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center'
+  width: '25%',
+  aspectRatio: '1 / 1',
+  position: 'relative',
+  // display: 'flex',
+  // flexShrink: 0,
+  // flexDirection: 'column',
+  // justifyContent: 'center',
+  // alignItems: 'center'
 }
 
-const StyleSelector = (props) => {
+const StyleSelector = ({style, styles, setStyle}) => {
   const handleStyleClick = (e, i) => {
     e.preventDefault();
-    console.log(`style ${i} click!`);
+    console.log(`style ${i}: ${styles[i].name} click!`);
+    setStyle(styles[i]);
   }
 
   return (
@@ -44,18 +46,22 @@ const StyleSelector = (props) => {
     <>
 
       <div style={selectorStyle} widget='Overview' element-name='StyleSelector'>
-        <div>Style > {props.style.name}</div>
+        <div>Style > {style.name}</div>
         {/* onClick={props.handleClick}> */}
-        <div style={selectorContainerStyle}>
-        {props.styles !== undefined &&
-          props.styles.map((style, i) => (
-            <div key={style + i}>
-            <div style={selectorItemContainerStyle}>
-            <StyleSelectorItem photo={style.photos[0].thumbnail_url} selected={style.name === props.style.name} handleClick={handleStyleClick} index={i}/>
-            </div>
-            </div>
-          ))}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <div style={selectorContainerStyle}>
+            {styles !== undefined &&
+              styles.map((thisStyle, i) => (
+                <div key={i + thisStyle} style={selectorItemContainerStyle}>
+                  <StyleSelectorItem photo={thisStyle.photos[0].thumbnail_url} selected={thisStyle.name === style.name} handleClick={handleStyleClick} index={i} />
+                </div>
+              ))}
           </div>
+        </div>
       </div>
     </>
     //  </StyleSelectorStyle>
