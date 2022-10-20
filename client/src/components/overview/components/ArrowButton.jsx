@@ -20,7 +20,7 @@ const arrowSymbols = {
   'down': faChevronDown,
 }
 
-const ArrowButton = ({handleClick, direction, active, height, carousel_height}) =>  {
+const ArrowButton = ({handleClick, direction, active, height, carousel_height }) =>  {
   const position = {
     'right': 'position: absolute;',
     'left': 'position: absolute;',
