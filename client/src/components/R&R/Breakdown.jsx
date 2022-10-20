@@ -43,7 +43,7 @@ const Breakdown = ({avgRating, fullReviewList, numReviews, characteristics}) => 
       result.push(`${key}: ${characteristics[key].value.slice(0, 3)}`)
     }
     setCalcCharact(result)
-    console.log(result)
+    // console.log(result)
   }
 
   var barRender = (starCount) => {
