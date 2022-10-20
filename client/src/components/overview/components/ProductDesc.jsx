@@ -8,8 +8,9 @@ const ProductDescStyle = styled.div`
 `;
 
 const prodDescStyle = {
+  'borderRight': '1px solid #ddd',
   'gridColumnStart': '2',
-  'gridRowStart': '4',
+  'gridRowStart': '5',
   height: '100%',
   width: '100%'
 }
