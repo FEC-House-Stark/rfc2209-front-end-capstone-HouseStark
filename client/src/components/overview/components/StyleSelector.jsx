@@ -11,21 +11,23 @@ const selectorStyle = {
   'gridColumnStart': '4',
   'gridRowStart': '2',
   height: '100%',
-  width: '90%',
+  width: '100%',
 };
 
 const selectorContainerStyle = {
   display: 'flex',
-  width: '90%',
+  width: 'clamp(220px, 90%, 280px)',
   height: '100%',
   alignItems: 'center',
   justifyContent: 'flex-start',
   flexWrap: 'wrap',
 }
 
+const selector_height=60;
+
 const selectorItemContainerStyle = {
   width: '25%',
-  aspectRatio: '1 / 1',
+  height: `${selector_height}px`,
   position: 'relative',
   // display: 'flex',
   // flexShrink: 0,
@@ -37,7 +39,6 @@ const selectorItemContainerStyle = {
 const StyleSelector = ({style, styles, setStyle}) => {
   const handleStyleClick = (e, i) => {
     e.preventDefault();
-    console.log(`style ${i}: ${styles[i].name} click!`);
     setStyle(styles[i]);
   }
 
@@ -46,18 +47,18 @@ const StyleSelector = ({style, styles, setStyle}) => {
     <>
 
       <div style={selectorStyle} widget='Overview' element-name='StyleSelector'>
-        <div>Style > {style.name}</div>
+        <div style={{fontSize: '16px'}}><b>STYLE ></b> {style.name && style.name.toUpperCase()}</div>
         {/* onClick={props.handleClick}> */}
         <div style={{
           display: 'flex',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
           alignItems: 'center',
         }}>
           <div style={selectorContainerStyle}>
             {styles !== undefined &&
               styles.map((thisStyle, i) => (
                 <div key={i + thisStyle} style={selectorItemContainerStyle}>
-                  <StyleSelectorItem photo={thisStyle.photos[0].thumbnail_url} selected={thisStyle.name === style.name} handleClick={handleStyleClick} index={i} />
+                  <StyleSelectorItem photo={thisStyle.photos[0].thumbnail_url} selected={thisStyle.name === style.name} handleClick={handleStyleClick} index={i} height={selector_height}/>
                 </div>
               ))}
           </div>

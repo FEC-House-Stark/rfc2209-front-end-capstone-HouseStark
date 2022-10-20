@@ -24,20 +24,23 @@ const Checkmark = styled.div`
 `;
 
 
-const StyleSelectorItem = ({ photo, selected, handleClick, index }) => {
+const StyleSelectorItem = ({ photo, selected, handleClick, index, height }) => {
   const selectorItemStyle = css`
-    width: 80%;
     height: 80%;
+    aspect-ratio: 1/1;
     background-image: url(${photo});
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    border: '.5pt solid #eee';
+    border: .5pt solid #ddd;
     border-radius: 50%;
     cursor: pointer;
     position: absolute;
     top: 10%;
-    left: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
     z-index: 0;
   `;
 
