@@ -10,17 +10,19 @@ display: flex;
 flex-direction: column;
 align-content: center;
 margin-left: 315px;
-margin-right: 260px;
+margin-right: 255px;
 `;
 const ProdHeader = styled.div`
 font-family: system-ui;
 font-size: 13px;
+margin-left:20px;
 margin-top: 20px;
 margin-bottom: 20px;
 color: #313131;
 `;
 
 const OutfitHeader = styled.div`
+margin-left:20px;
 margin-top:40px;
 margin-bottom:18px;
 font-family: system-ui;
