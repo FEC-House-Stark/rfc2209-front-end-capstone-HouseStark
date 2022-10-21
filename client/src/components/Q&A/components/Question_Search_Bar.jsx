@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import {QandAHSearchBar , SearchQustionMagnifyGlass} from './Q&A_Styles.jsx';
 
-const QuestionSearchBar = ({questions, setFilter, handleTrackingClick}) =>  {
+const QuestionSearchBar = ({questions, setFilter, handleTrackingClick, setHighlight}) =>  {
 
   const [value, setValue] = useState('');
 
@@ -27,8 +27,10 @@ const QuestionSearchBar = ({questions, setFilter, handleTrackingClick}) =>  {
           setValue(e.target.value);
           if(e.target.value.length > 3) {
             handleSubmit(e);
+            setHighlight(e.target.value);
           } else {
             setFilter(questions);
+            setHighlight('');
           }
         }}
          onClick={(e) => {
