@@ -77,12 +77,12 @@ const ProductList = ({ data }) => {
   const handleScrollR = () => {
     setCount(count + 1);
     let cards = document.getElementById('card-container');
-    cards.scrollLeft += 212
+    cards.scrollLeft += 210
   }
   const handleScrollL = () => {
     setCount(count - 1);
     let container = document.getElementById('card-container');
-    container.scrollLeft -= 212
+    container.scrollLeft -= 210
   }
 
   return (

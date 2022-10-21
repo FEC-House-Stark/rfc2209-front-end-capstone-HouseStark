@@ -6,8 +6,8 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 const star = <FontAwesomeIcon icon={faStar} />
 
 const CardContainer = styled.div`
-max-width:829px;
-min-width:829px;
+max-width:820px;
+min-width:820px;
 box-sizing: border-box;
 display: flex;
 overflow-x: hidden;
@@ -22,6 +22,7 @@ width:190px;
 height: 300px;
 margin-right:20px;
 border: 1px solid;
+box-sizing: border-box;
 border-color: black;
 /* box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.19); */
 display: flex;
