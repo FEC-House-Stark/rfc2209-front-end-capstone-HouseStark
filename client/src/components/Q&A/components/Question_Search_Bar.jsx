@@ -22,7 +22,7 @@ const QuestionSearchBar = ({questions, setFilter, handleTrackingClick}) =>  {
         value={value}
         widget='QandA'
         element-name='Question_Search_Bar'
-        placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS'
+        placeholder='Have a question? Search for answers…'
         onChange={(e) => {
           setValue(e.target.value);
           if(e.target.value.length > 3) {

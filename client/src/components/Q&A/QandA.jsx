@@ -20,7 +20,7 @@ const QandA = ({product_id,handleClick}) =>  {
       setQuestions(result.data.results);
       setFilter(result.data.results);
     })
-  },[]);
+  },[product_id]);
 
   return (
     <QandAOverViewStyle >
