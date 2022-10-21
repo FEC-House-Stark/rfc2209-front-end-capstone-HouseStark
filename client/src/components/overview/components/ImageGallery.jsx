@@ -51,6 +51,7 @@ const ImageGallery = (props) => {
       setPhotoIndex(photoIndex - 1);
       setTranslate(translate - props.image_width);
     }
+    e.stopPropagation();
   }
   const handleRightClick = (e) => {
     e.preventDefault();
@@ -58,21 +59,27 @@ const ImageGallery = (props) => {
       setPhotoIndex(photoIndex + 1);
       setTranslate(translate + props.image_width);
     }
+    e.stopPropagation();
   }
   const handleThumbnailClick = (e, index) => {
     e.preventDefault();
     setPhotoIndex(index);
     setTranslate((index * props.image_width) + 1);
+    e.stopPropagation();
   }
+
+  const handleImageClick = (e) => {
+    e.preventDefault();
+    console.log('Expanding!');
+  };
 
 return (
   <>
     {
       props.photos !== undefined &&
       <div widget='Overview' style={imageGalleryStyle} element-name='ImageGallery' onClick={(e) => {
-        //  console.log(`ImageGalleryClick | currentTarget: ${e.currentTarget.getAttribute('widget')}
-        // target:`,e.target);
-        //   props.handleClick(e);
+        //props.handleClick(e);
+        handleImageClick(e);
       }}>
 
         <div

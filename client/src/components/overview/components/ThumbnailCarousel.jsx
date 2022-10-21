@@ -41,17 +41,19 @@ const ThumbnailCarousel = ({ photos, photoIndex, handleClick, height }) => {
     }
   }, [photoIndex])
 
-  const handleUpClick = () => {
+  const handleUpClick = (e) => {
     if (thumbnailIndex > n_max_thumbnails - 1) {
       setTranslate(Math.ceil(translate - carousel_spacing));
       setThumbnailIndex(thumbnailIndex - 1);
     }
+    e.stopPropagation();
   }
-  const handleDownClick = () => {
+  const handleDownClick = (e) => {
     if (thumbnailIndex < photos.length - 1) {
       setTranslate(translate + carousel_spacing);
       setThumbnailIndex(thumbnailIndex + 1);
     }
+    e.stopPropagation();
   }
 
   return (
