@@ -64,7 +64,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   }
 
   useEffect(() => {
-console.log(characteristics)
+// console.log(characteristics)
     Modal.setAppElement('body');
 
     axios.get(host_url + 'reviews/', config)
