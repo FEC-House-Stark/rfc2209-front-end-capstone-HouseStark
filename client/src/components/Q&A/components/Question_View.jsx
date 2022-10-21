@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import AddanAnswer from './Add_An_Answer.jsx';
@@ -12,6 +12,7 @@ const QuestionView = ({
   question,
   handleTrackingClick,
   ButtonStyle,
+  highlight,
 }) =>  {
 
   const handleRequestClick = (endpoint,method) => {
@@ -36,12 +37,25 @@ const QuestionView = ({
     handleRequestClick('report','put');
   }
 
+  const getHighlightedText = (text, higlight) => {
+    // Split text on higlight term, include term itself into parts, ignore case
+    var parts = text.split(new RegExp(`(${higlight})`, "gi"));
+    return parts.map((part, index) => (
+      <React.Fragment key={index}>
+        {part.toLowerCase() === higlight.toLowerCase() ? (
+          <b style={{backgroundColor: "#FFFF00"}}>{part}</b>
+        ) : (
+          part
+        )}
+      </React.Fragment>
+    ));
+  }
 
   return (
     <QandAQuestionListView>
       <QuestionBar>
         <div style={{fontWeight: 'bold', fontSize: 'medium'}}>
-          Q: {question.question_body}
+          Q: {getHighlightedText(question.question_body, highlight)}
         </div>
         <QuestionBarActionItem >
           <QuestionReport
