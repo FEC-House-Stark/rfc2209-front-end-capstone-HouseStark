@@ -3,7 +3,7 @@ import QuestionView from './Question_View.jsx';
 import AddaQuestion from './Add_A_Question.jsx';
 import MoreQuestionsButton from './More_Questions.jsx';
 import styled from 'styled-components';
-import {QandASearchView,QandAQuestionActions,buttonStyle} from './Q&A_Styles.jsx';
+import {QandASearchView,QandAQuestionActions} from './Q&A_Styles.jsx';
 
 
 const QuestionsView = ({
@@ -12,14 +12,14 @@ const QuestionsView = ({
   filter,
   handleTrackingClick,
   product_id,
-  setRender,
+  highlight,
 }) =>  {
 
   const [showQuestion, setShowQuestions] = useState([])
   const [moreQuestions, setmoreQuestions] = useState(false);
 
   useEffect(() => {
-    setShowQuestions(filter.slice(0,2));
+    setShowQuestions(filter.slice(0,4));
   },[filter]);
 
   const handleMoreQuestion = () => {
@@ -28,7 +28,7 @@ const QuestionsView = ({
   }
 
   const handleLessQuestion = () => {
-    setShowQuestions(questions.slice(0,2));
+    setShowQuestions(questions.slice(0,4));
     setmoreQuestions(false);
   }
 
@@ -36,28 +36,33 @@ const QuestionsView = ({
   return (
     <QandASearchView>
       <div>
-        {
-          showQuestion.map((q) => {
+        { questions.length
+          ?showQuestion.map((q) => {
             return <QuestionView
             key={q.question_id}
             product_id={product_id}
             question={q}
+            highlight={highlight}
             handleTrackingClick={handleTrackingClick}
             />
           })
+          :null
         }
     </div>
     <QandAQuestionActions>
-      <MoreQuestionsButton
-        moreQuestions={moreQuestions}
-        handleMoreQuestion={handleMoreQuestion}
-        handleLessQuestion={handleLessQuestion}
-        handleTrackingClick={handleTrackingClick}
-        buttonStyle={buttonStyle}/>
+      {
+        questions.length
+          ? <MoreQuestionsButton
+            moreQuestions={moreQuestions}
+            handleMoreQuestion={handleMoreQuestion}
+            handleLessQuestion={handleLessQuestion}
+            handleTrackingClick={handleTrackingClick}/>
+          :null
+      }
        <AddaQuestion
         product_id={product_id}
         handleTrackingClick={handleTrackingClick}
-        buttonStyle={buttonStyle}/>
+        />
     </QandAQuestionActions>
   </QandASearchView>
   )

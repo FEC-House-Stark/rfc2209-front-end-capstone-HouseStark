@@ -9,7 +9,9 @@ const QandA = ({product_id,handleClick}) =>  {
 
   const [questions,setQuestions] = useState([]);
   const [filter, setFilter] = useState([]);
-  const [render, setRender] = useState(false)
+  const [render, setRender] = useState(false);
+  const [highlight, setHighlight] = useState('');
+
   let config = {
     params: { product_id, page: 1, count: 20 },
   }
@@ -20,20 +22,27 @@ const QandA = ({product_id,handleClick}) =>  {
       setQuestions(result.data.results);
       setFilter(result.data.results);
     })
-  },[]);
+  },[product_id]);
 
   return (
     <QandAOverViewStyle >
       <QandAHeader>QUESTION {'&'} ANSWERS</QandAHeader>
-      <QuestionSearchBar
-        questions={questions}
-        setFilter={setFilter}
-        handleTrackingClick={handleClick}/>
+      {
+        questions.length
+        ? <QuestionSearchBar
+          questions={questions}
+          setFilter={setFilter}
+          setHighlight={setHighlight}
+          handleTrackingClick={handleClick}
+          />
+        : null
+      }
       <QuestionsView
         product_id={product_id}
         questions={questions}
         setQuestions={setQuestions}
         filter={filter}
+        highlight={highlight}
         handleTrackingClick={handleClick}/>
   </QandAOverViewStyle>
   )

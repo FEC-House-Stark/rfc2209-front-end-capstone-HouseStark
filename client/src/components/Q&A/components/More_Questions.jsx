@@ -1,11 +1,11 @@
 import {useState, useEffect} from 'react';
+import {buttonStyle} from './Q&A_Styles.jsx';
 
 const MoreQuestionsButton = ({
   handleMoreQuestion,
   handleLessQuestion,
   handleTrackingClick,
   moreQuestions,
-  buttonStyle
 }) =>  {
 
 
