@@ -45,7 +45,7 @@ text-align: left;
 const QandAHSearchBar = styled.form`
 display: grid;
 align-items: stretch;
-grid-template-columns: 95% 5% ;
+grid-template-columns: 100% 5% ;
 height: 30px;
 gap: 10px 0px;
 `;
@@ -119,11 +119,12 @@ const photoStyle = {
 
 const modalBoxStyle = {
   content: {
-    top: '500px',
-    left: '500px',
-    right: '500px',
-    bottom: '500px',
-    marginRight: '-50%',
+    top: '50%',
+    left: '50%',
+    right: '50%',
+    bottom: '50%',
+    minHeight:'300px',
+    minWidth:'500px',
     transform: 'translate(-50%, -50%)',
   },
 };

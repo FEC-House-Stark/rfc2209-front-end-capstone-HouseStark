@@ -26,9 +26,16 @@ var StarRating = ({currentValue, setCurrentValue}) => {
     setHoverValue(undefined)
   }
 
+  const starMeaning = {
+    1: 'Poor 👎',
+    2: 'Fair 🙄',
+    3: 'Average 😐',
+    4: 'Good 😇',
+    5: 'Great 🤩'
+  }
 
   return (
-    <div style={styles.container}> Rate the product
+    <div style={styles.container}> Rate the product<div style={{color: 'red'}}>*</div>
       <div style={styles.stars}>
         {stars.map((_, index) => {
           return (
@@ -46,6 +53,7 @@ var StarRating = ({currentValue, setCurrentValue}) => {
             />
           )
         })}
+        <div>{starMeaning[currentValue]}</div>
       </div>
     </div>
   );
