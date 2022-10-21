@@ -161,6 +161,7 @@ const App = () => {
                 <Related
                   handleClick={value}
                   product_id={product_id}
+                  setId={setProductId}
                   numReviews={numReviews}
                   avgRating={avgRating}
                   productInfo={productInfo}
