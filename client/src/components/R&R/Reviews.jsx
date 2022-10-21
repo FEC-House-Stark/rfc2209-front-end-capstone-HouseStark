@@ -91,7 +91,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   }
 
   var handleRadioChange = (e) => {
-    console.log(typeof reconfig[item][1])
+    // console.log(typeof reconfig[item][1])
   }
 
   var uniqueCharacteristicsCalc = () => {
