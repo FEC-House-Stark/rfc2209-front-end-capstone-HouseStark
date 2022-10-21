@@ -12,7 +12,7 @@ const QuestionsView = ({
   filter,
   handleTrackingClick,
   product_id,
-  setRender,
+  highlight,
 }) =>  {
 
   const [showQuestion, setShowQuestions] = useState([])
@@ -42,6 +42,7 @@ const QuestionsView = ({
             key={q.question_id}
             product_id={product_id}
             question={q}
+            highlight={highlight}
             handleTrackingClick={handleTrackingClick}
             />
           })
