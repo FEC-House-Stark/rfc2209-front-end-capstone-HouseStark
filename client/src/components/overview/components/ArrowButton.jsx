@@ -1,26 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faChevronLeft, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faArrowLeft, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 const { useEffect, useState } = React;
 
 const button_height = 25;
-const button_margin = 5;
+const button_margin = 0;
 const sideOffset = {
   'right': 'right: 25px;',
-  'left': 'left: 100px;',
+  'left': 'left: 75px;',
   'up': '',//'left 50px;',
   'down': '',//'left 50px;',
 }
 
 const arrowSymbols = {
-  'right': faChevronRight,
-  'left': faChevronLeft,
+  'right': faArrowRight,
+  'left': faArrowLeft,
   'up': faChevronUp,
   'down': faChevronDown,
 }
 
-const ArrowButton = ({handleClick, direction, active, height, carousel_height}) =>  {
+const ArrowButton = ({handleClick, direction, active, height, carousel_height }) =>  {
   const position = {
     'right': 'position: absolute;',
     'left': 'position: absolute;',
@@ -44,9 +44,8 @@ const ArrowButton = ({handleClick, direction, active, height, carousel_height}) 
       ${topOffset[direction]}
       ${sideOffset[direction]}
       height: ${button_height}px;
-      color: white;
-      background: #ccc;
-      border: .25pt solid #eee;
+      color: #666;
+      background: white;
       width: 25px;
       justify-content: center;
       border-radius: 50%;

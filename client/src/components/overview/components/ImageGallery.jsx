@@ -18,7 +18,7 @@ const Image = styled.div`
 
 const imageGalleryStyle = {
   'border': '1pt solid #eee',
-  'borderRadius': '5px',
+  'borderRadius': '10px',
   'gridColumnStart': '2',
   'gridRowStart': '1',
   'gridRowEnd': '4',
@@ -27,6 +27,7 @@ const imageGalleryStyle = {
   width: '100%',
   'overflow': 'hidden',
   cursor: 'zoom-in',
+  boxSizing: 'border-box'
 }
 
 const ImageGallery = (props) => {
@@ -34,6 +35,15 @@ const ImageGallery = (props) => {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [translate, setTranslate] = useState(0);
   const transition = 0.45;
+
+  //if the style changes, make sure the current photoIndex is valid
+  useEffect(() => {
+    if (props.photos !== undefined) {
+      if (photoIndex >= props.photos.length) {
+        setPhotoIndex(props.photos.length - 1);
+      }
+    }
+  }, [props.photos]);
 
   const handleLeftClick = (e) => {
     e.preventDefault();
