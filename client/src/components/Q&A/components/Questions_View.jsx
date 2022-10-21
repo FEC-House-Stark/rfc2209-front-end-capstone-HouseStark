@@ -3,7 +3,7 @@ import QuestionView from './Question_View.jsx';
 import AddaQuestion from './Add_A_Question.jsx';
 import MoreQuestionsButton from './More_Questions.jsx';
 import styled from 'styled-components';
-import {QandASearchView,QandAQuestionActions,buttonStyle} from './Q&A_Styles.jsx';
+import {QandASearchView,QandAQuestionActions} from './Q&A_Styles.jsx';
 
 
 const QuestionsView = ({
@@ -36,8 +36,8 @@ const QuestionsView = ({
   return (
     <QandASearchView>
       <div>
-        {
-          showQuestion.map((q) => {
+        { questions.length
+          ?showQuestion.map((q) => {
             return <QuestionView
             key={q.question_id}
             product_id={product_id}
@@ -46,19 +46,23 @@ const QuestionsView = ({
             handleTrackingClick={handleTrackingClick}
             />
           })
+          :null
         }
     </div>
     <QandAQuestionActions>
-      <MoreQuestionsButton
-        moreQuestions={moreQuestions}
-        handleMoreQuestion={handleMoreQuestion}
-        handleLessQuestion={handleLessQuestion}
-        handleTrackingClick={handleTrackingClick}
-        buttonStyle={buttonStyle}/>
+      {
+        questions.length
+          ? <MoreQuestionsButton
+            moreQuestions={moreQuestions}
+            handleMoreQuestion={handleMoreQuestion}
+            handleLessQuestion={handleLessQuestion}
+            handleTrackingClick={handleTrackingClick}/>
+          :null
+      }
        <AddaQuestion
         product_id={product_id}
         handleTrackingClick={handleTrackingClick}
-        buttonStyle={buttonStyle}/>
+        />
     </QandAQuestionActions>
   </QandASearchView>
   )
