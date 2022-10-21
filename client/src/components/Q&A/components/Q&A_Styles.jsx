@@ -4,36 +4,35 @@ const QandASearchView = styled.div`
 display: flex;
 flex-direction: column;
 align-items: stretch;
-gap: 20px
 `;
 
 const QandAQuestionActions = styled.span`
 display: flex;
 flex-direction: row;
-align-items: flex-end;
-padding-top: 10px;
+padding-top: 20px;
 padding-bottom: 15px;
 height: fit-content;
+gap: 20px;
 `;
 
 const buttonStyle = {
   background:'white',
   color:'black',
-  fontSize: '12px',
+  fontSize: '15px',
   fontWeight:'600',
   textAlign: 'center',
   padding: '10px 10px 10px 10px',
-  width: '80%',
+  width: '180px',
   border: '1px solid black'
 }
 
 const QandAOverViewStyle = styled.div`
-border-bottom: 1pt solid #666;
 display: grid;
 grid-template-rows:5ch 5ch / auto auto;
+font-family: serif;
+border-bottom: 2px ridge;
 padding: 10px 10px;
 gap: 10px;
-font-family: serif;
 `;
 
 const QandAHeader = styled.div`

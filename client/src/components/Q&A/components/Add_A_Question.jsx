@@ -3,13 +3,12 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
-import {modalBoxStyle, modalViewStyle,} from './Q&A_Styles.jsx';
+import {modalBoxStyle, modalViewStyle, buttonStyle} from './Q&A_Styles.jsx';
 
 const AddaQuestion = ({
   setQuestions,
   product_id,
   handleTrackingClick,
-  buttonStyle,
 }) =>  {
 
   const [openModal, setIsOpen] = useState(false);
@@ -37,7 +36,7 @@ const AddaQuestion = ({
 
 
   return (
-    <div style={{marginLeft:'50px'}}>
+    <div>
       <div
         style={buttonStyle}
         widget='QandA'

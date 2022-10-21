@@ -27,11 +27,16 @@ const QandA = ({product_id,handleClick}) =>  {
   return (
     <QandAOverViewStyle >
       <QandAHeader>QUESTION {'&'} ANSWERS</QandAHeader>
-      <QuestionSearchBar
-        questions={questions}
-        setFilter={setFilter}
-        setHighlight={setHighlight}
-        handleTrackingClick={handleClick}/>
+      {
+        questions.length
+        ? <QuestionSearchBar
+          questions={questions}
+          setFilter={setFilter}
+          setHighlight={setHighlight}
+          handleTrackingClick={handleClick}
+          />
+        : null
+      }
       <QuestionsView
         product_id={product_id}
         questions={questions}
