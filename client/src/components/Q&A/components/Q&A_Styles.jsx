@@ -45,7 +45,7 @@ text-align: left;
 const QandAHSearchBar = styled.form`
 display: grid;
 align-items: stretch;
-grid-template-columns: 95% 5% ;
+grid-template-columns: 100% 5% ;
 height: 30px;
 gap: 10px 0px;
 `;

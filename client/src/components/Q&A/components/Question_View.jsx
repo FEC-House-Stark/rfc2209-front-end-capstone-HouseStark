@@ -6,7 +6,6 @@ import QuestionReport from './Question_Report.jsx'
 import AnswersListView from './Answers_List_View.jsx'
 import QuestionHelpfulness from './Question_Helpfulness.jsx';
 import {QandAQuestionListView,QuestionBar,QuestionBarActionItem,rowFlex} from './Q&A_Styles.jsx';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 const QuestionView = ({
@@ -44,7 +43,6 @@ const QuestionView = ({
         <div style={{fontWeight: 'bold', fontSize: 'medium'}}>
           Q: {question.question_body}
         </div>
-        <FontAwesomeIcon icon="fa-regular fa-star" />
         <QuestionBarActionItem >
           <QuestionReport
             handleTrackingClick={handleTrackingClick}
