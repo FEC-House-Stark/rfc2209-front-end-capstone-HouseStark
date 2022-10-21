@@ -28,7 +28,7 @@ const QuestionsView = ({
   }
 
   const handleLessQuestion = () => {
-    setShowQuestions(questions.slice(0,2));
+    setShowQuestions(questions.slice(0,4));
     setmoreQuestions(false);
   }
 
