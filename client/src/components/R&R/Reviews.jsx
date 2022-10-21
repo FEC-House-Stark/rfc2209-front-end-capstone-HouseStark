@@ -16,7 +16,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   const [reviewCount, setReviewCount] = useState(2);
   const [isOpen, setIsOpen] = useState(false);
   const [newReview, setNewReview] = useState({});
-  const [newRecomended, setNewRecomended] = useState('yes');
+  const [newRecomended, setNewRecomended] = useState('');
   const [sortType, setSortType] = useState('relevant');
   const [sizeRating, setSizeRating] = useState('0');
   const [comfortRating, setComfortRating] = useState('0');
@@ -30,6 +30,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   const [email, setEmail] = useState('');
   const [files, setFiles] = useState({});
   const [currentValue, setCurrentValue] = useState(0);
+  const [emailValidation, setEmailValidation] = useState(false);
 
   const host_url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/'
 
@@ -63,7 +64,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   }
 
   useEffect(() => {
-
+console.log(characteristics)
     Modal.setAppElement('body');
 
     axios.get(host_url + 'reviews/', config)
@@ -95,6 +96,60 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     // console.log(typeof reconfig[item][1])
   }
 
+  var handleReviewSubmit = () => {
+    let flag = true;
+    let error = [];
+    if (currentValue < 1) {
+      error.push('❌ Star Rating')
+    }
+    if (newRecomended === '') {
+      error.push('❌ Recommend')
+    }
+    let reconfig = {
+      Comfort: [comfortRating, setComfortRating],
+      Fit: [fitRating, setFitRating],
+      Length: [lengthRating, setLengthRating],
+      Quality: [qualityRating, setQualityRating],
+      Size: [sizeRating, setSizeRating],
+      Width: [widthRating, setWidthRating],
+    }
+
+    let temp = Object.keys(characteristics);
+    for (let i = 0; i < temp.length; i++) {
+      let current = temp[i]
+      if (reconfig[current][0] < 1) {
+        error.push(`❌ ${current} rating`)
+      }
+    }
+
+    if (review.length < 50) {
+      error.push('❌ Review body to short')
+    }
+
+    if (nickname.length === 0) {
+      error.push('❌ Nickname')
+    }
+
+    if (email.length === 0) {
+      error.push('❌ Missing email')
+      let flag = false;
+    }
+    if (flag === true) {
+      if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        error.push('❌ Invalid Email')
+      }
+    }
+  console.log('test', newRecomended)
+    if (error.length === 0) {
+      toggleModal()
+      setTimeout(() => {
+        alert('Review submitted 🎉')
+      }, 100);
+    } else {
+      alert('You are missing required fields:\n' + error.join('\n'))
+    }
+  }
+
   var uniqueCharacteristicsCalc = () => {
     let reconfig = {
       Comfort: [comfortRating, setComfortRating],
@@ -112,17 +167,17 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
         return (
           <li key={i}>
             <form>
-            <label>{`Rate the ${item}`} <div style={{color: 'red'}}>*</div></label>
-            <input type="radio" value={'1'} name={'1'} checked={reconfig[item][0] === '1'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
-            <label>1</label>
-            <input type="radio" value={'2'} name={'2'} checked={reconfig[item][0] === '2'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
-            <label>2</label>
-            <input type="radio" value={'3'} name={'3'} checked={reconfig[item][0] === '3'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
-            <label>3</label>
-            <input type="radio" value={'4'} name={'4'} checked={reconfig[item][0] === '4'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
-            <label>4</label>
-            <input type="radio" value={'5'} name={'5'} checked={reconfig[item][0] === '5'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
-            <label>5</label>
+              <label>{`Rate the ${item}`} <div style={{ color: 'red' }}>*</div></label>
+              <input type="radio" value={'1'} name={'1'} checked={reconfig[item][0] === '1'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+              <label>1</label>
+              <input type="radio" value={'2'} name={'2'} checked={reconfig[item][0] === '2'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+              <label>2</label>
+              <input type="radio" value={'3'} name={'3'} checked={reconfig[item][0] === '3'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+              <label>3</label>
+              <input type="radio" value={'4'} name={'4'} checked={reconfig[item][0] === '4'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+              <label>4</label>
+              <input type="radio" value={'5'} name={'5'} checked={reconfig[item][0] === '5'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+              <label>5</label>
             </form>
           </li>
         )
@@ -166,32 +221,29 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       >
         <h1>Write your review</h1>
         <h2>About the item</h2>
-          <div>
-            <StarRating currentValue={currentValue} setCurrentValue={setCurrentValue} />
-          </div>
-          <li>
-            <label>Recommend? <div style={{color: 'red'}}>*</div></label>
-            <input type="radio" value='yes' name="yes" checked={newRecomended === 'yes'} onChange={(e) => { setNewRecomended(e.target.value) }} />
-            <label>Yes</label>
-            <input type="radio" value='no' name="no" checked={newRecomended === 'no'} onChange={(e) => { setNewRecomended(e.target.value) }} />
-            <label>No</label>
-          </li>
-          <div>
-            {uniqueCharacteristicsCalc()}
-          </div>
-          <form onSubmit={(e) => {
+        <div>
+          <StarRating currentValue={currentValue} setCurrentValue={setCurrentValue} />
+        </div>
+        <li>
+          <label>Recommend? <div style={{ color: 'red' }}>*</div></label>
+          <input type="radio" value='yes' name="yes" checked={newRecomended === 'yes'} onChange={(e) => { setNewRecomended(e.target.value) }} />
+          <label>Yes</label>
+          <input type="radio" value='no' name="no" checked={newRecomended === 'no'} onChange={(e) => { setNewRecomended(e.target.value) }} />
+          <label>No</label>
+        </li>
+        <div>
+          {uniqueCharacteristicsCalc()}
+        </div>
+        <form onSubmit={(e) => {
           e.preventDefault()
-          toggleModal()
-          setTimeout(() => {
-            alert('Review submitted 🎉')
-          }, 100);
+          handleReviewSubmit()
         }}>
           <li>
             <label>Title</label>
             <input type='text' placeholder='...' value={title} onChange={(e) => { setTitle(e.target.value) }} />
           </li>
           <li>
-            <label>Review <div style={{color: 'red'}}>*</div></label>
+            <label>Review <div style={{ color: 'red' }}>*</div></label>
             <textarea type='text' rows={5} cols={25} placeholder='...' value={review} onChange={(e) => { setReview(e.target.value) }} />
             <label>{review.length > 49 ? 'Minimum reached' : `Minimum required characters left: ${50 - review.length}`}</label>
           </li>
@@ -199,11 +251,11 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
             <FileUpload files={files} setFiles={setFiles} />
           </div>
           <li>
-            <label>Nickname <div style={{color: 'red'}}>*</div></label>
+            <label>Nickname <div style={{ color: 'red' }}>*</div></label>
             <input type='text' placeholder='...' value={nickname} onChange={(e) => { setNickname(e.target.value) }} />
           </li>
           <li>
-            <label>Email <div style={{color: 'red'}}>*</div></label>
+            <label>Email <div style={{ color: 'red' }}>*</div></label>
             <input type='text' placeholder='...' value={email} onChange={(e) => { setEmail(e.target.value) }} />
           </li>
           <button type="submit">Submit</button>
