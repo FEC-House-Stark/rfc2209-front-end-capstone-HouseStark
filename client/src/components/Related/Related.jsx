@@ -20,8 +20,14 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
 
   useEffect(() => { //gets related IDs
     axios(`/products/${product_id}/related`)
-      .then((res) => setRelatedIds(res.data))
-      .catch((err) => console.log(err))
+      .then((res) => {
+        setData([]);
+        setRelated([]);
+        setThumbnails([]);
+        setAllRatings([]);
+        // console.log('NEW ID ', res.data)
+        setRelatedIds(res.data)
+      }).catch((err) => console.log(err))
   }, [product_id])
 
   // useEffect(() => { //TESTING
@@ -105,9 +111,18 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
       })
       Promise.all(promises)
         .then((res) => {
-          let thumbnail = res.map(prod => (
-            prod.data.results[0].photos[0]
-          ))
+          var thumbnail = [];
+          for (let i = 0; i < res.length; i++) {
+            let currentProduct = res[i].data.results
+            for (let x = 0; x < currentProduct.length; x++) {
+              if (currentProduct[x]['default?']) {
+                thumbnail.push(currentProduct[x].photos[0])
+                break;
+              } else if (x === currentProduct.length - 1) {
+                thumbnail.push(res[i].data.results[0].photos[0])
+              }
+            }
+          }
           setThumbnails(thumbnail)
         })
     }
@@ -140,8 +155,9 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
 
   useEffect(() => { //Gathers all info needed in one state
     if (related.length && thumbnails.length && all_ratings.length) {
+      // console.log('thumbnails ', thumbnails, 'related ', related)
       for (let i = 0; i < related.length; i++) {
-        if (thumbnails[i].thumbnail_url) {
+        if (thumbnails[i].url) {
           setData((data) => [...data, {
             ...related[i],
             ...thumbnails[i],

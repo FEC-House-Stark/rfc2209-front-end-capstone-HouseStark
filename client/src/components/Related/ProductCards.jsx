@@ -12,7 +12,6 @@ box-sizing: border-box;
 display: flex;
 overflow-x: hidden;
 scroll-behavior: smooth;
-background-color: #00000005;
 /* border:2px solid gold; */
 `;
 
@@ -24,7 +23,7 @@ margin-right:20px;
 border: 1px solid;
 box-sizing: border-box;
 border-color: black;
-/* box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.19); */
+box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.19);
 display: flex;
 flex-direction: column;
 flex-shrink: 0;
@@ -62,7 +61,7 @@ right:0px;
 color: gold;
 `;
 
-const ProductCards = ({ data, temp, setId }) => {
+const ProductCards = ({ data, setId }) => {
   return (
     <CardContainer id='card-container'>
       {data.map((product, i) =>

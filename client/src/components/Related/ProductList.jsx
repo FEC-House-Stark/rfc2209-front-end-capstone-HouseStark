@@ -42,37 +42,35 @@ cursor: pointer;
 `;
 
 const ProductList = ({ data, setId }) => {
-  const [temp, setTemp] = useState([]);
   const [length, setLength] = useState(0);
   const [count, setCount] = useState(4);
-  const [buttonR, setButtonR] = useState(true);
+  const [buttonR, setButtonR] = useState(false);
   const [buttonL, setButtonL] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => { //sets length of data
+    console.log(data);
     if (data.length) {
-      setTemp(data.concat(data))
-      setLength(data.length); // change when done with temp
+      setLength(data.length);
     }
   }, [data])
 
-  useEffect(() => {
-    if (length <= count) {
-      setButtonR(false);
+  useEffect(() => { //for right button
+    if (length > 0) {
+      if (count === length) {
+        setButtonR(false)
+      } else if (length > count) {
+        setButtonR(true);
+      }
     }
-    if (count === length) {
-      setButtonR(false);
-    } else {
-      setButtonR(true);
-    }
-  }, [length, count])
+  }, [count, length])
 
-  useEffect(() => {
+  useEffect(() => { //for left button
     if (count > 4) {
       setButtonL(true)
     } else {
       setButtonL(false)
     }
-  }, [count])
+  }, [count, length])
 
   const handleScrollR = () => {
     setCount(count + 1);
@@ -88,7 +86,7 @@ const ProductList = ({ data, setId }) => {
   return (
     <ProdList>
       <ProdHeader>RELATED PRODUCTS</ProdHeader>
-      <ProductCards data={data} temp={temp} setId={setId} />
+      <ProductCards data={data} setId={setId} />
       {buttonL && <BackButton className='back-button' onClick={handleScrollL}>{leftArrow}</BackButton>}
       {buttonR && <NextButton className='next-button' onClick={handleScrollR}>{rightArrow}</NextButton>}
     </ProdList>
