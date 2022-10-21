@@ -11,7 +11,7 @@ flex-direction: column;
 /* border:1px solid black; */
 `;
 
-const Related = ({ handleClick, product_id, numReviews, avgRating, productInfo, styles }) => {
+const Related = ({ handleClick, product_id, setId, numReviews, avgRating, productInfo, styles }) => {
   const [related_ids, setRelatedIds] = useState([]);
   const [related, setRelated] = useState([]);
   const [thumbnails, setThumbnails] = useState([])
@@ -22,7 +22,7 @@ const Related = ({ handleClick, product_id, numReviews, avgRating, productInfo, 
     axios(`/products/${product_id}/related`)
       .then((res) => setRelatedIds(res.data))
       .catch((err) => console.log(err))
-  }, [])
+  }, [product_id])
 
   // useEffect(() => { //TESTING
   //   if (related_ids.length) {
@@ -155,7 +155,7 @@ const Related = ({ handleClick, product_id, numReviews, avgRating, productInfo, 
 
   return (
     <Container>
-      <ProductList data={data} />
+      <ProductList data={data} setId={setId} />
       <OutfitList />
     </Container>
   )
