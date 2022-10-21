@@ -21,7 +21,6 @@ const OverviewStyle = styled.div`
   padding: 15px 0px;
 `;
 
-
 const Overview = (props) => {
   const [price, setPrice] = useState();
   const [style, setStyle] = useState({});
