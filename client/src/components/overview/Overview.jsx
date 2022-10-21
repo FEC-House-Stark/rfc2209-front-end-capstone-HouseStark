@@ -12,7 +12,7 @@ const info_height = 175;
 const style_height = 150;
 const cart_height = 150;
 const image_height = info_height + style_height + cart_height;
-const image_width = image_height * 1.1;
+const image_width = Math.floor(image_height * 1.15)-.01;
 
 const OverviewStyle = styled.div`
   display: grid;
