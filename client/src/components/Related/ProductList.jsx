@@ -41,7 +41,7 @@ bottom: 45%;
 cursor: pointer;
 `;
 
-const ProductList = ({ data }) => {
+const ProductList = ({ data, setId }) => {
   const [temp, setTemp] = useState([]);
   const [length, setLength] = useState(0);
   const [count, setCount] = useState(4);
@@ -51,7 +51,7 @@ const ProductList = ({ data }) => {
   useEffect(() => {
     if (data.length) {
       setTemp(data.concat(data))
-      setLength(data.length * 2); // change when done with temp
+      setLength(data.length); // change when done with temp
     }
   }, [data])
 
@@ -88,7 +88,7 @@ const ProductList = ({ data }) => {
   return (
     <ProdList>
       <ProdHeader>RELATED PRODUCTS</ProdHeader>
-      <ProductCards data={data} temp={temp} />
+      <ProductCards data={data} temp={temp} setId={setId} />
       {buttonL && <BackButton className='back-button' onClick={handleScrollL}>{leftArrow}</BackButton>}
       {buttonR && <NextButton className='next-button' onClick={handleScrollR}>{rightArrow}</NextButton>}
     </ProdList>

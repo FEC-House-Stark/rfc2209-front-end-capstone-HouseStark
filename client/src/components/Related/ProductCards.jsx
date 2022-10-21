@@ -62,11 +62,11 @@ right:0px;
 color: gold;
 `;
 
-const ProductCards = ({ data, temp }) => {
+const ProductCards = ({ data, temp, setId }) => {
   return (
     <CardContainer id='card-container'>
-      {temp.map((product, i) =>
-        <Card id='product-card' onClick={() => console.log('card' + i)} key={i} >
+      {data.map((product, i) =>
+        <Card id='product-card' onClick={() => setId(product.id)} key={i} >
           <Star>{star}</Star>
           <Photos src={product.url} />
           <Category>{product.category}</Category>

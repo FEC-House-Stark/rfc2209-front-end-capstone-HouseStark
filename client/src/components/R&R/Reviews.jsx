@@ -23,6 +23,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   const [fitRating, setFitRating] = useState('0');
   const [lengthRating, setLengthRating] = useState('0');
   const [qualityRating, setQualityRating] = useState('0');
+  const [widthRating, setWidthRating] = useState('0');
   const [title, setTitle] = useState('');
   const [review, setReview] = useState('');
   const [nickname, setNickname] = useState('');
@@ -95,12 +96,13 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   }
 
   var uniqueCharacteristicsCalc = () => {
-
     let reconfig = {
       Comfort: [comfortRating, setComfortRating],
       Fit: [fitRating, setFitRating],
       Length: [lengthRating, setLengthRating],
-      Quality: [qualityRating, setQualityRating]
+      Quality: [qualityRating, setQualityRating],
+      Size: [sizeRating, setSizeRating],
+      Width: [widthRating, setWidthRating],
     }
 
     let temp = Object.keys(characteristics);
