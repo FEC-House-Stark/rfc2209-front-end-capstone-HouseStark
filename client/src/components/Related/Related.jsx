@@ -5,29 +5,11 @@ import OutfitList from './OutfitList.jsx';
 import axios from 'axios'
 
 const Container = styled.div`
+position: relative;
 display: flex;
 flex-direction: column;
-align-content: center;
-/* margin-left: 315px;
-margin-right: 255px; */
+/* border:1px solid black; */
 `;
-const ProdHeader = styled.div`
-font-family: system-ui;
-font-size: 13px;
-margin-left:20px;
-margin-top: 20px;
-margin-bottom: 20px;
-color: #313131;
-`;
-
-const OutfitHeader = styled.div`
-margin-left:20px;
-margin-top:40px;
-margin-bottom:18px;
-font-family: system-ui;
-font-size: 13px;
-color: #313131;
-`
 
 const Related = ({ handleClick, product_id, numReviews, avgRating, productInfo, styles }) => {
   const [related_ids, setRelatedIds] = useState([]);
@@ -170,11 +152,10 @@ const Related = ({ handleClick, product_id, numReviews, avgRating, productInfo, 
     }
   }, [related, thumbnails, all_ratings])
 
+
   return (
     <Container>
-      <ProdHeader>RELATED PRODUCTS</ProdHeader>
       <ProductList data={data} />
-      <OutfitHeader>YOUR OUTFIT</OutfitHeader>
       <OutfitList />
     </Container>
   )
