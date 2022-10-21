@@ -19,7 +19,7 @@ const QuestionsView = ({
   const [moreQuestions, setmoreQuestions] = useState(false);
 
   useEffect(() => {
-    setShowQuestions(filter.slice(0,2));
+    setShowQuestions(filter.slice(0,4));
   },[filter]);
 
   const handleMoreQuestion = () => {
