@@ -35,21 +35,44 @@ const ImageGallery = (props) => {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [translate, setTranslate] = useState(0);
   const [imageMode, setImageMode] = useState(MODES.DEFAULT);
+  const [expandedWidth, setExpandedWidth] = useState(0);
   const transition = 0.45;
+
+  useEffect(() => {
+    updateWidth();
+  }, [])
 
   const imageGalleryStyle = {
     'border': '1pt solid #eee',
+    'backgroundColor': 'white',
     'borderRadius': '10px',
     'gridColumnStart': '2',
     'gridRowStart': '1',
     'gridRowEnd': '4',
     position: 'relative',
     height: '100%',
-    width: '100%',
+    width:   `${imageMode === MODES.EXPANDED ? `${expandedWidth}px` : '100%'}`,
+    'transition': 'width ease-out 0s',
     'overflow': 'hidden',
     cursor: `${cursors[imageMode]}`,
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    zIndex: '13'
   }
+
+  useEffect(() => {
+    window.addEventListener("resize", updateWidth);
+  }, []);
+  const updateWidth = () => {
+    setExpandedWidth(props.getBodyWidth() - 40);
+    console.log('updating expanded:', expandedWidth);
+  }
+
+  useEffect(()=> {
+    setTranslate(photoIndex * expandedWidth);
+  }, [expandedWidth])
+
+
+
   //if the style changes, make sure the current photoIndex is valid
   useEffect(() => {
     if (props.photos !== undefined) {
@@ -63,7 +86,7 @@ const ImageGallery = (props) => {
     e.preventDefault();
     if (photoIndex > 0) {
       setPhotoIndex(photoIndex - 1);
-      setTranslate(translate - props.image_width);
+      setTranslate(translate - getImageWidth());
     }
     e.stopPropagation();
   }
@@ -71,15 +94,19 @@ const ImageGallery = (props) => {
     e.preventDefault();
     if (photoIndex < props.photos.length - 1) {
       setPhotoIndex(photoIndex + 1);
-      setTranslate(translate + props.image_width);
+      setTranslate(translate + getImageWidth());
     }
     e.stopPropagation();
   }
   const handleThumbnailClick = (e, index) => {
     e.preventDefault();
     setPhotoIndex(index);
-    setTranslate((index * props.image_width) + 1);
+    setTranslate((index * getImageWidth()) + 1);
     e.stopPropagation();
+  }
+
+  const getImageWidth = () => {
+    return MODES.DEFAULT !== imageMode ? expandedWidth : props.image_width;
   }
 
   const handleImageClick = (e) => {
@@ -87,9 +114,10 @@ const ImageGallery = (props) => {
     if (imageMode === MODES.DEFAULT) {
       console.log('Default > Expanded');
       setImageMode(MODES.EXPANDED);
+      setTranslate(photoIndex * expandedWidth);
     } else if (imageMode === MODES.EXPANDED) {
       console.log('Expanded > Zoom');
-      setImageMode(MODES.ZOOM);
+     // setImageMode(MODES.ZOOM);
     } else if (imageMode === MODES.ZOOM) {
       console.log('Zoom > Expanded');
       setImageMode(MODES.EXPANDED);
@@ -100,6 +128,7 @@ const ImageGallery = (props) => {
     e.preventDefault();
     console.log('Expanded/Zoom > Default')
     setImageMode(MODES.DEFAULT);
+    setTranslate(photoIndex * props.image_width);
     e.stopPropagation();
   }
 
@@ -118,13 +147,16 @@ const ImageGallery = (props) => {
               transition: `transform ease-out ${transition}s`,
               height: '100%',
               display: 'flex',
-              width: `${(props.image_width * props.photos.length).toString()}px`
+              width: `${MODES.DEFAULT !== imageMode ?
+                (expandedWidth * props.photos.length).toString()
+                :
+                (props.image_width * props.photos.length).toString()}px`
             }}>
             {props.photos.map((photo, i) => (
               <div key={photo + i} style={{
                 backgroundImage: `url(${photo.url})`,
                 height: `${props.image_height}px`,
-                width: `${props.image_width}px`,
+                width: `${getImageWidth()}px`,
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center'

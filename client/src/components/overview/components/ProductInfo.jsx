@@ -8,7 +8,8 @@ const ProductInfoStyle = styled.div`
 const prodInfoStyle = {
   'gridColumnStart': '4',
   height: '100%',
-  width: '100%'
+  width: '100%',
+  position: 'relative',
 }
 
 const ProductInfo = (props) => {
