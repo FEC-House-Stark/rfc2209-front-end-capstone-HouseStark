@@ -18,8 +18,11 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   const [newReview, setNewReview] = useState({});
   const [newRecomended, setNewRecomended] = useState('yes');
   const [sortType, setSortType] = useState('relevant');
-  const [sizeRating, setSizeRating] = useState('1');
-  const [comfortRating, setComfortRating] = useState('2');
+  const [sizeRating, setSizeRating] = useState('0');
+  const [comfortRating, setComfortRating] = useState('0');
+  const [fitRating, setFitRating] = useState('0');
+  const [lengthRating, setLengthRating] = useState('0');
+  const [qualityRating, setQualityRating] = useState('0');
   const [title, setTitle] = useState('');
   const [review, setReview] = useState('');
   const [nickname, setNickname] = useState('');
@@ -87,10 +90,48 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     setIsOpen(!isOpen);
   }
 
+  var handleRadioChange = (e) => {
+    // console.log(typeof reconfig[item][1])
+  }
+
+  var uniqueCharacteristicsCalc = () => {
+
+    let reconfig = {
+      Comfort: [comfortRating, setComfortRating],
+      Fit: [fitRating, setFitRating],
+      Length: [lengthRating, setLengthRating],
+      Quality: [qualityRating, setQualityRating]
+    }
+
+    let temp = Object.keys(characteristics);
+
+    return (
+      temp.map((item, i) => {
+        return (
+          <li key={i}>
+            <form>
+            <label>{`Rate the ${item}`} <div style={{color: 'red'}}>*</div></label>
+            <input type="radio" value={'1'} name={'1'} checked={reconfig[item][0] === '1'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+            <label>1</label>
+            <input type="radio" value={'2'} name={'2'} checked={reconfig[item][0] === '2'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+            <label>2</label>
+            <input type="radio" value={'3'} name={'3'} checked={reconfig[item][0] === '3'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+            <label>3</label>
+            <input type="radio" value={'4'} name={'4'} checked={reconfig[item][0] === '4'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+            <label>4</label>
+            <input type="radio" value={'5'} name={'5'} checked={reconfig[item][0] === '5'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+            <label>5</label>
+            </form>
+          </li>
+        )
+      })
+    )
+  }
+
   return (
     <>
-    <div style={barStyles}></div>
-    <ReviewContainer>
+      <div style={barStyles}></div>
+      <ReviewContainer>
         <BreakdownContainer>
           <Breakdown avgRating={avgRating} fullReviewList={fullReviewList} numReviews={numReviews} characteristics={characteristics} />
         </BreakdownContainer>
@@ -115,85 +156,64 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
           {reviewCount >= reviewList.length ? <button disabled={true}>No More Reviews</button> : <button data-testid="increment" onClick={handleMoreReviews}>{reviewList.length < 3 ? null : 'More Reviews'}</button>}
           <button onClick={toggleModal}>Add A Review</button>
         </ListContainer>
-        </ReviewContainer>
-        <Modal
-          isOpen={isOpen}
-          onRequestClose={toggleModal}
-          contentLabel="Add A Review"
-        >
-          <h1>Write your review</h1>
-          <h2>About the item</h2>
+      </ReviewContainer>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={toggleModal}
+        contentLabel="Add A Review"
+      >
+        <h1>Write your review</h1>
+        <h2>About the item</h2>
+          <div>
+            <StarRating currentValue={currentValue} setCurrentValue={setCurrentValue} />
+          </div>
+          <li>
+            <label>Recommend? <div style={{color: 'red'}}>*</div></label>
+            <input type="radio" value='yes' name="yes" checked={newRecomended === 'yes'} onChange={(e) => { setNewRecomended(e.target.value) }} />
+            <label>Yes</label>
+            <input type="radio" value='no' name="no" checked={newRecomended === 'no'} onChange={(e) => { setNewRecomended(e.target.value) }} />
+            <label>No</label>
+          </li>
+          <div>
+            {uniqueCharacteristicsCalc()}
+          </div>
           <form onSubmit={(e) => {
-            e.preventDefault()
-            toggleModal()
-            setTimeout(() => {
-              alert('Review submitted 🎉')
-            }, 100);
-          }}>
-            <div>
-              <StarRating currentValue={currentValue} setCurrentValue={setCurrentValue} />
-            </div>
-            <li>
-              <label>Recommend? </label>
-              <input type="radio" value='yes' name="yes" checked={newRecomended === 'yes'} onChange={(e) => { setNewRecomended(e.target.value) }} />
-              <label>Yes</label>
-              <input type="radio" value='no' name="no" checked={newRecomended === 'no'} onChange={(e) => { setNewRecomended(e.target.value) }} />
-              <label>No</label>
-            </li>
-            <li>
-              <label>Rate the size accuracy</label>
-              <input type="radio" value={'1'} name={'1'} checked={sizeRating === '1'} onChange={(e) => { setSizeRating(e.target.value) }} />
-              <label>1</label>
-              <input type="radio" value={'2'} name={'2'} checked={sizeRating === '2'} onChange={(e) => { setSizeRating(e.target.value) }} />
-              <label>2</label>
-              <input type="radio" value={'3'} name={'3'} checked={sizeRating === '3'} onChange={(e) => { setSizeRating(e.target.value) }} />
-              <label>3</label>
-              <input type="radio" value={'4'} name={'4'} checked={sizeRating === '4'} onChange={(e) => { setSizeRating(e.target.value) }} />
-              <label>4</label>
-              <input type="radio" value={'5'} name={'5'} checked={sizeRating === '5'} onChange={(e) => { setSizeRating(e.target.value) }} />
-              <label>5</label>
-            </li>
-            <li>
-              <label>Rate the comfort</label>
-              <input type="radio" value={'1'} name={'1'} checked={comfortRating === '1'} onChange={(e) => { setComfortRating(e.target.value) }} />
-              <label>1</label>
-              <input type="radio" value={'2'} name={'2'} checked={comfortRating === '2'} onChange={(e) => { setComfortRating(e.target.value) }} />
-              <label>2</label>
-              <input type="radio" value={'3'} name={'3'} checked={comfortRating === '3'} onChange={(e) => { setComfortRating(e.target.value) }} />
-              <label>3</label>
-              <input type="radio" value={'4'} name={'4'} checked={comfortRating === '4'} onChange={(e) => { setComfortRating(e.target.value) }} />
-              <label>4</label>
-              <input type="radio" value={'5'} name={'5'} checked={comfortRating === '5'} onChange={(e) => { setComfortRating(e.target.value) }} />
-              <label>5</label>
-            </li>
-            <li>
-              <label>Title</label>
-              <input type='text' placeholder='...' value={title} onChange={(e) => { setTitle(e.target.value) }} />
-            </li>
-            <li>
-              <label>Review</label>
-              <textarea type='text' placeholder='...' value={review} onChange={(e) => { setReview(e.target.value) }} />
-              <label>{review.length > 49 ? 'Minimum reached' : `Minimum required characters left: ${50 - review.length}`}</label>
-            </li>
-            <div className='file-upload'>
-              <FileUpload files={files} setFiles={setFiles} />
-            </div>
-            <li>
-              <label>Nickname</label>
-              <input type='text' placeholder='...' value={nickname} onChange={(e) => { setNickname(e.target.value) }} />
-            </li>
-            <li>
-              <label>Email</label>
-              <input type='text' placeholder='...' value={email} onChange={(e) => { setEmail(e.target.value) }} />
-            </li>
-            <button type="submit">Submit</button>
-          </form>
+          e.preventDefault()
+          toggleModal()
+          setTimeout(() => {
+            alert('Review submitted 🎉')
+          }, 100);
+        }}>
+          <li>
+            <label>Title</label>
+            <input type='text' placeholder='...' value={title} onChange={(e) => { setTitle(e.target.value) }} />
+          </li>
+          <li>
+            <label>Review <div style={{color: 'red'}}>*</div></label>
+            <textarea type='text' rows={5} cols={25} placeholder='...' value={review} onChange={(e) => { setReview(e.target.value) }} />
+            <label>{review.length > 49 ? 'Minimum reached' : `Minimum required characters left: ${50 - review.length}`}</label>
+          </li>
+          <div className='file-upload'>
+            <FileUpload files={files} setFiles={setFiles} />
+          </div>
+          <li>
+            <label>Nickname <div style={{color: 'red'}}>*</div></label>
+            <input type='text' placeholder='...' value={nickname} onChange={(e) => { setNickname(e.target.value) }} />
+          </li>
+          <li>
+            <label>Email <div style={{color: 'red'}}>*</div></label>
+            <input type='text' placeholder='...' value={email} onChange={(e) => { setEmail(e.target.value) }} />
+          </li>
+          <button type="submit">Submit</button>
+        </form>
 
-          <button onClick={toggleModal}>Close modal</button>
-        </Modal>
+        <button onClick={toggleModal}>Close modal</button>
+      </Modal>
     </>
 
   )
 }
 
 export default Reviews;
+
+

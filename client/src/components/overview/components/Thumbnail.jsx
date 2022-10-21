@@ -3,6 +3,8 @@ import styled from 'styled-components';
 //import ArrowButton from './ArrowButton.jsx';
 const { useState, useEffect } = React;
 
+const selected_expand = 1.15;
+
 const Thumbnail = ({ photoUrl, width, i, selected, handleClick }) => {
 
   return (
@@ -11,10 +13,10 @@ const Thumbnail = ({ photoUrl, width, i, selected, handleClick }) => {
       <div key={i}
         onClick={e => handleClick(e, i)}
         css={css`
-        height: ${width}px;
-        width: ${width}px;
+        height: ${selected ? width * selected_expand : width}px;
+        width: ${selected ? width * selected_expand : width}px;
         border-radius: 10%;
-        ${selected ? `border: 2.5pt solid #666;` : `border: 0.5pt solid #eee;`}
+        ${selected ? `border: 2pt solid #ddd;` : `border: 0.5pt solid #eee;`}
         background-image: url(${photoUrl});
         background-size: cover;
         background-repeat: no-repeat;

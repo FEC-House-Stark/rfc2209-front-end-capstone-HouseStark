@@ -8,9 +8,9 @@ const QuestionSearchBar = ({questions, setFilter, handleTrackingClick}) =>  {
 
   const [value, setValue] = useState('');
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     const filteredQuestion = questions.filter((q) => {
-      return q.question_body.toLowerCase().includes(value.toLowerCase());
+      return q.question_body.toLowerCase().includes(e.target.value.toLowerCase());
     })
     setFilter(filteredQuestion);
   }
@@ -20,21 +20,24 @@ const QuestionSearchBar = ({questions, setFilter, handleTrackingClick}) =>  {
       <input
         type="text"
         value={value}
+        widget='QandA'
+        element-name='Question_Search_Bar'
         placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS'
         onChange={(e) => {
           setValue(e.target.value);
-        }
-        }/>
+          if(e.target.value.length > 3) {
+            handleSubmit(e);
+          } else {
+            setFilter(questions);
+          }
+        }}
+         onClick={(e) => {
+          handleTrackingClick(e);
+        }}
+        />
       <div
         style={SearchQustionMagnifyGlass}
-        widget='QandA'
-        element-name='Question_Search_Bar'
-        onClick={ (e) => {
-          e.preventDefault();
-          handleSubmit();
-          handleTrackingClick(e);
-        }
-      }><FontAwesomeIcon icon={faMagnifyingGlass} /></div>
+      ><FontAwesomeIcon icon={faMagnifyingGlass} /></div>
   </QandAHSearchBar>
   )
 }
