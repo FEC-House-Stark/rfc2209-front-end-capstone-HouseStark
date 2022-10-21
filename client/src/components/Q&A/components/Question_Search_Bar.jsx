@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import {QandAHSearchBar , SearchQustionMagnifyGlass} from './Q&A_Styles.jsx';
 
-const QuestionSearchBar = ({questions, setFilter, handleTrackingClick}) =>  {
+const QuestionSearchBar = ({questions, setFilter, handleTrackingClick, setHighlight}) =>  {
 
   const [value, setValue] = useState('');
 
@@ -22,13 +22,15 @@ const QuestionSearchBar = ({questions, setFilter, handleTrackingClick}) =>  {
         value={value}
         widget='QandA'
         element-name='Question_Search_Bar'
-        placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS'
+        placeholder='Have a question? Search for answers…'
         onChange={(e) => {
           setValue(e.target.value);
           if(e.target.value.length > 3) {
             handleSubmit(e);
+            setHighlight(e.target.value);
           } else {
             setFilter(questions);
+            setHighlight('');
           }
         }}
          onClick={(e) => {
