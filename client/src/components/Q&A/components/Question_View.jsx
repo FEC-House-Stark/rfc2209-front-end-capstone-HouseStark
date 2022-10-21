@@ -43,7 +43,7 @@ const QuestionView = ({
     return parts.map((part, index) => (
       <React.Fragment key={index}>
         {part.toLowerCase() === higlight.toLowerCase() ? (
-          <b style={{backgroundColor: "#4D6A6D", color:'white', fontSize:'large'}}>{part}</b>
+          <b style={{backgroundColor: "#FFFF00"}}>{part}</b>
         ) : (
           part
         )}
