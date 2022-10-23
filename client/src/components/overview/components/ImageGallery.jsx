@@ -36,7 +36,7 @@ const ImageGallery = (props) => {
   const [translate, setTranslate] = useState(0);
   const [imageMode, setImageMode] = useState(MODES.DEFAULT);
   const [expandedWidth, setExpandedWidth] = useState(0);
-  const transition = 0.45;
+  const [transition, setTransition] = useState(0);
 
   useEffect(() => {
     updateWidth();
@@ -51,8 +51,8 @@ const ImageGallery = (props) => {
     'gridRowEnd': '4',
     position: 'relative',
     height: '100%',
-    width:   `${imageMode === MODES.EXPANDED ? `${expandedWidth}px` : '100%'}`,
-    'transition': 'width ease-out 0s',
+    width: `${imageMode !== MODES.DEFAULT ? `${expandedWidth}px` : '100%'}`,
+   // 'transition': `width ${transition}s`,
     'overflow': 'hidden',
     cursor: `${cursors[imageMode]}`,
     boxSizing: 'border-box',
@@ -64,11 +64,12 @@ const ImageGallery = (props) => {
   }, []);
   const updateWidth = () => {
     setExpandedWidth(props.getBodyWidth() - 40);
-    console.log('updating expanded:', expandedWidth);
   }
 
-  useEffect(()=> {
-    setTranslate(photoIndex * expandedWidth);
+  useEffect(() => {
+    if (imageMode !== MODES.DEFAULT) {
+      setTranslate(photoIndex * expandedWidth);
+    }
   }, [expandedWidth])
 
 
@@ -106,18 +107,17 @@ const ImageGallery = (props) => {
   }
 
   const getImageWidth = () => {
-    return MODES.DEFAULT !== imageMode ? expandedWidth : props.image_width;
+    return imageMode !== MODES.DEFAULT ? expandedWidth : props.image_width;
   }
 
   const handleImageClick = (e) => {
     e.preventDefault();
     if (imageMode === MODES.DEFAULT) {
-      console.log('Default > Expanded');
       setImageMode(MODES.EXPANDED);
       setTranslate(photoIndex * expandedWidth);
     } else if (imageMode === MODES.EXPANDED) {
       console.log('Expanded > Zoom');
-     // setImageMode(MODES.ZOOM);
+      setImageMode(MODES.ZOOM);
     } else if (imageMode === MODES.ZOOM) {
       console.log('Zoom > Expanded');
       setImageMode(MODES.EXPANDED);
@@ -130,7 +130,16 @@ const ImageGallery = (props) => {
     setImageMode(MODES.DEFAULT);
     setTranslate(photoIndex * props.image_width);
     e.stopPropagation();
-  }
+  };
+
+  const handleEnter = (e) => {
+    e.preventDefault();
+    setTransition(0.45);
+  };
+  const handleLeave = (e) => {
+    e.preventDefault();
+    setTransition(0);
+  };
 
   return (
     <>
@@ -163,8 +172,8 @@ const ImageGallery = (props) => {
               }} />
             ))}
           </div>
-          <ArrowButton direction="left" handleClick={handleLeftClick} active={photoIndex > 0} height={props.image_height} />
-          <ArrowButton direction="right" handleClick={handleRightClick} active={photoIndex < props.photos.length - 1} height={props.image_height} />
+          <ArrowButton direction="left" handleClick={handleLeftClick} active={photoIndex > 0} height={props.image_height} handleEnter={handleEnter} handleLeave={handleLeave} />
+          <ArrowButton direction="right" handleClick={handleRightClick} active={photoIndex < props.photos.length - 1} height={props.image_height} handleEnter={handleEnter} handleLeave={handleLeave} />
           <ThumbnailCarousel photos={props.photos} photoIndex={photoIndex} handleClick={handleThumbnailClick} height={props.image_height} />
           {imageMode !== MODES.DEFAULT &&
             <div style={{
@@ -181,7 +190,7 @@ const ImageGallery = (props) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}
-            onClick={handleMinimizeClick}
+              onClick={handleMinimizeClick}
             >
               <FontAwesomeIcon icon={faCompress} />
             </div>

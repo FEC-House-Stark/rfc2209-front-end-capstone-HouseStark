@@ -20,7 +20,7 @@ const arrowSymbols = {
   'down': faChevronDown,
 }
 
-const ArrowButton = ({handleClick, direction, active, height, carousel_height }) =>  {
+const ArrowButton = ({handleClick, direction, active, height, carousel_height, handleEnter, handleLeave }) =>  {
   const position = {
     'right': 'position: absolute;',
     'left': 'position: absolute;',
@@ -38,6 +38,8 @@ const ArrowButton = ({handleClick, direction, active, height, carousel_height })
   return (
     <div
       onClick={handleClick}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
       css={css`
       ${active ? `display: flex;` : `display: none;`}
       ${position[direction]}
