@@ -41,7 +41,6 @@ const AnswersListView = ({
       SortAnswersBySeller(data.results);
       setAnswers(data.results);
       setShowAnswers(data.results.slice(0,2));
-
     })
   },[])
 
@@ -77,7 +76,7 @@ const AnswersListView = ({
             e.preventDefault();
             setShowAnswers(answers.slice(0,2));
             handleTrackingClick(e);
-          }}>{answers.length>2? 'LOAD LESS ANSWERS' : null}</div>
+          }}>{answers.length>2? 'COLLAPSE ANSWERS' : null}</div>
         }
       </div>
     </AnswersListStyle>

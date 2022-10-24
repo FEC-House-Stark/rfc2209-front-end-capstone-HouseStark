@@ -4,7 +4,7 @@ const QandASearchView = styled.div`
 display: flex;
 flex-direction: column;
 align-items: stretch;
-max-height: 1000px;
+max-height: 90vh;
 overflow-y: auto;
 padding-right :15px;
 `;
@@ -92,6 +92,10 @@ const AnswersListStyle = styled.div`
   align-items: stretch;
   flex-direction: column;
   gap: 10px;
+  max-height: 50vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 180px;
   `
 
 const moreAnswersButton = {
