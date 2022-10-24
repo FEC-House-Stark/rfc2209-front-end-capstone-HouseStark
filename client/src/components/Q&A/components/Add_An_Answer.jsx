@@ -38,7 +38,7 @@ const AddanAnswer = ({
   return (
     <div >
       <div
-        style={{textDecorationLine: 'underline'}}
+        style={{textDecorationLine: 'underline', cursor:'pointer'}}
         widget='QandA'
         element-name='Add_Answer'
         onClick={(e) => {

@@ -12,6 +12,9 @@ const QandA = ({product_id,handleClick}) =>  {
   const [render, setRender] = useState(false);
   const [highlight, setHighlight] = useState('');
 
+  // const compareAnswerLength = (a,b) => {
+  //   return
+  // }
   let config = {
     params: { product_id, page: 1, count: 20 },
   }
@@ -19,8 +22,9 @@ const QandA = ({product_id,handleClick}) =>  {
   useEffect (() => {
     axios.get('/qa/questions',config)
     .then((result) => {
-      setQuestions(result.data.results);
-      setFilter(result.data.results);
+      const questions = result.data.results;
+      setQuestions(questions);
+      setFilter(questions);
     })
   },[product_id]);
 

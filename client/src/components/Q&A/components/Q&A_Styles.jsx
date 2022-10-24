@@ -4,6 +4,9 @@ const QandASearchView = styled.div`
 display: flex;
 flex-direction: column;
 align-items: stretch;
+max-height: 1000px;
+overflow-y: auto;
+padding-right :15px;
 `;
 
 const QandAQuestionActions = styled.span`
@@ -23,7 +26,8 @@ const buttonStyle = {
   textAlign: 'center',
   padding: '10px 10px 10px 10px',
   width: '180px',
-  border: '1px solid black'
+  border: '1px solid black',
+  cursor:'pointer',
 }
 
 const QandAOverViewStyle = styled.div`

@@ -17,20 +17,31 @@ const QuestionsView = ({
 
   const [showQuestion, setShowQuestions] = useState([])
   const [moreQuestions, setmoreQuestions] = useState(false);
+  // const [count, setCount] = useState(0);
 
   useEffect(() => {
-    setShowQuestions(filter.slice(0,4));
+    setShowQuestions(filter.slice(0,2));
+    // setCount(2);
   },[filter]);
 
   const handleMoreQuestion = () => {
+  // Add 2 questions per click;
+    // if(count+2 >= questions.length) {
+    //   setmoreQuestions(true);
+    // }
+    // setShowQuestions(questions.slice(0,count+2));
+    // setCount(count+2);
+
+  // show add questions all at once;
     setShowQuestions(questions);
     setmoreQuestions(true);
   }
 
-  const handleLessQuestion = () => {
-    setShowQuestions(questions.slice(0,4));
-    setmoreQuestions(false);
-  }
+  // const handleLessQuestion = () => {
+  //   setShowQuestions(questions.slice(0,2));
+  //   setCount(2);
+  //   setmoreQuestions(false);
+  // }
 
 
   return (
@@ -55,7 +66,7 @@ const QuestionsView = ({
           ? <MoreQuestionsButton
             moreQuestions={moreQuestions}
             handleMoreQuestion={handleMoreQuestion}
-            handleLessQuestion={handleLessQuestion}
+            // handleLessQuestion={handleLessQuestion}
             handleTrackingClick={handleTrackingClick}/>
           :null
       }
