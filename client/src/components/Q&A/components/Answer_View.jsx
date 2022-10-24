@@ -5,7 +5,7 @@ import AnswerHelpfulness from './Answer_Helpfulness.jsx';
 import AnswerReport from './Answer_Report.jsx';
 import Moment from 'react-moment';
 import styled from 'styled-components';
-import {AnswerActionItemStyle} from './Q&A_Styles.jsx';
+import {AnswerActionItemStyle, SellerFontWeight} from './Q&A_Styles.jsx';
 
 const AnswerView = ({answer,handleTrackingClick}) =>  {
 
@@ -31,6 +31,10 @@ const AnswerView = ({answer,handleTrackingClick}) =>  {
     handleRequestClick('report','put');
   }
 
+  const SellerFontWeight = {
+    fontWeight:'bolder',
+    color:'#505050',
+  }
 
 
   return (
@@ -40,7 +44,14 @@ const AnswerView = ({answer,handleTrackingClick}) =>  {
       </div>
       <AnswerPhotos photos={answer.photos}/>
       <AnswerActionItemStyle >
-        <div>By {answer.answerer_name} </div>
+        <div >By </div>
+        <div>
+          {
+            answer.answerer_name.toLowerCase()==='seller'
+            ?  <div style={SellerFontWeight}>{answer.answerer_name}</div>
+            :  <div>{answer.answerer_name}</div>
+          }
+        </div>
         <div>|</div>
         <Moment
           format="MMMM,DD,YYYY">

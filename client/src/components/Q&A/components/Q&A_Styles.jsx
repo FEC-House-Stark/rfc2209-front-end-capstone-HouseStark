@@ -140,6 +140,10 @@ const modalViewStyle = {
   gap:'10px',
 }
 
+const SellerFontWeight = {
+  fontWeight:'bolder',
+  color:'#505050',
+}
 
 
 export {
@@ -160,4 +164,5 @@ export {
   photoStyle,
   modalBoxStyle,
   modalViewStyle,
+  SellerFontWeight,
 }
