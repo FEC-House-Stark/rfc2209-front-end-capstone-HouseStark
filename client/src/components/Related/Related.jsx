@@ -25,63 +25,16 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
         setRelated([]);
         setThumbnails([]);
         setAllRatings([]);
-        // console.log('NEW ID ', res.data)
-        setRelatedIds(res.data)
-      }).catch((err) => console.log(err))
+        let unique = {}
+        for (let i = 0; i < res.data.length; i++) {
+          if (!unique[res.data[i]]) {
+            unique[res.data[i]] = res.data[i]
+          }
+        }
+        setRelatedIds(Object.keys(unique))
+      }).catch((err) => console.log('ERR in Product IDs',err))
   }, [product_id])
 
-  // useEffect(() => { //TESTING
-  //   if (related_ids.length) {
-  //     const calcReviewData = (ratings, id) => {
-  //       let totalReviews = 0;
-  //       let totalSum = 0
-  //       for (const rating in ratings) {
-  //         totalSum += rating * Number(ratings[rating]);
-  //         totalReviews += Number(ratings[rating]);
-  //       }
-  //       let avg = Number((totalSum / totalReviews).toFixed(2));
-  //       setAllRatings((all_ratings) => [...all_ratings, { id, avg, totalReviews }])
-  //     }
-  //     let ratings = related_ids.map((product_id) => {
-  //       let config = {
-  //         params: { product_id }
-  //       }
-  //       return axios('reviews/meta', config)
-  //     })
-  //     let relatedProducts = related_ids.map((id) => {
-  //       return axios(`products/${id}`)
-  //     })
-  //     let productStyles = related_ids.map((id) => {
-  //       return axios(`products/${id}/styles`)
-  //     })
-  //     Promise.all(relatedProducts)
-  //       .then((res) => {
-  //         let info = res.map(prod => (
-  //           {
-  //             id: prod.data.id,
-  //             category: prod.data.category,
-  //             name: prod.data.name,
-  //             price: prod.data.default_price,
-  //             features: prod.data.features
-  //           }
-  //         ))
-  //         setRelated(info)
-  //       }).catch((err) => console.log('relatedProducts error ', err))
-
-  //     Promise.all(productStyles)
-  //       .then((res) => {
-  //         let thumbnail = res.map(prod => (
-  //           prod.data.results[0].photos[0]
-  //         ))
-  //         setThumbnails(thumbnail)
-  //       }).catch((err) => console.log('productStyles error ', err))
-
-  //     Promise.all(ratings)
-  //       .then((res) => {
-  //         res.map(prod => calcReviewData(prod.data.ratings, prod.data.product_id))
-  //       }).catch((err) => console.log('err getting ratings', err))
-  //   }
-  // }, [related_ids])
 
   useEffect(() => { //gets related products
     if (related_ids.length) {
@@ -100,7 +53,7 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
             }
           ))
           setRelated(info)
-        })
+        }).catch((err) => console.log('ERR in RELATED',err))
     }
   }, [related_ids])
 
@@ -124,7 +77,7 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
             }
           }
           setThumbnails(thumbnail)
-        })
+        }).catch((err) => console.log('Err getting thumbnails', err));
     }
   }, [related_ids])
 

@@ -7,7 +7,7 @@ const star = <FontAwesomeIcon icon={faStar} />
 
 const CardContainer = styled.div`
 max-width:820px;
-min-width:820px;
+min-width:800px;
 box-sizing: border-box;
 display: flex;
 overflow-x: hidden;
