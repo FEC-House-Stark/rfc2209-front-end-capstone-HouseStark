@@ -12,8 +12,6 @@ const arrowSymbols = {
   'left': faArrowLeft,
   'up': faChevronUp,
   'down': faChevronDown,
-  'leftThumb': faChevronLeft,
-  'rightThumb': faChevronRight,
 }
 
 const ArrowButton = ({handleClick, direction, active, height, carousel_height, handleEnter, handleLeave, expanded }) =>  {
@@ -28,10 +26,6 @@ const ArrowButton = ({handleClick, direction, active, height, carousel_height, h
     top: ${height/2-carousel_height/2 - button_height - button_margin}px;`,
     'down': `position: absolute;
     top: ${height/2+carousel_height/2 + button_margin}px;`,
-    'leftThumb': `position: absolute;
-    left: -25px;`,
-    'rightThumb': `position: absolute;
-    right: -25px;`,
   }
 
   return (

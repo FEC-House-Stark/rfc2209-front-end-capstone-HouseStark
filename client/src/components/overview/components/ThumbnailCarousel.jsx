@@ -12,15 +12,15 @@ const ThumbnailCarousel = ({ photos, photoIndex, handleClick, height, expanded }
   /* styles */
   const gallery_height = expanded ? 200:height;
   const carousel_height = gallery_height * .85;
-  const carousel_spacing = carousel_height / n_max_thumbnails;
+  const carousel_spacing = expanded ? 30 : carousel_height / n_max_thumbnails;
   const thumbnail_width = .75 * carousel_spacing;
+  const expanded_carousel_height = carousel_spacing * photos.length;
   const thumbnailCarouselStyle = {
     display: 'flex',
     flexDirection: `${expanded ? 'row': 'column'}`,
     height: `${expanded ? `${carousel_spacing}px`:`${carousel_height}px`}`,
-    width: `${expanded ? `${carousel_height}px`:`${carousel_spacing}px`}`,
-    //width: `${carousel_spacing}px`,
-    'overflow': 'hidden',
+    width: `${expanded ? `${expanded_carousel_height}px`:`${carousel_spacing}px`}`,
+    overflow: 'hidden',
     position: 'absolute',
     top: '0',
     left: '0',
@@ -73,15 +73,15 @@ const ThumbnailCarousel = ({ photos, photoIndex, handleClick, height, expanded }
           flexDirection: 'column',
           alignItems: 'center',
           height: `${expanded ? `${carousel_spacing}px`:`${gallery_height}px`}`,
-          width: `${expanded ? `${carousel_height}px`:`${carousel_spacing}px`}`,
+          width: `${expanded ? `${expanded_carousel_height}px`:`${carousel_spacing}px`}`,
         }}>
-          <ArrowButton direction={expanded ? 'leftThumb':'up'} handleClick={handleUpClick} active={thumbnailIndex > n_max_thumbnails - 1} height={height} carousel_height={carousel_height}/>
+          <ArrowButton direction='up' handleClick={handleUpClick} active={thumbnailIndex > n_max_thumbnails - 1} height={height} carousel_height={carousel_height}/>
           <div style={thumbnailCarouselStyle}>
             {photos.map((photo, i) => (
               <div key={photo + i} style={{
                 height: `${carousel_spacing}px`,
                 width: `${carousel_spacing}px`,
-                transform: `${expanded ? `translateX(-${translate}px)`:`translateY(-${translate}px)`}`,
+                transform: `${expanded ? '' : `translateY(-${translate}px)`}`,
                 transition: `transform ease-out ${transition}s`,
                 flexShrink: '0',
                 display: 'flex',
@@ -92,7 +92,7 @@ const ThumbnailCarousel = ({ photos, photoIndex, handleClick, height, expanded }
               </div>
             ))}
           </div>
-          <ArrowButton direction={expanded ? 'rightThumb': 'down'} handleClick={handleDownClick} active={(photos.length > n_max_thumbnails) && (thumbnailIndex < photos.length - 1)} height={height} carousel_height={carousel_height} />
+          <ArrowButton direction='down' handleClick={handleDownClick} active={(photos.length > n_max_thumbnails) && (thumbnailIndex < photos.length - 1)} height={height} carousel_height={carousel_height} />
         </div>
       }
     </>
