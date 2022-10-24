@@ -64,7 +64,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   }
 
   useEffect(() => {
-// console.log(characteristics)
+    // console.log(characteristics)
     Modal.setAppElement('body');
 
     axios.get(host_url + 'reviews/', config)
@@ -139,8 +139,9 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
         error.push('❌ Invalid Email')
       }
     }
-  console.log('test', newRecomended)
+    // console.log('test', newRecomended)
     if (error.length === 0) {
+      sendNewReview()
       toggleModal()
       setTimeout(() => {
         alert('Review submitted 🎉')
@@ -148,6 +149,32 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     } else {
       alert('You are missing required fields:\n' + error.join('\n'))
     }
+  }
+
+  var sendNewReview = () => {
+    let config = {
+      url: '/reviews',
+      method: 'post',
+      data: {
+        product_id,
+        "rating": currentValue,
+        "summary": title,
+        "body": review,
+        "recommend": newRecomended,
+        "name": name,
+        "email": email,
+        "photos": [],
+        "characteristics": {"223579": 4, "223577": 3, "223578": 4, "223580": 5}
+      },
+    }
+
+    axios(config)
+      .then((result) => {
+        console.log(result);
+      })
+      .then((err) => {
+        console.log(err);
+      })
   }
 
   var uniqueCharacteristicsCalc = () => {
