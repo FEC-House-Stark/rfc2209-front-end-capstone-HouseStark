@@ -17,13 +17,13 @@ const host_url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc'
 
 
 app.get('/*', (req, res) => {
-let config = {
-  headers: {
-    'Authorization': process.env.TOKEN,
+  let config = {
+    headers: {
+      'Authorization': process.env.TOKEN,
+    }
   }
-}
-
-  axios.get(host_url + req.url , config)
+  if (!req.url.includes('favicon')) {
+    axios.get(host_url + req.url, config)
       .then((result) => {
         res.send(result.data)
       })
@@ -31,7 +31,7 @@ let config = {
         console.log(err)
       })
 
-
+  }
 })
 
 app.post('/*', (req, res) => {
@@ -45,13 +45,13 @@ app.post('/*', (req, res) => {
   }
 
   axios(config)
-  .then((result) => {
-    res.send(result.data)
-  })
-  .catch((err) => {
-    console.log(err)
-    res.send(err)
-  })
+    .then((result) => {
+      res.send(result.data)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.send(err)
+    })
 
 })
 
@@ -64,13 +64,13 @@ app.put('/*', (req, res) => {
     },
   }
   axios(config)
-  .then((result) => {
-    res.send(result.data)
-  })
-  .catch((err) => {
-    console.log(err)
-    res.send(err)
-  })
+    .then((result) => {
+      res.send(result.data)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.send(err)
+    })
 
 })
 
