@@ -4,6 +4,9 @@ const QandASearchView = styled.div`
 display: flex;
 flex-direction: column;
 align-items: stretch;
+max-height: 1000px;
+overflow-y: auto;
+padding-right :15px;
 `;
 
 const QandAQuestionActions = styled.span`
