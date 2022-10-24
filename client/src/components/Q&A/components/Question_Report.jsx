@@ -1,6 +1,9 @@
 import {useState, useEffect} from 'react';
 
-const QuestionReport = ({handleReportClick}) =>  {
+const QuestionReport = ({handleReportClick, handleTrackingClick}) =>  {
+
+  const [report, setReport] = useState(false);
+
 
   return (
     <div
@@ -8,10 +11,19 @@ const QuestionReport = ({handleReportClick}) =>  {
     widget='QandA'
     element-name='Question_Helpfulness'
     onClick={(e)=> {
-      handleReportClick();
+      if(!report) {
+        handleReportClick();
+        handleTrackingClick(e);
+        setReport(true);
+      } else {
+        handleTrackingClick(e);
+      }
     }}
     >
-      Report
+      {!report
+        ?'Report'
+        :'Reported'
+      }
   </div>
   )
 }
