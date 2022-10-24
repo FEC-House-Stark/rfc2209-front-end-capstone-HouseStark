@@ -17,18 +17,24 @@ const QuestionsView = ({
 
   const [showQuestion, setShowQuestions] = useState([])
   const [moreQuestions, setmoreQuestions] = useState(false);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    setShowQuestions(filter.slice(0,4));
+    setShowQuestions(filter.slice(0,2));
+    setCount(2);
   },[filter]);
 
   const handleMoreQuestion = () => {
-    setShowQuestions(questions);
-    setmoreQuestions(true);
+    if(count+2 >= questions.length) {
+      setmoreQuestions(true);
+    }
+    setShowQuestions(questions.slice(0,count+2));
+    setCount(count+2);
   }
 
   const handleLessQuestion = () => {
-    setShowQuestions(questions.slice(0,4));
+    setShowQuestions(questions.slice(0,2));
+    setCount(2);
     setmoreQuestions(false);
   }
 
