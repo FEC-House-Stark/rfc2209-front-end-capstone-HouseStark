@@ -48,24 +48,27 @@ const ProductList = ({ data, setId }) => {
   const [buttonL, setButtonL] = useState(false);
 
   useEffect(() => { //sets length of data
-    console.log(data);
+    //console.log(data);
     if (data.length) {
+      setButtonR(false)
+      setButtonL(false)
+      setCount(4);
       setLength(data.length);
+    } else {
+      setLength(0);
     }
   }, [data])
 
   useEffect(() => { //for right button
-    if (length > 0) {
-      if (count === length) {
-        setButtonR(false)
-      } else if (length > count) {
-        setButtonR(true);
-      }
+    if (length > 4 && count !== length) {
+      setButtonR(true);
+    } else {
+      setButtonR(false);
     }
   }, [count, length])
 
   useEffect(() => { //for left button
-    if (count > 4) {
+    if (count > 4 && length > 4) {
       setButtonL(true)
     } else {
       setButtonL(false)
