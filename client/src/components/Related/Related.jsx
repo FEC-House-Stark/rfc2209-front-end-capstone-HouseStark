@@ -110,7 +110,7 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
     if (related.length && thumbnails.length && all_ratings.length) {
       // console.log('thumbnails ', thumbnails, 'related ', related)
       for (let i = 0; i < related.length; i++) {
-        if (thumbnails[i].url) {
+        if (thumbnails[i].url && related[i].id !== Number(product_id)) {
           setData((data) => [...data, {
             ...related[i],
             ...thumbnails[i],
