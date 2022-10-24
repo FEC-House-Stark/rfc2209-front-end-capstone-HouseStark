@@ -31,6 +31,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   const [files, setFiles] = useState({});
   const [currentValue, setCurrentValue] = useState(0);
   const [emailValidation, setEmailValidation] = useState(false);
+  const [submitFlag, setSubmitFlag] = useState(false);
 
   const host_url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/'
 
@@ -52,7 +53,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
 
 
   // console.log(numReviews)
-  let config = {
+  let config1 = {
     headers: {
       'Authorization': process.env.TOKEN,
     },
@@ -67,7 +68,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     // console.log(characteristics)
     Modal.setAppElement('body');
 
-    axios.get(host_url + 'reviews/', config)
+    axios.get(host_url + 'reviews/', config1)
       .then((data) => {
         // console.log('test:', data.data.results[0].recommend)
         setReviewList(data.data.results)
@@ -76,7 +77,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       .catch((err) => {
         console.log(err)
       })
-  }, [product_id, sortType, numReviews]);
+  }, [product_id, sortType, numReviews, submitFlag]);
 
   var handleMoreReviews = () => {
     if (reviewCount >= reviewList.length - 1) {
@@ -142,6 +143,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     // console.log('test', newRecomended)
     if (error.length === 0) {
       sendNewReview()
+      setSubmitFlag(!submitFlag)
       toggleModal()
       setTimeout(() => {
         alert('Review submitted 🎉')
@@ -152,28 +154,53 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   }
 
   var sendNewReview = () => {
+    // console.log("TEST")
+
+    let reconfig = {
+      Comfort: [comfortRating, setComfortRating, 223579],
+      Fit: [fitRating, setFitRating, 223577],
+      Length: [lengthRating, setLengthRating, 223578],
+      Quality: [qualityRating, setQualityRating, 223580],
+      Size: [sizeRating, setSizeRating, 223585],
+      Width: [widthRating, setWidthRating, 223586],
+    }
+  let dataObj = {}
+  for (var key in characteristics) {
+    // console.log(characteristics[key].id)
+    let charKey = key
+    dataObj[charKey] = characteristics[key].id
+  }
+  let resultObj = {}
+  for (var key in dataObj) {
+    let idKey = dataObj[key]
+    resultObj[idKey.toString()] = Number(reconfig[key][0])
+  }
+
+    let temp = true;
+    if (newRecomended === 'yes') {
+      temp = true;
+    } else {
+      temp = false;
+    }
     let config = {
-      url: '/reviews',
-      method: 'post',
-      data: {
         product_id,
         "rating": currentValue,
         "summary": title,
         "body": review,
-        "recommend": newRecomended,
-        "name": name,
+        "recommend": temp,
+        "name": nickname,
         "email": email,
         "photos": [],
-        "characteristics": {"223579": 4, "223577": 3, "223578": 4, "223580": 5}
-      },
+        "characteristics": resultObj
     }
+    // console.log(config)
 
-    axios(config)
+    axios.post(host_url + 'reviews', config, {headers: {'Authorization': process.env.TOKEN}})
       .then((result) => {
-        console.log(result);
+        // console.log('TEST', result);
       })
-      .then((err) => {
-        console.log(err);
+      .catch((err) => {
+        console.log('TEST', err);
       })
   }
 
