@@ -31,7 +31,6 @@ cursors[MODES.EXPANDED] = 'crosshair';
 cursors[MODES.ZOOM] = 'zoom-out';
 
 const ImageGallery = (props) => {
-  const [displayPhoto, setDisplayPhoto] = useState("");
   const [photoIndex, setPhotoIndex] = useState(0);
   const [translate, setTranslate] = useState(0);
   const [imageMode, setImageMode] = useState(MODES.DEFAULT);
@@ -48,9 +47,9 @@ const ImageGallery = (props) => {
     'borderRadius': '10px',
     'gridColumnStart': '2',
     'gridRowStart': '1',
-    'gridRowEnd': '4',
+    'gridRowEnd': `${imageMode !== MODES.DEFAULT ? '5' : '4'}`,
     position: 'relative',
-    height: '100%',
+    height: `${props.image_height}`,
     width: `${imageMode !== MODES.DEFAULT ? `${expandedWidth}px` : '100%'}`,
    // 'transition': `width ${transition}s`,
     'overflow': 'hidden',
@@ -68,6 +67,8 @@ const ImageGallery = (props) => {
 
   useEffect(() => {
     if (imageMode !== MODES.DEFAULT) {
+      console.log('translate:', photoIndex * expandedWidth, 'transition', transition);
+      console.log('translate state:', translate);
       setTranslate(photoIndex * expandedWidth);
     }
   }, [expandedWidth])
@@ -82,6 +83,12 @@ const ImageGallery = (props) => {
       }
     }
   }, [props.photos]);
+
+  useEffect(() => {
+    setImageMode(MODES.DEFAULT);
+    setPhotoIndex(0);
+    setTranslate(0);
+  }, [props.product_id]);
 
   const handleLeftClick = (e) => {
     e.preventDefault();
@@ -113,8 +120,9 @@ const ImageGallery = (props) => {
   const handleImageClick = (e) => {
     e.preventDefault();
     if (imageMode === MODES.DEFAULT) {
-      setImageMode(MODES.EXPANDED);
+      props.setThumbnailRow(true);
       setTranslate(photoIndex * expandedWidth);
+      setImageMode(MODES.EXPANDED);
     } else if (imageMode === MODES.EXPANDED) {
       console.log('Expanded > Zoom');
       setImageMode(MODES.ZOOM);
@@ -129,6 +137,7 @@ const ImageGallery = (props) => {
     console.log('Expanded/Zoom > Default')
     setImageMode(MODES.DEFAULT);
     setTranslate(photoIndex * props.image_width);
+    props.setThumbnailRow(false);
     e.stopPropagation();
   };
 
@@ -172,9 +181,10 @@ const ImageGallery = (props) => {
               }} />
             ))}
           </div>
-          <ArrowButton direction="left" handleClick={handleLeftClick} active={photoIndex > 0} height={props.image_height} handleEnter={handleEnter} handleLeave={handleLeave} />
+          <ArrowButton direction="left" handleClick={handleLeftClick} active={photoIndex > 0} height={props.image_height} handleEnter={handleEnter} handleLeave={handleLeave} expanded={imageMode}/>
           <ArrowButton direction="right" handleClick={handleRightClick} active={photoIndex < props.photos.length - 1} height={props.image_height} handleEnter={handleEnter} handleLeave={handleLeave} />
-          <ThumbnailCarousel photos={props.photos} photoIndex={photoIndex} handleClick={handleThumbnailClick} height={props.image_height} />
+          {imageMode === MODES.DEFAULT && <ThumbnailCarousel photos={props.photos} photoIndex={photoIndex} handleClick={handleThumbnailClick} height={props.image_height} expanded={false}/>}
+          {imageMode !== MODES.DEFAULT && <ThumbnailCarousel photos={props.photos} photoIndex={photoIndex} handleClick={handleThumbnailClick} height={props.image_height} expanded={true}/>}
           {imageMode !== MODES.DEFAULT &&
             <div style={{
               position: 'absolute',
