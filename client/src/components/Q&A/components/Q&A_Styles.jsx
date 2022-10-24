@@ -26,7 +26,8 @@ const buttonStyle = {
   textAlign: 'center',
   padding: '10px 10px 10px 10px',
   width: '180px',
-  border: '1px solid black'
+  border: '1px solid black',
+  cursor:'pointer',
 }
 
 const QandAOverViewStyle = styled.div`
