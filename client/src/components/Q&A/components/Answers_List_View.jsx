@@ -19,14 +19,29 @@ const AnswersListView = ({
     },
   }
 
+  const SortAnswersBySeller = (answers) => {
+    var sellerPoint = 0;
+    var answerPoint = 0;
+    answers.forEach((a) => {
+      var isSeller = (a.answerer_name.toLowerCase() === 'seller');
+      if(isSeller) {
+        [answers[sellerPoint],answers[answerPoint]] = [answers[answerPoint],answers[sellerPoint]];
+        sellerPoint++;
+      }
+      answerPoint++;
+    })
+  }
+
   useEffect (() => {
     axios.get(`/qa/questions/${question_id}/answers`,config)
     .then((result)=> {
       return result.data;
     })
     .then((data) => {
+      SortAnswersBySeller(data.results);
       setAnswers(data.results);
       setShowAnswers(data.results.slice(0,2));
+
     })
   },[])
 
