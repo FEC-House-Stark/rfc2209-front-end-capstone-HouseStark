@@ -31,18 +31,14 @@ const AnswerView = ({answer,handleTrackingClick}) =>  {
     handleRequestClick('report','put');
   }
 
-  const SellerFontWeight = {
-    fontWeight:'bolder',
-    color:'#505050',
-  }
-
-
   return (
     <div >
       <div style={{fontSize:'medium'}}>
         {answer.body}
       </div>
-      <AnswerPhotos photos={answer.photos}/>
+      <AnswerPhotos
+        handleTrackingClick={handleTrackingClick}
+        photos={answer.photos}/>
       <AnswerActionItemStyle >
         <div >By </div>
         <div>

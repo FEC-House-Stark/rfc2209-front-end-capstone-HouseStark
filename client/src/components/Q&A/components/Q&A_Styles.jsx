@@ -116,32 +116,48 @@ font-size: small;
 color : #808080	;
 `
 
-const photoStyle = {
-  border:'1px solid black',
-  minHeight:'100px',
-  minWidth:'100px',
-  maxHeight: '100px',
-  marginRight:'20px'
-}
 
 const modalBoxStyle = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: '50%',
-    bottom: '50%',
     minHeight:'300px',
     minWidth:'500px',
     transform: 'translate(-50%, -50%)',
   },
 };
 
+const photoModalStyle = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: '50%',
+    bottom: '50%',
+    minHeight:'40vh',
+    minWidth:'60vh',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
+const photoStyle = {
+  border:'1px solid black',
+  minHeight:'100px',
+  minWidth:'100px',
+  maxHeight: '100px',
+  marginRight:'20px',
+  cursor:'pointer',
+}
 
 const modalViewStyle = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
   gap:'10px',
+}
+
+const modalImgStyle = {
+  display:'block',
+  marginLeft:'auto',
+  marginRight:'auto',
+  width:'60%',
 }
 
 const SellerFontWeight = {
@@ -169,4 +185,6 @@ export {
   modalBoxStyle,
   modalViewStyle,
   SellerFontWeight,
+  photoModalStyle,
+  modalImgStyle,
 }

@@ -1,18 +1,56 @@
 import {useState, useEffect} from 'react';
-import {photoStyle} from './Q&A_Styles.jsx';
+import AnswerPhoto from './Answer_Photo.jsx';
+import Modal from 'react-modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import {modalViewStyle, photoModalStyle,modalImgStyle} from './Q&A_Styles.jsx';
 
-const AnswerPhotos = ({photos}) =>  {
+
+const AnswerPhotos = ({
+  photos,
+  handleTrackingClick,
+}) =>  {
+
+  const [openModal, setIsOpen] = useState(false);
+  const [clickImg, setClickImg] = useState('');
 
   return (
-    <div>
-      {photos.map((p) => {
-        return <img
+    <>
+      <div>
+        {photos.map((p) => {
+          return <AnswerPhoto
           key={p.id}
-          style={photoStyle}
-          src={p.url}
-        />
-      })}
-    </div>
+          photo={p}
+          setIsOpen={setIsOpen}
+          setClickImg={setClickImg}
+          />
+        })}
+      </div>
+      <Modal
+        isOpen={openModal}
+        style={photoModalStyle}
+        ariaHideApp={false}
+      >
+        <span style={modalViewStyle}>
+          <div style={{display:'flex', flexDirection:'row-reverse'}}>
+            <button
+              widget='QandA'
+              element-name='Zoom_Photo_Modal_Close'
+              onClick={(e)=> {
+                setIsOpen(!openModal);
+                }}>
+              <FontAwesomeIcon icon={faCircleXmark} />
+            </button>
+          </div>
+          <div style={{textAlign: 'center'}}>
+            <img
+              style={modalImgStyle}
+              src={clickImg}
+              />
+          </div>
+        </span>
+      </Modal>
+    </>
   )
 }
 
