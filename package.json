@@ -56,6 +56,7 @@
     "react-icons": "^4.6.0",
     "react-modal": "^3.15.1",
     "react-moment": "^1.1.2",
+    "react-stars-display": "^0.1.24",
     "react-test-renderer": "^18.2.0",
     "styled-components": "^5.3.6",
     "util": "^0.12.5",
