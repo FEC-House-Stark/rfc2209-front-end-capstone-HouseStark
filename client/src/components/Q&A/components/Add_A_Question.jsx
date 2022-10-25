@@ -18,8 +18,6 @@ const AddaQuestion = ({
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
-  console.log(productInfo);
-
   let config = {
     url: '/qa/questions',
     method: 'post',
@@ -68,33 +66,40 @@ const AddaQuestion = ({
           </div>
             <h3 style={{textAlign:'center'}}>Ask Your Question</h3>
             <h4>About the {productInfo.name}</h4>
-          Question:
-            <input
-              type='text'
-              onChange={(e)=> {
-                setBody(e.target.value);
-              }}/>
-          Name:
-            <input
-              type='text'
-              onChange={(e)=> {
-                setName(e.target.value);
-              }}/>
-          email:
-            <input
-              type='email'
-              onChange={(e)=> {
-                setEmail(e.target.value);
-              }}/>
-          <button
-            widget='QandA'
-            element-name='Add_A_Question_Submit'
-            disabled={!name, !body, !email}
-            onClick={(e)=> {
-              handleQuestionSubmit();
-              // handleTrackingClick(e);
-              setIsOpen(!openModal);
-            }}>submit</button>
+            <form>
+              Your Question:
+              <input
+                type='text'
+                maxLength='1000'
+                row='4'
+                onChange={(e)=> {
+                  setBody(e.target.value);
+                }}/>
+            Name:
+              <input
+                type='text'
+                name='question'
+                required
+                onChange={(e)=> {
+                  setName(e.target.value);
+                }}/>
+            email:
+              <input
+                type='email'
+                onChange={(e)=> {
+                  setEmail(e.target.value);
+                }}/>
+
+            <button
+              widget='QandA'
+              element-name='Add_A_Question_Submit'
+              disabled={!name, !body, !email}
+              onClick={(e)=> {
+                handleQuestionSubmit();
+                // handleTrackingClick(e);
+                setIsOpen(!openModal);
+              }}>submit</button>
+          </form>
         </span>
       </Modal>
     </div>
