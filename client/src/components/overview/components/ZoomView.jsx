@@ -78,8 +78,6 @@ const ZoomView = ({ photo, modalOpen, toggleZoomModal }) => {
       let y_diff = (coords.image_h - coords.view_h);
       let y = Math.max(y_diff * (coords.y / coords.view_h), 0);
       setTranslate({ x, y });
-      console.log(`image_w: ${coords.image_w} vw: ${coords.view_w} x_diff:${x_diff} coords.x:${coords.x}
-      translateX: ${translate.x} translateY:${translate.y}`);
     }
   }, [coords])
 

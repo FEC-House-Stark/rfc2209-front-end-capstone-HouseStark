@@ -124,18 +124,15 @@ const ImageGallery = (props) => {
       setTranslate(photoIndex * expandedWidth);
       setImageMode(MODES.EXPANDED);
     } else if (imageMode === MODES.EXPANDED) {
-      console.log('Expanded > Zoom');
       setModalOpen(true);
       setImageMode(MODES.ZOOM);
     } else if (imageMode === MODES.ZOOM) {
-      console.log('Zoom > Expanded');
       setImageMode(MODES.EXPANDED);
     }
   };
 
   const handleMinimizeClick = (e) => {
     e.preventDefault();
-    console.log('Expanded/Zoom > Default')
     setImageMode(MODES.DEFAULT);
     setTranslate(photoIndex * props.image_width);
     props.setThumbnailRow(false);
@@ -153,7 +150,6 @@ const ImageGallery = (props) => {
 
   const toggleZoomModal = (e) => {
     e.preventDefault();
-    console.log('Zoom > Expanded');
     setImageMode(MODES.EXPANDED);
     setModalOpen(false);
   }
