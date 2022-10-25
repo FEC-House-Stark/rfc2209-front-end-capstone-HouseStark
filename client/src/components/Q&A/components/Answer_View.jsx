@@ -32,7 +32,8 @@ const AnswerView = ({answer,handleTrackingClick}) =>  {
   }
 
   return (
-    <div >
+    <div widget='QandA'
+      element-name='Answer_View' >
       <div style={{fontSize:'medium'}}>
         {answer.body}
       </div>

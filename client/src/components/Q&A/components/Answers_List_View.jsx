@@ -47,38 +47,42 @@ const AnswersListView = ({
 
   return (
     <AnswersListStyle>
-      <div style={{width:'700px', fontFamily:'Times New Roman', fontSize:'smaller', color:'#686868'}}>
-        { showAnswers.map((a) => {
-          return <AnswerView
-          key={a.answer_id}
-          answer={a}
-          handleTrackingClick={handleTrackingClick}/>
-        })}
+      <div widget='QandA'
+      element-name='Answers_List_View'>
+        <div style={{width:'700px', fontFamily:'Times New Roman', fontSize:'smaller', color:'#686868'}}>
+          { showAnswers.map((a) => {
+            return <AnswerView
+            key={a.answer_id}
+            answer={a}
+            handleTrackingClick={handleTrackingClick}/>
+          })}
+        </div>
+        <div>
+          { showAnswers.length < answers.length
+            ?
+            <div
+            style={moreAnswersButton}
+            widget='QandA'
+            element-name='More_Answers'
+            onClick={(e) => {
+              e.preventDefault();
+              setShowAnswers(answers);
+              handleTrackingClick(e);
+            }}>LOAD MORE ANSWERS</div>
+            :
+            <div
+            style={moreAnswersButton}
+            widget='QandA'
+            element-name='Less_Answers'
+            onClick={(e) => {
+              e.preventDefault();
+              setShowAnswers(answers.slice(0,2));
+              handleTrackingClick(e);
+            }}>{answers.length>2? 'COLLAPSE ANSWERS' : null}</div>
+          }
+        </div>
       </div>
-      <div>
-        { showAnswers.length < answers.length
-          ?
-          <div
-          style={moreAnswersButton}
-          widget='QandA'
-          element-name='More_Answers'
-          onClick={(e) => {
-            e.preventDefault();
-            setShowAnswers(answers);
-            handleTrackingClick(e);
-          }}>LOAD MORE ANSWERS</div>
-          :
-          <div
-          style={moreAnswersButton}
-          widget='QandA'
-          element-name='Less_Answers'
-          onClick={(e) => {
-            e.preventDefault();
-            setShowAnswers(answers.slice(0,2));
-            handleTrackingClick(e);
-          }}>{answers.length>2? 'COLLAPSE ANSWERS' : null}</div>
-        }
-      </div>
+
     </AnswersListStyle>
   )
 }

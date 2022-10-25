@@ -9,7 +9,7 @@ const QuestionReport = ({handleReportClick, handleTrackingClick}) =>  {
     <div
     style={{textDecorationLine: 'underline', cursor:'pointer'}}
     widget='QandA'
-    element-name='Question_Helpfulness'
+    element-name='Question_Report'
     onClick={(e)=> {
       if(!report) {
         handleReportClick();

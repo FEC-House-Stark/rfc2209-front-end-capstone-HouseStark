@@ -119,6 +119,10 @@ color : #808080	;
 
 const modalBoxStyle = {
   content: {
+    top: '50%',
+    left: '50%',
+    right: '50%',
+    bottom: '50%',
     minHeight:'300px',
     minWidth:'500px',
     transform: 'translate(-50%, -50%)',

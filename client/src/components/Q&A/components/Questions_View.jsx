@@ -46,35 +46,39 @@ const QuestionsView = ({
 
   return (
     <QandASearchView>
-      <div>
-        { questions.length
-          ?showQuestion.map((q) => {
-            return <QuestionView
-            key={q.question_id}
-            product_id={product_id}
-            question={q}
-            highlight={highlight}
-            handleTrackingClick={handleTrackingClick}
-            />
-          })
-          :null
+      <div widget='QandA'
+        element-name='Questions_View'>
+        <div>
+          { questions.length
+            ?showQuestion.map((q) => {
+              return <QuestionView
+              key={q.question_id}
+              product_id={product_id}
+              question={q}
+              highlight={highlight}
+              handleTrackingClick={handleTrackingClick}
+              />
+            })
+            :null
+          }
+      </div>
+      <QandAQuestionActions>
+        {
+          questions.length
+            ? <MoreQuestionsButton
+              moreQuestions={moreQuestions}
+              handleMoreQuestion={handleMoreQuestion}
+              // handleLessQuestion={handleLessQuestion}
+              handleTrackingClick={handleTrackingClick}/>
+            :null
         }
-    </div>
-    <QandAQuestionActions>
-      {
-        questions.length
-          ? <MoreQuestionsButton
-            moreQuestions={moreQuestions}
-            handleMoreQuestion={handleMoreQuestion}
-            // handleLessQuestion={handleLessQuestion}
-            handleTrackingClick={handleTrackingClick}/>
-          :null
-      }
-       <AddaQuestion
-        product_id={product_id}
-        handleTrackingClick={handleTrackingClick}
-        />
-    </QandAQuestionActions>
+        <AddaQuestion
+          product_id={product_id}
+          handleTrackingClick={handleTrackingClick}
+          />
+      </QandAQuestionActions>
+      </div>
+
   </QandASearchView>
   )
 }

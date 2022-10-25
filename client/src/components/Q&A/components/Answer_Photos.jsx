@@ -16,13 +16,13 @@ const AnswerPhotos = ({
 
   return (
     <>
-      <div>
+      <div widget='QandA' element-name='Answer_Photos'>
         {photos.map((p) => {
           return <AnswerPhoto
-          key={p.id}
-          photo={p}
-          setIsOpen={setIsOpen}
-          setClickImg={setClickImg}
+            key={p.id}
+            photo={p}
+            setIsOpen={setIsOpen}
+            setClickImg={setClickImg}
           />
         })}
       </div>

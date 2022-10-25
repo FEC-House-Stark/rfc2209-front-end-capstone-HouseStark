@@ -51,7 +51,8 @@ const AddaQuestion = ({
         style={modalBoxStyle}
         ariaHideApp={false}
       >
-        <span style={modalViewStyle}>
+        <span style={modalViewStyle} widget='QandA'
+        element-name='Add_A_Question_Modal'>
           <div style={{display:'flex', flexDirection:'row-reverse'}}>
             <button
               widget='QandA'
