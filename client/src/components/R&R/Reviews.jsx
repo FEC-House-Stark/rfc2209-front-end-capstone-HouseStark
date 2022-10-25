@@ -6,6 +6,7 @@ import FileUpload from './FileUpload.jsx'
 import Breakdown from './Breakdown.jsx'
 import StarRating from './StarRating.jsx'
 import { BreakdownContainer, ListContainer, ReviewContainer } from "./file-upload.styles";
+import Stars from 'react-stars-display';
 
 
 
@@ -16,7 +17,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   const [reviewCount, setReviewCount] = useState(2);
   const [isOpen, setIsOpen] = useState(false);
   const [newReview, setNewReview] = useState({});
-  const [newRecomended, setNewRecomended] = useState('yes');
+  const [newRecomended, setNewRecomended] = useState('');
   const [sortType, setSortType] = useState('relevant');
   const [sizeRating, setSizeRating] = useState('0');
   const [comfortRating, setComfortRating] = useState('0');
@@ -30,14 +31,13 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   const [email, setEmail] = useState('');
   const [files, setFiles] = useState({});
   const [currentValue, setCurrentValue] = useState(0);
+  const [emailValidation, setEmailValidation] = useState(false);
+  const [submitFlag, setSubmitFlag] = useState(false);
+  const [filterObj, setFilterObj] = useState([]);
+  const [filterList, setFilterList] = useState([]);
 
   const host_url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/'
 
-  const barStyles = {
-    'width': '100%',
-    'height': '100%',
-    'backgrounColor': 'green'
-  }
 
   const textStyles = {
     'border': "1px solid #a9a9a9",
@@ -48,10 +48,20 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     'width': '300'
   }
 
-
+  const buttonStyle = {
+    background: 'white',
+    color: 'black',
+    fontSize: '15px',
+    fontWeight: '600',
+    textAlign: 'center',
+    padding: '10px 10px 10px 10px',
+    width: '180px',
+    border: '1px solid black',
+    cursor: 'pointer'
+  }
 
   // console.log(numReviews)
-  let config = {
+  let config1 = {
     headers: {
       'Authorization': process.env.TOKEN,
     },
@@ -63,10 +73,10 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   }
 
   useEffect(() => {
-
+    // console.log(characteristics)
     Modal.setAppElement('body');
 
-    axios.get(host_url + 'reviews/', config)
+    axios.get(host_url + 'reviews/', config1)
       .then((data) => {
         // console.log('test:', data.data.results[0].recommend)
         setReviewList(data.data.results)
@@ -75,7 +85,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       .catch((err) => {
         console.log(err)
       })
-  }, [product_id, sortType, numReviews]);
+  }, [product_id, sortType, numReviews, submitFlag]);
 
   var handleMoreReviews = () => {
     if (reviewCount >= reviewList.length - 1) {
@@ -91,8 +101,192 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     setIsOpen(!isOpen);
   }
 
-  var handleRadioChange = (e) => {
-    // console.log(typeof reconfig[item][1])
+  var handleHelpful = (id) => {
+    let config = {
+      url: host_url + `reviews/${id}/helpful`,
+      method: 'put',
+      headers: {
+        'Authorization': process.env.TOKEN,
+      },
+    }
+    axios(config)
+    .then((result) => {
+      // console.log('TEST', result);
+    })
+    .catch((err) => {
+      console.log('Err on helpful put req', err);
+    })
+  }
+
+  var handleReviewSubmit = () => {
+    let flag = true;
+    let error = [];
+    if (currentValue < 1) {
+      error.push('❌ Star Rating')
+    }
+    if (newRecomended === '') {
+      error.push('❌ Recommend')
+    }
+    let reconfig = {
+      Comfort: [comfortRating, setComfortRating],
+      Fit: [fitRating, setFitRating],
+      Length: [lengthRating, setLengthRating],
+      Quality: [qualityRating, setQualityRating],
+      Size: [sizeRating, setSizeRating],
+      Width: [widthRating, setWidthRating],
+    }
+
+    let temp = Object.keys(characteristics);
+    for (let i = 0; i < temp.length; i++) {
+      let current = temp[i]
+      if (reconfig[current][0] < 1) {
+        error.push(`❌ ${current} rating`)
+      }
+    }
+
+    if (review.length < 50) {
+      error.push('❌ Review body to short')
+    }
+
+    if (nickname.length === 0) {
+      error.push('❌ Nickname')
+    }
+
+    if (email.length === 0) {
+      error.push('❌ Missing email')
+      let flag = false;
+    }
+    if (flag === true) {
+      if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        error.push('❌ Invalid Email')
+      }
+    }
+    // console.log('test', newRecomended)
+    if (error.length === 0) {
+      sendNewReview()
+      setSubmitFlag(!submitFlag)
+      toggleModal()
+      setTimeout(() => {
+        alert('Review submitted 🎉')
+      }, 100);
+    } else {
+      alert('You are missing required fields:\n' + error.join('\n'))
+    }
+  }
+
+  var sendNewReview = () => {
+    // console.log("TEST")
+
+    let reconfig = {
+      Comfort: [comfortRating, setComfortRating, 223579],
+      Fit: [fitRating, setFitRating, 223577],
+      Length: [lengthRating, setLengthRating, 223578],
+      Quality: [qualityRating, setQualityRating, 223580],
+      Size: [sizeRating, setSizeRating, 223585],
+      Width: [widthRating, setWidthRating, 223586],
+    }
+    let dataObj = {}
+    for (var key in characteristics) {
+      // console.log(characteristics[key].id)
+      let charKey = key
+      dataObj[charKey] = characteristics[key].id
+    }
+    let resultObj = {}
+    for (var key in dataObj) {
+      let idKey = dataObj[key]
+      resultObj[idKey.toString()] = Number(reconfig[key][0])
+    }
+
+    let temp = true;
+    if (newRecomended === 'yes') {
+      temp = true;
+    } else {
+      temp = false;
+    }
+    let config = {
+      product_id,
+      "rating": currentValue,
+      "summary": title,
+      "body": review,
+      "recommend": temp,
+      "name": nickname,
+      "email": email,
+      "photos": [],
+      "characteristics": resultObj
+    }
+    // console.log(config)
+
+    axios.post(host_url + 'reviews', config, { headers: { 'Authorization': process.env.TOKEN } })
+      .then((result) => {
+        // console.log('TEST', result);
+      })
+      .catch((err) => {
+        console.log('TEST', err);
+      })
+  }
+
+  var listDecider = () => {
+    if (filterObj.length) {
+      // console.log(filterObj.indexOf())
+      // setFilterList(current =>
+      //   current.filter(element => {
+      //     return filterObj.indexOf(element.rating) !== -1;
+      //   }),
+      // );
+      // console.log(filterObj)
+      // console.log(filterObj.indexOf(`${5}`))
+      let temp = reviewList.filter((item) => {
+        return filterObj.indexOf(`${item.rating}`) !== -1;
+      })
+      return (
+        temp.slice(0, reviewCount).map((item, i) => {
+          return (
+            <div key={i} style={{ border: '1px solid black' }}>
+              <div className='topRowContainer' >
+                <div>
+                  <Stars
+                    stars={item.rating}
+                    size={15} //optional
+                    spacing={2} //optional
+                    fill='#ea9c46' //optional
+                  />
+                </div>
+                <div>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
+              </div>
+              <span style={{ fontWeight: 'bold' }}>{item.summary}</span>
+              <div>{item.body}</div>
+              <div onClick={() => {handleHelpful(item.review_id)}} >{`Helpful? ${item.helpfulness}`}</div>
+            </div>
+          )
+        })
+      )
+    }
+
+    if (!filterObj.length) {
+      return (
+        reviewList.slice(0, reviewCount).map((item, i) => {
+          return (
+            <div key={i} style={{ border: '1px solid black' }}>
+              <div className='topRowContainer'>
+              <div>
+                  <Stars
+                    stars={item.rating}
+                    size={15} //optional
+                    spacing={2} //optional
+                    fill='#ea9c46' //optional
+                  />
+                </div>
+              <div>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
+              </div>
+              <span style={{ fontWeight: 'bold' }}>{item.summary}</span>
+              <div>{item.body}</div>
+              <div onClick={() => {handleHelpful(item.review_id)}}>{`Helpful? ${item.helpfulness}`}</div>
+            </div>
+          )
+        })
+      )
+    }
+
   }
 
   var uniqueCharacteristicsCalc = () => {
@@ -112,30 +306,29 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
         return (
           <li key={i}>
             <form>
-            <label>{`Rate the ${item}`} <div style={{color: 'red'}}>*</div></label>
-            <input type="radio" value={'1'} name={'1'} checked={reconfig[item][0] === '1'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
-            <label>1</label>
-            <input type="radio" value={'2'} name={'2'} checked={reconfig[item][0] === '2'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
-            <label>2</label>
-            <input type="radio" value={'3'} name={'3'} checked={reconfig[item][0] === '3'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
-            <label>3</label>
-            <input type="radio" value={'4'} name={'4'} checked={reconfig[item][0] === '4'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
-            <label>4</label>
-            <input type="radio" value={'5'} name={'5'} checked={reconfig[item][0] === '5'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
-            <label>5</label>
+              <label>{`Rate the ${item}`} <div style={{ color: 'red' }}>*</div></label>
+              <input type="radio" value={'1'} name={'1'} checked={reconfig[item][0] === '1'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+              <label>1</label>
+              <input type="radio" value={'2'} name={'2'} checked={reconfig[item][0] === '2'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+              <label>2</label>
+              <input type="radio" value={'3'} name={'3'} checked={reconfig[item][0] === '3'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+              <label>3</label>
+              <input type="radio" value={'4'} name={'4'} checked={reconfig[item][0] === '4'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+              <label>4</label>
+              <input type="radio" value={'5'} name={'5'} checked={reconfig[item][0] === '5'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
+              <label>5</label>
             </form>
           </li>
         )
       })
     )
   }
-
+  // if filterObj.length
   return (
     <>
-      <div style={barStyles}></div>
       <ReviewContainer>
         <BreakdownContainer>
-          <Breakdown avgRating={avgRating} fullReviewList={fullReviewList} numReviews={numReviews} characteristics={characteristics} />
+          <Breakdown avgRating={avgRating} fullReviewList={fullReviewList} numReviews={numReviews} characteristics={characteristics} filterObj={filterObj} setFilterObj={setFilterObj} />
         </BreakdownContainer>
         <ListContainer>
           <div>{`${numReviews} reviews, sorted by `}
@@ -145,18 +338,11 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
               <option value="newest">newest</option>
             </select>
           </div>
-          <div>{reviewList.slice(0, reviewCount).map((item, i) => {
-            return (
-              <div key={i} style={{ border: '1px solid black' }}>
-                <div>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
-                <span style={{ fontWeight: 'bold' }}>{item.summary}</span>
-                <div>{item.body}</div>
-                <div>{`Helpful? ${item.helpfulness}`}</div>
-              </div>
-            )
-          })}</div>
-          {reviewCount >= reviewList.length ? <button disabled={true}>No More Reviews</button> : <button data-testid="increment" onClick={handleMoreReviews}>{reviewList.length < 3 ? null : 'More Reviews'}</button>}
-          <button onClick={toggleModal}>Add A Review</button>
+          <div>{listDecider()}</div>
+          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '90%', margin: 'auto', margin: '20px', gap: '15px' }}>
+            {reviewCount >= reviewList.length ? null : <button style={buttonStyle} data-testid="increment" onClick={handleMoreReviews}>{reviewList.length < 3 ? null : 'More Reviews'}</button>}
+            <button style={buttonStyle} onClick={toggleModal}>Add A Review + </button>
+          </div>
         </ListContainer>
       </ReviewContainer>
       <Modal
@@ -166,32 +352,29 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       >
         <h1>Write your review</h1>
         <h2>About the item</h2>
-          <div>
-            <StarRating currentValue={currentValue} setCurrentValue={setCurrentValue} />
-          </div>
-          <li>
-            <label>Recommend? <div style={{color: 'red'}}>*</div></label>
-            <input type="radio" value='yes' name="yes" checked={newRecomended === 'yes'} onChange={(e) => { setNewRecomended(e.target.value) }} />
-            <label>Yes</label>
-            <input type="radio" value='no' name="no" checked={newRecomended === 'no'} onChange={(e) => { setNewRecomended(e.target.value) }} />
-            <label>No</label>
-          </li>
-          <div>
-            {uniqueCharacteristicsCalc()}
-          </div>
-          <form onSubmit={(e) => {
+        <div>
+          <StarRating currentValue={currentValue} setCurrentValue={setCurrentValue} />
+        </div>
+        <li>
+          <label>Recommend? <div style={{ color: 'red' }}>*</div></label>
+          <input type="radio" value='yes' name="yes" checked={newRecomended === 'yes'} onChange={(e) => { setNewRecomended(e.target.value) }} />
+          <label>Yes</label>
+          <input type="radio" value='no' name="no" checked={newRecomended === 'no'} onChange={(e) => { setNewRecomended(e.target.value) }} />
+          <label>No</label>
+        </li>
+        <div>
+          {uniqueCharacteristicsCalc()}
+        </div>
+        <form onSubmit={(e) => {
           e.preventDefault()
-          toggleModal()
-          setTimeout(() => {
-            alert('Review submitted 🎉')
-          }, 100);
+          handleReviewSubmit()
         }}>
           <li>
             <label>Title</label>
             <input type='text' placeholder='...' value={title} onChange={(e) => { setTitle(e.target.value) }} />
           </li>
           <li>
-            <label>Review <div style={{color: 'red'}}>*</div></label>
+            <label>Review <div style={{ color: 'red' }}>*</div></label>
             <textarea type='text' rows={5} cols={25} placeholder='...' value={review} onChange={(e) => { setReview(e.target.value) }} />
             <label>{review.length > 49 ? 'Minimum reached' : `Minimum required characters left: ${50 - review.length}`}</label>
           </li>
@@ -199,11 +382,11 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
             <FileUpload files={files} setFiles={setFiles} />
           </div>
           <li>
-            <label>Nickname <div style={{color: 'red'}}>*</div></label>
+            <label>Nickname <div style={{ color: 'red' }}>*</div></label>
             <input type='text' placeholder='...' value={nickname} onChange={(e) => { setNickname(e.target.value) }} />
           </li>
           <li>
-            <label>Email <div style={{color: 'red'}}>*</div></label>
+            <label>Email <div style={{ color: 'red' }}>*</div></label>
             <input type='text' placeholder='...' value={email} onChange={(e) => { setEmail(e.target.value) }} />
           </li>
           <button type="submit">Submit</button>

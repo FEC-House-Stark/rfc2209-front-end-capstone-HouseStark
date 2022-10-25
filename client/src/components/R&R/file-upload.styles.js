@@ -27,7 +27,7 @@ export const BreakdownContainer = styled.section`
             align-items: left;
             box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
   margin: 20px;
-  width: 400px;
+  width: 325px;
   height: 400px;
 `;
 
@@ -51,7 +51,7 @@ export const ListContainer = styled.section`
             align-items: left;
             box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
   margin: 20px;
-  width: 750px;
+  width: 1050px;
 
 `;
 
