@@ -5,7 +5,7 @@ import QuestionsView from './components/Questions_View.jsx';
 import QuestionSearchBar from './components/Question_Search_Bar.jsx';
 import {QandAOverViewStyle,QandAHeader} from './components/Q&A_Styles.jsx';
 
-const QandA = ({product_id,handleClick}) =>  {
+const QandA = ({product_id,handleClick, productInfo}) =>  {
 
   const [questions,setQuestions] = useState([]);
   const [filter, setFilter] = useState([]);
@@ -42,6 +42,7 @@ const QandA = ({product_id,handleClick}) =>  {
         : null
       }
       <QuestionsView
+        productInfo={productInfo}
         product_id={product_id}
         questions={questions}
         setQuestions={setQuestions}

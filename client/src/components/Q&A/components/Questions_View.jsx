@@ -7,6 +7,7 @@ import {QandASearchView,QandAQuestionActions} from './Q&A_Styles.jsx';
 
 
 const QuestionsView = ({
+  productInfo,
   questions,
   setQuestions,
   filter,
@@ -73,6 +74,7 @@ const QuestionsView = ({
             :null
         }
         <AddaQuestion
+          productInfo={productInfo}
           product_id={product_id}
           handleTrackingClick={handleTrackingClick}
           />

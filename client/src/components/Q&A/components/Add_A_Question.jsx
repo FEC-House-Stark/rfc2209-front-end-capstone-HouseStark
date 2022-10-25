@@ -9,14 +9,16 @@ const AddaQuestion = ({
   setQuestions,
   product_id,
   handleTrackingClick,
+  productInfo,
 }) =>  {
 
-  const [openModal, setIsOpen] = useState(false);
+  const [openModal, setIsOpen] = useState(true);
 
   const [body, setBody] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
+  console.log(productInfo);
 
   let config = {
     url: '/qa/questions',
@@ -59,11 +61,13 @@ const AddaQuestion = ({
               element-name='Add_A_Question_Modal_Close'
               onClick={(e)=> {
                 setIsOpen(!openModal);
-                handleTrackingClick(e);
+                // handleTrackingClick(e);
                 }}>
               <FontAwesomeIcon icon={faCircleXmark} />
             </button>
           </div>
+            <h3 style={{textAlign:'center'}}>Ask Your Question</h3>
+            <h4>About the {productInfo.name}</h4>
           Question:
             <input
               type='text'
@@ -88,7 +92,7 @@ const AddaQuestion = ({
             disabled={!name, !body, !email}
             onClick={(e)=> {
               handleQuestionSubmit();
-              handleTrackingClick(e);
+              // handleTrackingClick(e);
               setIsOpen(!openModal);
             }}>submit</button>
         </span>

@@ -168,6 +168,7 @@ const App = () => {
                   styles={styles} />
                 <QandA
                   handleClick={value}
+                  productInfo={productInfo}
                   product_id={product_id} />
                 <Reviews
                   handleClick={value}

@@ -123,8 +123,8 @@ const modalBoxStyle = {
     left: '50%',
     right: '50%',
     bottom: '50%',
-    minHeight:'300px',
-    minWidth:'500px',
+    minHeight:'500px',
+    minWidth:'800px',
     transform: 'translate(-50%, -50%)',
   },
 };
