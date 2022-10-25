@@ -4,7 +4,7 @@ const QuestionReport = ({handleReportClick}) =>  {
 
   return (
     <div
-    style={{textDecorationLine: 'underline'}}
+    style={{textDecorationLine: 'underline', cursor:'pointer'}}
     widget='QandA'
     element-name='Question_Helpfulness'
     onClick={(e)=> {

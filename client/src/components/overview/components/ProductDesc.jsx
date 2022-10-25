@@ -4,13 +4,12 @@ import styled from 'styled-components';
 const ProductDescStyle = styled.div`
   grid-column-start: 2;
   grid-column-end: 4;
-  grid-row-start: 4;
+  grid-row-start: 5;
 `;
 
 const prodDescStyle = {
-  'borderRight': '1px solid #ddd',
   'gridColumnStart': '2',
-  'gridRowStart': '5',
+  'gridRowStart': '6',
   height: '100%',
   width: '100%'
 }
