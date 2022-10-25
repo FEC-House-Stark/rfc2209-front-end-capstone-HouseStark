@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ArrowButton from './ArrowButton.jsx';
 import ThumbnailCarousel from './ThumbnailCarousel.jsx';
+import ZoomView from './ZoomView.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCompress } from '@fortawesome/free-solid-svg-icons'
 const { useState, useEffect } = React;
@@ -36,6 +37,7 @@ const ImageGallery = (props) => {
   const [imageMode, setImageMode] = useState(MODES.DEFAULT);
   const [expandedWidth, setExpandedWidth] = useState(0);
   const [transition, setTransition] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     updateWidth();
@@ -51,11 +53,11 @@ const ImageGallery = (props) => {
     position: 'relative',
     height: `${props.image_height}`,
     width: `${imageMode !== MODES.DEFAULT ? `${expandedWidth}px` : '100%'}`,
-   // 'transition': `width ${transition}s`,
+    // 'transition': `width ${transition}s`,
     'overflow': 'hidden',
     cursor: `${cursors[imageMode]}`,
     boxSizing: 'border-box',
-    zIndex: '13'
+    zIndex: `${imageMode === MODES.ZOOM ? '': '13'}`
   }
 
   useEffect(() => {
@@ -67,8 +69,6 @@ const ImageGallery = (props) => {
 
   useEffect(() => {
     if (imageMode !== MODES.DEFAULT) {
-      console.log('translate:', photoIndex * expandedWidth, 'transition', transition);
-      console.log('translate state:', translate);
       setTranslate(photoIndex * expandedWidth);
     }
   }, [expandedWidth])
@@ -124,17 +124,15 @@ const ImageGallery = (props) => {
       setTranslate(photoIndex * expandedWidth);
       setImageMode(MODES.EXPANDED);
     } else if (imageMode === MODES.EXPANDED) {
-      console.log('Expanded > Zoom');
+      setModalOpen(true);
       setImageMode(MODES.ZOOM);
     } else if (imageMode === MODES.ZOOM) {
-      console.log('Zoom > Expanded');
       setImageMode(MODES.EXPANDED);
     }
   };
 
   const handleMinimizeClick = (e) => {
     e.preventDefault();
-    console.log('Expanded/Zoom > Default')
     setImageMode(MODES.DEFAULT);
     setTranslate(photoIndex * props.image_width);
     props.setThumbnailRow(false);
@@ -150,10 +148,17 @@ const ImageGallery = (props) => {
     setTransition(0);
   };
 
+  const toggleZoomModal = (e) => {
+    e.preventDefault();
+    setImageMode(MODES.EXPANDED);
+    setModalOpen(false);
+  }
+
   return (
     <>
       {
         props.photos !== undefined &&
+        <>
         <div widget='Overview' style={imageGalleryStyle} element-name='ImageGallery' onClick={(e) => {
           //props.handleClick(e);
           handleImageClick(e);
@@ -181,10 +186,10 @@ const ImageGallery = (props) => {
               }} />
             ))}
           </div>
-          <ArrowButton direction="left" handleClick={handleLeftClick} active={photoIndex > 0} height={props.image_height} handleEnter={handleEnter} handleLeave={handleLeave} expanded={imageMode}/>
+          <ArrowButton direction="left" handleClick={handleLeftClick} active={photoIndex > 0} height={props.image_height} handleEnter={handleEnter} handleLeave={handleLeave} expanded={imageMode} />
           <ArrowButton direction="right" handleClick={handleRightClick} active={photoIndex < props.photos.length - 1} height={props.image_height} handleEnter={handleEnter} handleLeave={handleLeave} />
-          {imageMode === MODES.DEFAULT && <ThumbnailCarousel photos={props.photos} photoIndex={photoIndex} handleClick={handleThumbnailClick} height={props.image_height} expanded={false}/>}
-          {imageMode !== MODES.DEFAULT && <ThumbnailCarousel photos={props.photos} photoIndex={photoIndex} handleClick={handleThumbnailClick} height={props.image_height} expanded={true}/>}
+          {imageMode === MODES.DEFAULT && <ThumbnailCarousel photos={props.photos} photoIndex={photoIndex} handleClick={handleThumbnailClick} height={props.image_height} expanded={false} />}
+          {imageMode !== MODES.DEFAULT && <ThumbnailCarousel photos={props.photos} photoIndex={photoIndex} handleClick={handleThumbnailClick} height={props.image_height} expanded={true} />}
           {imageMode !== MODES.DEFAULT &&
             <div style={{
               position: 'absolute',
@@ -206,6 +211,10 @@ const ImageGallery = (props) => {
             </div>
           }
         </div>
+        <div  style={{zIndex: '100'}}>
+          <ZoomView photo={props.photos[photoIndex].url} toggleZoomModal={toggleZoomModal} modalOpen={modalOpen} />
+          </div>
+          </>
       }
     </>
   )

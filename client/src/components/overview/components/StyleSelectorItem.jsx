@@ -16,7 +16,6 @@ const Checkmark = styled.div`
   position: absolute;
   top: 10%;
   left: 70%;
-  z-index: 10;
   display: flex:
   justify-content: center;
   align-items: center;
