@@ -1,4 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
+import Stars from 'react-stars-display';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 
 const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, filterObj, setFilterObj }) => {
@@ -291,12 +295,45 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
     }
   }
 
+  var renderFilterList = () => {
+    // let num = e.curr❎entTarget.id;
+    let reconfig = {
+    1: handleBar1Click,
+    2: handleBar2Click,
+    3: handleBar3Click,
+    4: handleBar4Click,
+    5: handleBar5Click,
+    }
+    if (filterObj.length) {
+      return (
+        filterObj.map((item, i) => {
+          return (
+            <div key={i} id={item} onClick={(e) => { reconfig[item](e) }} style={{margin: '5px', border: '1px solid black', fontSize: '14px', borderRadius: '3px', cursor: 'pointer'}}>
+              {`${item} star ❌`}
+              {/* <FontAwesomeIcon icon={faCircleXmark} /> */}
+            </div>
+          )
+        })
+      )
+    } else {
+      return null;
+    }
+  }
+
   return (
     <>
       <h2>Ratings & Reviews</h2>
       <h1 className='numberRating'>
         {avgRating}
       </h1>
+      <div>
+        <Stars
+          stars={avgRating}
+          size={50} //optional
+          spacing={2} //optional
+          fill='#4D6A6D' //optional
+        />
+      </div>
       <div>
         {`${recommendPercentageCalculator()}% of reviews recommend this product`}
       </div>
@@ -325,6 +362,8 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
           onMouseEnter={handleMouseEnter1}
           onMouseLeave={handleMouseLeave1}
           style={containerStyle2}>{`1 Stars`}{barRender(1)}{starCountObj[1]}</li>
+        <div style={{display: 'flex', flexWrap: 'wrap'}}>
+        {renderFilterList()}</div>
         {calcCharact.map((item, i) => {
           return (
             <li key={i}>

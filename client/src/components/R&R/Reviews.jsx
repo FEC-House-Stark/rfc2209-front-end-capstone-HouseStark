@@ -6,6 +6,7 @@ import FileUpload from './FileUpload.jsx'
 import Breakdown from './Breakdown.jsx'
 import StarRating from './StarRating.jsx'
 import { BreakdownContainer, ListContainer, ReviewContainer } from "./file-upload.styles";
+import Stars from 'react-stars-display';
 
 
 
@@ -33,6 +34,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   const [emailValidation, setEmailValidation] = useState(false);
   const [submitFlag, setSubmitFlag] = useState(false);
   const [filterObj, setFilterObj] = useState([]);
+  const [filterList, setFilterList] = useState([]);
 
   const host_url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/'
 
@@ -99,8 +101,21 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     setIsOpen(!isOpen);
   }
 
-  var handleRadioChange = (e) => {
-    // console.log(typeof reconfig[item][1])
+  var handleHelpful = (id) => {
+    let config = {
+      url: host_url + `reviews/${id}/helpful`,
+      method: 'put',
+      headers: {
+        'Authorization': process.env.TOKEN,
+      },
+    }
+    axios(config)
+    .then((result) => {
+      // console.log('TEST', result);
+    })
+    .catch((err) => {
+      console.log('Err on helpful put req', err);
+    })
   }
 
   var handleReviewSubmit = () => {
@@ -212,19 +227,66 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
 
   var listDecider = () => {
     if (filterObj.length) {
+      // console.log(filterObj.indexOf())
+      // setFilterList(current =>
+      //   current.filter(element => {
+      //     return filterObj.indexOf(element.rating) !== -1;
+      //   }),
+      // );
+      // console.log(filterObj)
+      // console.log(filterObj.indexOf(`${5}`))
+      let temp = reviewList.filter((item) => {
+        return filterObj.indexOf(`${item.rating}`) !== -1;
+      })
       return (
-        reviewList.slice(0, reviewCount).map((item, i) => {
+        temp.slice(0, reviewCount).map((item, i) => {
           return (
             <div key={i} style={{ border: '1px solid black' }}>
-              <div>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
+              <div className='topRowContainer' >
+                <div>
+                  <Stars
+                    stars={item.rating}
+                    size={15} //optional
+                    spacing={2} //optional
+                    fill='#ea9c46' //optional
+                  />
+                </div>
+                <div>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
+              </div>
               <span style={{ fontWeight: 'bold' }}>{item.summary}</span>
               <div>{item.body}</div>
-              <div>{`Helpful? ${item.helpfulness}`}</div>
+              <div onClick={() => {handleHelpful(item.review_id)}} >{`Helpful? ${item.helpfulness}`}</div>
             </div>
           )
         })
       )
     }
+
+    if (!filterObj.length) {
+      return (
+        reviewList.slice(0, reviewCount).map((item, i) => {
+          return (
+            <div key={i} style={{ border: '1px solid black' }}>
+              <div className='topRowContainer'>
+              <div>
+                  <Stars
+                    stars={item.rating}
+                    size={15} //optional
+                    spacing={2} //optional
+                    fill='#ea9c46' //optional
+                  />
+                </div>
+              <div>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
+              </div>
+              <span style={{ fontWeight: 'bold' }}>{item.summary}</span>
+              <div>{item.body}</div>
+              <div onClick={() => {handleHelpful(item.review_id)}}>{`Helpful? ${item.helpfulness}`}</div>
+            </div>
+          )
+        })
+      )
+    }
+
   }
 
   var uniqueCharacteristicsCalc = () => {
@@ -261,12 +323,12 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       })
     )
   }
-// if filterObj.length
+  // if filterObj.length
   return (
     <>
       <ReviewContainer>
         <BreakdownContainer>
-          <Breakdown avgRating={avgRating} fullReviewList={fullReviewList} numReviews={numReviews} characteristics={characteristics} filterObj={filterObj} setFilterObj={setFilterObj}/>
+          <Breakdown avgRating={avgRating} fullReviewList={fullReviewList} numReviews={numReviews} characteristics={characteristics} filterObj={filterObj} setFilterObj={setFilterObj} />
         </BreakdownContainer>
         <ListContainer>
           <div>{`${numReviews} reviews, sorted by `}
@@ -276,16 +338,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
               <option value="newest">newest</option>
             </select>
           </div>
-          <div>{reviewList.slice(0, reviewCount).map((item, i) => {
-            return (
-              <div key={i} style={{ border: '1px solid black' }}>
-                <div>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
-                <span style={{ fontWeight: 'bold' }}>{item.summary}</span>
-                <div>{item.body}</div>
-                <div>{`Helpful? ${item.helpfulness}`}</div>
-              </div>
-            )
-          })}</div>
+          <div>{listDecider()}</div>
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '90%', margin: 'auto', margin: '20px', gap: '15px' }}>
             {reviewCount >= reviewList.length ? null : <button style={buttonStyle} data-testid="increment" onClick={handleMoreReviews}>{reviewList.length < 3 ? null : 'More Reviews'}</button>}
             <button style={buttonStyle} onClick={toggleModal}>Add A Review + </button>
