@@ -26,22 +26,25 @@ color: #4D6A6D;
 
 const NextButton = styled.div`
 position: absolute;
-right:0px;
+right:-10px;
 bottom: 45%;
 box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.19);
-background-color: white;
+color:white;
+background-color: #798478;
 cursor: pointer;
 `;
 
 const BackButton = styled.div`
 position: absolute;
 box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.19);
-background-color: white;
+color:white;
+background-color: #798478;
+left:-10px;
 bottom: 45%;
 cursor: pointer;
 `;
 
-const ProductList = ({ data, setId, setOpenModal }) => {
+const ProductList = ({ data, setId, setOpenModal, setCompare }) => {
   const [length, setLength] = useState(0);
   const [count, setCount] = useState(4);
   const [buttonR, setButtonR] = useState(false);
@@ -89,7 +92,7 @@ const ProductList = ({ data, setId, setOpenModal }) => {
   return (
     <ProdList>
       <ProdHeader>RELATED PRODUCTS</ProdHeader>
-      <ProductCards data={data} setId={setId} setOpenModal={setOpenModal}/>
+      <ProductCards data={data} setId={setId} setOpenModal={setOpenModal} setCompare={setCompare}/>
       {buttonL && <BackButton className='back-button' onClick={handleScrollL}>{leftArrow}</BackButton>}
       {buttonR && <NextButton className='next-button' onClick={handleScrollR}>{rightArrow}</NextButton>}
     </ProdList>

@@ -9,7 +9,8 @@ const Container = styled.div`
 position: relative;
 display: flex;
 flex-direction: column;
-border:1px solid black;
+/* border:1px solid black; */
+/* contain: content; */
 `;
 
 const Related = ({ handleClick, product_id, setId, numReviews, avgRating, productInfo, styles }) => {
@@ -18,6 +19,7 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
   const [thumbnails, setThumbnails] = useState([]);
   const [all_ratings, setAllRatings] = useState([]);
   const [data, setData] = useState([]);
+  const [compare, setCompare] = useState({})
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => { //gets related IDs
@@ -127,9 +129,9 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
 
   return (
     <Container>
-      <ProductList data={data} setId={setId} setOpenModal={setOpenModal} />
+      <ProductList data={data} setId={setId} setOpenModal={setOpenModal} setCompare={setCompare} />
       <OutfitList />
-      {openModal && <ComparisonModal />}
+      {openModal && <ComparisonModal setOpenModal={setOpenModal} compare={compare.features} currentProduct={productInfo.features} />}
     </Container>
   )
 }

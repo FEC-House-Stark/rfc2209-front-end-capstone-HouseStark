@@ -65,12 +65,18 @@ color: black;
 };
 `;
 
-const ProductCards = ({ data, setId, setOpenModal }) => {
+const ProductCards = ({ data, setId, setOpenModal, setCompare }) => {
+
+  const handleOpen = (name, features) => {
+    setOpenModal(true)
+    setCompare({ name, features })
+  }
+
   return (
     <CardContainer id='card-container'>
       {data.map((product, i) =>
         <Card id='product-card' key={i} >
-          <Star onClick={() => setOpenModal(true)} >{star}</Star>
+          <Star onClick={() => handleOpen(product.name, product.features)} >{star}</Star>
           <Photos onClick={() => setId(product.id)} src={product.url} />
           <Category onClick={() => setId(product.id)}>{product.category}</Category>
           <Name onClick={() => setId(product.id)}>{product.name}</Name>
