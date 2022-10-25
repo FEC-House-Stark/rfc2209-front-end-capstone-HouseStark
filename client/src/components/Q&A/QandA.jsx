@@ -5,11 +5,10 @@ import QuestionsView from './components/Questions_View.jsx';
 import QuestionSearchBar from './components/Question_Search_Bar.jsx';
 import {QandAOverViewStyle,QandAHeader} from './components/Q&A_Styles.jsx';
 
-const QandA = ({product_id,handleClick, productInfo}) =>  {
+const QandA = ({product_id,handleClick, productInfo,}) =>  {
 
   const [questions,setQuestions] = useState([]);
   const [filter, setFilter] = useState([]);
-  const [render, setRender] = useState(false);
   const [highlight, setHighlight] = useState('');
 
   // const compareAnswerLength = (a,b) => {
@@ -24,9 +23,12 @@ const QandA = ({product_id,handleClick, productInfo}) =>  {
     .then((result) => {
       const questions = result.data.results;
       setQuestions(questions);
-      setFilter(questions);
     })
   },[product_id]);
+
+  useEffect(()=> {
+    setFilter(questions);
+  },[questions]);
 
   return (
     <QandAOverViewStyle >
@@ -48,7 +50,8 @@ const QandA = ({product_id,handleClick, productInfo}) =>  {
         setQuestions={setQuestions}
         filter={filter}
         highlight={highlight}
-        handleTrackingClick={handleClick}/>
+        handleTrackingClick={handleClick}
+        />
   </QandAOverViewStyle>
   )
 }

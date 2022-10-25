@@ -13,6 +13,8 @@ import QuestionSearchBar from './Question_Search_Bar.jsx'
 import QuestionsView from './Questions_View.jsx'
 import QuestionView from './Question_View.jsx'
 import MoreQuestionsButton from './More_Questions.jsx'
+import AddaQuestionModal from './Add_A_Question_Modal.jsx'
+import AddanAnswerModal from './Add_An_Answer_Modal.jsx'
 
 export {
   AddanAnswer,
@@ -29,5 +31,7 @@ export {
   QuestionSearchBar,
   QuestionsView,
   QuestionView,
-  MoreQuestionsButton
+  MoreQuestionsButton,
+  AddaQuestionModal,
+  AddanAnswerModal,
 }

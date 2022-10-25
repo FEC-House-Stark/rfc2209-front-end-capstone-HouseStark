@@ -25,7 +25,7 @@ const QuestionSearchBar = ({questions, setFilter, handleTrackingClick, setHighli
         placeholder='Have a question? Search for answers…'
         onChange={(e) => {
           setValue(e.target.value);
-          if(e.target.value.length > 3) {
+          if(e.target.value.length > 2) {
             handleSubmit(e);
             setHighlight(e.target.value);
           } else {

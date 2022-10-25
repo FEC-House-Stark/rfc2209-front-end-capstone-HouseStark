@@ -18,7 +18,9 @@ import {
   QuestionSearchBar,
   QuestionsView,
   QuestionView,
-  MoreQuestionsButton
+  MoreQuestionsButton,
+  AddaQuestionModal,
+  AddanAnswerModal,
 } from '../src/components/Q&A/components'
 import { useState } from 'react';
 
@@ -31,6 +33,7 @@ describe("Question and Answers", () => {
       questions: testQuestions.results,
       setQuestions: '() -> {}',
       product_id: testQuestions.product_id,
+      productInfo: testQuestions.productInfo,
       handleTrackingClick: () => {}
     }
     const wrapper = shallow(<AddaQuestion {...props}/>);
@@ -46,6 +49,8 @@ describe("Question and Answers", () => {
       expect(handleClick).toHaveBeenCalled()
     })
   });
+
+
 
   // Add_An_Answer.jsx
   describe("Add an Answer", () => {

@@ -123,7 +123,7 @@ const modalBoxStyle = {
     left: '50%',
     right: '50%',
     bottom: '50%',
-    minHeight:'500px',
+    minHeight:'600px',
     minWidth:'800px',
     transform: 'translate(-50%, -50%)',
   },
@@ -169,6 +169,13 @@ const SellerFontWeight = {
   color:'#505050',
 }
 
+const ErrorStyle = styled.p`
+color: red;
+font-size: small;
+margin: 0;
+padding:0;
+text-align: left;
+`
 
 export {
   QandASearchView,
@@ -191,4 +198,5 @@ export {
   SellerFontWeight,
   photoModalStyle,
   modalImgStyle,
+  ErrorStyle,
 }

@@ -1,85 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1666669567258" clover="3.2.0">
-  <project timestamp="1666669567258" name="All files">
-    <metrics statements="215" coveredstatements="94" conditionals="32" coveredconditionals="10" methods="73" coveredmethods="17" elements="320" coveredelements="121" complexity="0" loc="215" ncloc="215" packages="3" files="18" classes="18"/>
+<coverage generated="1666739236772" clover="3.2.0">
+  <project timestamp="1666739236772" name="All files">
+    <metrics statements="224" coveredstatements="88" conditionals="45" coveredconditionals="10" methods="76" coveredmethods="18" elements="345" coveredelements="116" complexity="0" loc="224" ncloc="224" packages="3" files="20" classes="20"/>
     <package name="src.components.Q&A">
-      <metrics statements="12" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <metrics statements="12" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
       <file name="QandA.jsx" path="/Users/georgina/Documents/rfc2209/fec project/rfc2209-front-end-capstone-HouseStark/client/src/components/Q&A/QandA.jsx">
-        <metrics statements="12" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <metrics statements="12" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="8" count="1" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
         <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
         <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.components.Q&A.components">
-      <metrics statements="202" coveredstatements="92" conditionals="30" coveredconditionals="10" methods="70" coveredmethods="17"/>
+      <metrics statements="211" coveredstatements="86" conditionals="43" coveredconditionals="10" methods="72" coveredmethods="18"/>
       <file name="Add_A_Question.jsx" path="/Users/georgina/Documents/rfc2209/fec project/rfc2209-front-end-capstone-HouseStark/client/src/components/Q&A/components/Add_A_Question.jsx">
-        <metrics statements="22" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="1"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+      </file>
+      <file name="Add_A_Question_Modal.jsx" path="/Users/georgina/Documents/rfc2209/fec project/rfc2209-front-end-capstone-HouseStark/client/src/components/Q&A/components/Add_A_Question_Modal.jsx">
+        <metrics statements="24" coveredstatements="1" conditionals="13" coveredconditionals="0" methods="9" coveredmethods="0"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
         <line num="30" count="0" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
-        <line num="90" count="0" type="stmt"/>
-        <line num="91" count="0" type="stmt"/>
-        <line num="92" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="95" count="0" type="stmt"/>
+        <line num="106" count="0" type="cond" truecount="0" falsecount="5"/>
+        <line num="107" count="0" type="stmt"/>
+        <line num="108" count="0" type="stmt"/>
+        <line num="109" count="0" type="stmt"/>
+        <line num="110" count="0" type="stmt"/>
+        <line num="111" count="0" type="stmt"/>
+        <line num="112" count="0" type="stmt"/>
+        <line num="115" count="0" type="stmt"/>
       </file>
       <file name="Add_An_Answer.jsx" path="/Users/georgina/Documents/rfc2209/fec project/rfc2209-front-end-capstone-HouseStark/client/src/components/Q&A/components/Add_An_Answer.jsx">
-        <metrics statements="31" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="13" coveredmethods="1"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
+        <metrics statements="6" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <line num="9" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+      </file>
+      <file name="Add_An_Answer_Modal.jsx" path="/Users/georgina/Documents/rfc2209/fec project/rfc2209-front-end-capstone-HouseStark/client/src/components/Q&A/components/Add_An_Answer_Modal.jsx">
+        <metrics statements="25" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="12" coveredmethods="0"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="81" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="80" count="0" type="stmt"/>
         <line num="87" count="0" type="stmt"/>
-        <line num="94" count="0" type="stmt"/>
-        <line num="95" count="0" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="89" count="0" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
         <line num="96" count="0" type="stmt"/>
-        <line num="97" count="0" type="stmt"/>
-        <line num="103" count="0" type="stmt"/>
-        <line num="111" count="0" type="stmt"/>
-        <line num="120" count="0" type="stmt"/>
-        <line num="121" count="0" type="stmt"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="113" count="0" type="stmt"/>
+        <line num="114" count="0" type="stmt"/>
       </file>
       <file name="Answer_Helpfulness.jsx" path="/Users/georgina/Documents/rfc2209/fec project/rfc2209-front-end-capstone-HouseStark/client/src/components/Q&A/components/Answer_Helpfulness.jsx">
         <metrics statements="10" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="1"/>
@@ -175,7 +189,7 @@
         <line num="25" count="0" type="stmt"/>
       </file>
       <file name="Q&A_Styles.jsx" path="/Users/georgina/Documents/rfc2209/fec project/rfc2209-front-end-capstone-HouseStark/client/src/components/Q&A/components/Q&A_Styles.jsx">
-        <metrics statements="20" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="21" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="3" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
@@ -196,6 +210,7 @@
         <line num="153" count="1" type="stmt"/>
         <line num="160" count="1" type="stmt"/>
         <line num="167" count="1" type="stmt"/>
+        <line num="172" count="1" type="stmt"/>
       </file>
       <file name="Question_Helpfulness.jsx" path="/Users/georgina/Documents/rfc2209/fec project/rfc2209-front-end-capstone-HouseStark/client/src/components/Q&A/components/Question_Helpfulness.jsx">
         <metrics statements="10" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="1"/>
@@ -259,15 +274,15 @@
       <file name="Questions_View.jsx" path="/Users/georgina/Documents/rfc2209/fec project/rfc2209-front-end-capstone-HouseStark/client/src/components/Q&A/components/Questions_View.jsx">
         <metrics statements="10" coveredstatements="6" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="1"/>
         <line num="9" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
         <line num="37" count="0" type="stmt"/>
-        <line num="47" count="1" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
       </file>
       <file name="index.jsx" path="/Users/georgina/Documents/rfc2209/fec project/rfc2209-front-end-capstone-HouseStark/client/src/components/Q&A/components/index.jsx">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
