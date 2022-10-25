@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar } from '@fortawesome/free-regular-svg-icons'
 
 const star = <FontAwesomeIcon icon={faStar} />
 
 const CardContainer = styled.div`
 max-width:820px;
-min-width:800px;
+min-width: 800px;
 box-sizing: border-box;
 display: flex;
 overflow-x: hidden;
@@ -59,19 +59,23 @@ const Star = styled.div`
 position: absolute;
 right:0px;
 color: gold;
+font-size: 20px;
+&:hover {
+color: black;
+};
 `;
 
-const ProductCards = ({ data, setId }) => {
+const ProductCards = ({ data, setId, setOpenModal }) => {
   return (
     <CardContainer id='card-container'>
       {data.map((product, i) =>
-        <Card id='product-card' onClick={() => setId(product.id)} key={i} >
-          <Star>{star}</Star>
-          <Photos src={product.url} />
-          <Category>{product.category}</Category>
-          <Name>{product.name}</Name>
-          <Price>{'$' + product.price}</Price>
-          <Review>{product.totalReviews + ' reviews: ' + product.avg}</Review>
+        <Card id='product-card' key={i} >
+          <Star onClick={() => setOpenModal(true)} >{star}</Star>
+          <Photos onClick={() => setId(product.id)} src={product.url} />
+          <Category onClick={() => setId(product.id)}>{product.category}</Category>
+          <Name onClick={() => setId(product.id)}>{product.name}</Name>
+          <Price onClick={() => setId(product.id)}>{'$' + product.price}</Price>
+          <Review onClick={() => setId(product.id)}>{product.totalReviews + ' reviews: ' + product.avg}</Review>
         </Card>
       )}
     </CardContainer>

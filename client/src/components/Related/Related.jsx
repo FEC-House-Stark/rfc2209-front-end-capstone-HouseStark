@@ -2,21 +2,23 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ProductList from './ProductList.jsx';
 import OutfitList from './OutfitList.jsx';
+import ComparisonModal from './ComparisonModal.jsx'
 import axios from 'axios'
 
 const Container = styled.div`
 position: relative;
 display: flex;
 flex-direction: column;
-/* border:1px solid black; */
+border:1px solid black;
 `;
 
 const Related = ({ handleClick, product_id, setId, numReviews, avgRating, productInfo, styles }) => {
   const [related_ids, setRelatedIds] = useState([]);
   const [related, setRelated] = useState([]);
-  const [thumbnails, setThumbnails] = useState([])
-  const [all_ratings, setAllRatings] = useState([])
-  const [data, setData] = useState([])
+  const [thumbnails, setThumbnails] = useState([]);
+  const [all_ratings, setAllRatings] = useState([]);
+  const [data, setData] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => { //gets related IDs
     axios(`/products/${product_id}/related`)
@@ -32,7 +34,7 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
           }
         }
         setRelatedIds(Object.keys(unique))
-      }).catch((err) => console.log('ERR in Product IDs',err))
+      }).catch((err) => console.log('ERR in Product IDs', err))
   }, [product_id])
 
 
@@ -53,7 +55,7 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
             }
           ))
           setRelated(info)
-        }).catch((err) => console.log('ERR in RELATED',err))
+        }).catch((err) => console.log('ERR in RELATED', err))
     }
   }, [related_ids])
 
@@ -122,10 +124,12 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
   }, [related, thumbnails, all_ratings])
 
 
+
   return (
     <Container>
-      <ProductList data={data} setId={setId} />
+      <ProductList data={data} setId={setId} setOpenModal={setOpenModal} />
       <OutfitList />
+      {openModal && <ComparisonModal />}
     </Container>
   )
 }

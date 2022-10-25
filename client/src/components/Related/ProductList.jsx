@@ -41,7 +41,7 @@ bottom: 45%;
 cursor: pointer;
 `;
 
-const ProductList = ({ data, setId }) => {
+const ProductList = ({ data, setId, setOpenModal }) => {
   const [length, setLength] = useState(0);
   const [count, setCount] = useState(4);
   const [buttonR, setButtonR] = useState(false);
@@ -89,7 +89,7 @@ const ProductList = ({ data, setId }) => {
   return (
     <ProdList>
       <ProdHeader>RELATED PRODUCTS</ProdHeader>
-      <ProductCards data={data} setId={setId} />
+      <ProductCards data={data} setId={setId} setOpenModal={setOpenModal}/>
       {buttonL && <BackButton className='back-button' onClick={handleScrollL}>{leftArrow}</BackButton>}
       {buttonR && <NextButton className='next-button' onClick={handleScrollR}>{rightArrow}</NextButton>}
     </ProdList>
