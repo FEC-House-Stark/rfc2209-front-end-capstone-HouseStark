@@ -47,17 +47,14 @@ const ZoomView = ({ photo, modalOpen, toggleZoomModal }) => {
     let x = Math.max(e.clientX - rect.left, 0);
     let y = Math.max(e.clientY - rect.top - translate.y, 0);
 
-    //if (coords.image_h === 0) {
     let image_w = ref.current.clientWidth;
     let image_h = ref.current.clientHeight;
     let view_w = view_ref.current.clientWidth;
     let view_h = view_ref.current.clientHeight;
-    //   }
 
-    // console.log(`x: ${x} y:${y}`);
     setCoords({
-      x, //e.clientX - e.target.offsetLeft - 73,
-      y, //e.clientY - e.target.offsetTop - 39,
+      x,
+      y,
       image_w,
       image_h,
       view_w,
