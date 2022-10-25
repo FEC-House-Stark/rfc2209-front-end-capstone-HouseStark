@@ -32,14 +32,10 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   const [currentValue, setCurrentValue] = useState(0);
   const [emailValidation, setEmailValidation] = useState(false);
   const [submitFlag, setSubmitFlag] = useState(false);
+  const [filterObj, setFilterObj] = useState([]);
 
   const host_url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/'
 
-  const barStyles = {
-    'width': '100%',
-    'height': '100%',
-    'backgrounColor': 'green'
-  }
 
   const textStyles = {
     'border': "1px solid #a9a9a9",
@@ -50,7 +46,17 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     'width': '300'
   }
 
-
+  const buttonStyle = {
+    background: 'white',
+    color: 'black',
+    fontSize: '15px',
+    fontWeight: '600',
+    textAlign: 'center',
+    padding: '10px 10px 10px 10px',
+    width: '180px',
+    border: '1px solid black',
+    cursor: 'pointer'
+  }
 
   // console.log(numReviews)
   let config1 = {
@@ -164,17 +170,17 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       Size: [sizeRating, setSizeRating, 223585],
       Width: [widthRating, setWidthRating, 223586],
     }
-  let dataObj = {}
-  for (var key in characteristics) {
-    // console.log(characteristics[key].id)
-    let charKey = key
-    dataObj[charKey] = characteristics[key].id
-  }
-  let resultObj = {}
-  for (var key in dataObj) {
-    let idKey = dataObj[key]
-    resultObj[idKey.toString()] = Number(reconfig[key][0])
-  }
+    let dataObj = {}
+    for (var key in characteristics) {
+      // console.log(characteristics[key].id)
+      let charKey = key
+      dataObj[charKey] = characteristics[key].id
+    }
+    let resultObj = {}
+    for (var key in dataObj) {
+      let idKey = dataObj[key]
+      resultObj[idKey.toString()] = Number(reconfig[key][0])
+    }
 
     let temp = true;
     if (newRecomended === 'yes') {
@@ -183,25 +189,42 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       temp = false;
     }
     let config = {
-        product_id,
-        "rating": currentValue,
-        "summary": title,
-        "body": review,
-        "recommend": temp,
-        "name": nickname,
-        "email": email,
-        "photos": [],
-        "characteristics": resultObj
+      product_id,
+      "rating": currentValue,
+      "summary": title,
+      "body": review,
+      "recommend": temp,
+      "name": nickname,
+      "email": email,
+      "photos": [],
+      "characteristics": resultObj
     }
     // console.log(config)
 
-    axios.post(host_url + 'reviews', config, {headers: {'Authorization': process.env.TOKEN}})
+    axios.post(host_url + 'reviews', config, { headers: { 'Authorization': process.env.TOKEN } })
       .then((result) => {
         // console.log('TEST', result);
       })
       .catch((err) => {
         console.log('TEST', err);
       })
+  }
+
+  var listDecider = () => {
+    if (filterObj.length) {
+      return (
+        reviewList.slice(0, reviewCount).map((item, i) => {
+          return (
+            <div key={i} style={{ border: '1px solid black' }}>
+              <div>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
+              <span style={{ fontWeight: 'bold' }}>{item.summary}</span>
+              <div>{item.body}</div>
+              <div>{`Helpful? ${item.helpfulness}`}</div>
+            </div>
+          )
+        })
+      )
+    }
   }
 
   var uniqueCharacteristicsCalc = () => {
@@ -238,13 +261,12 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       })
     )
   }
-
+// if filterObj.length
   return (
     <>
-      <div style={barStyles}></div>
       <ReviewContainer>
         <BreakdownContainer>
-          <Breakdown avgRating={avgRating} fullReviewList={fullReviewList} numReviews={numReviews} characteristics={characteristics} />
+          <Breakdown avgRating={avgRating} fullReviewList={fullReviewList} numReviews={numReviews} characteristics={characteristics} filterObj={filterObj} setFilterObj={setFilterObj}/>
         </BreakdownContainer>
         <ListContainer>
           <div>{`${numReviews} reviews, sorted by `}
@@ -264,8 +286,10 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
               </div>
             )
           })}</div>
-          {reviewCount >= reviewList.length ? <button disabled={true}>No More Reviews</button> : <button data-testid="increment" onClick={handleMoreReviews}>{reviewList.length < 3 ? null : 'More Reviews'}</button>}
-          <button onClick={toggleModal}>Add A Review</button>
+          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '90%', margin: 'auto', margin: '20px', gap: '15px' }}>
+            {reviewCount >= reviewList.length ? null : <button style={buttonStyle} data-testid="increment" onClick={handleMoreReviews}>{reviewList.length < 3 ? null : 'More Reviews'}</button>}
+            <button style={buttonStyle} onClick={toggleModal}>Add A Review + </button>
+          </div>
         </ListContainer>
       </ReviewContainer>
       <Modal
