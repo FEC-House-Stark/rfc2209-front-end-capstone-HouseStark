@@ -54,12 +54,12 @@ const Overview = (props) => {
 
   return (
     <div style={OverviewStyle} ref={ref}>
-        <ImageGallery handleClick={props.handleClick} photos={style.photos} image_width={image_width} image_height={image_height} getBodyWidth={getBodyWidth} setThumbnailRow={setThumbnailRow} product_id={props.product_id}/>
-        <ProductInfo handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style}/>
-        <StyleSelector handleClick={props.handleClick} styles={props.styles.results} style={style} setStyle={setStyle}/>
-        <AddToCart handleClick={props.handleClick} skus={style.skus}/>
-        <ProductDesc handleClick={props.handleClick} productInfo={props.productInfo}/>
-        <ProductFeat handleClick={props.handleClick} features={props.productInfo.features}/>
+        <ImageGallery id="image-gallery" handleClick={props.handleClick} photos={style.photos} image_width={image_width} image_height={image_height} getBodyWidth={getBodyWidth} setThumbnailRow={setThumbnailRow} product_id={props.product_id}/>
+        <ProductInfo id="product-info" handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style}/>
+        <StyleSelector id="style-selector" handleClick={props.handleClick} styles={props.styles.results} style={style} setStyle={setStyle}/>
+        <AddToCart id="add-to-cart" handleClick={props.handleClick} skus={style.skus}/>
+        <ProductDesc id="product-desc" handleClick={props.handleClick} productInfo={props.productInfo}/>
+        <ProductFeat id="product-feat" handleClick={props.handleClick} features={props.productInfo.features}/>
     </div>
   );
 }
