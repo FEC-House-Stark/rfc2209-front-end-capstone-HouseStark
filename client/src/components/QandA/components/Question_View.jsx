@@ -5,13 +5,12 @@ import AddanAnswer from './Add_An_Answer.jsx';
 import QuestionReport from './Question_Report.jsx'
 import AnswersListView from './Answers_List_View.jsx'
 import QuestionHelpfulness from './Question_Helpfulness.jsx';
-import {QandAQuestionListView,QuestionBar,QuestionBarActionItem,rowFlex} from './Q&A_Styles.jsx';
+import {QandAQuestionListView,QuestionBar,QuestionBarActionItem,rowFlex} from './QandA_Styles.jsx';
 
 
 const QuestionView = ({
   question,
   handleTrackingClick,
-  ButtonStyle,
   highlight,
 }) =>  {
 
@@ -53,32 +52,36 @@ const QuestionView = ({
 
   return (
     <QandAQuestionListView>
-      <QuestionBar>
-        <div style={{fontWeight: 'bold', fontSize: 'medium'}}>
-          Q: {getHighlightedText(question.question_body, highlight)}
-        </div>
-        <QuestionBarActionItem >
-          <QuestionReport
-            handleTrackingClick={handleTrackingClick}
-            handleReportClick={handleReportClick}/>
-          <AddanAnswer
-            handleTrackingClick={handleTrackingClick}
-            question_id={question.question_id}/>
-          <QuestionHelpfulness
-            handleTrackingClick={handleTrackingClick}
-            handleHelpfulClick={handleHelpfulClick}
-            question_helpfulness={question.question_helpfulness}
-            />
-        </QuestionBarActionItem>
-      </QuestionBar>
-      <div style={rowFlex}>
-        <div style={{fontWeight: 'bold'}}>A: </div>
-        <div>
-          <AnswersListView
-            handleTrackingClick={handleTrackingClick}
-            question_id={question.question_id}/>
+      <div widget='QandA'
+        element-name='Question_View'>
+        <QuestionBar>
+          <div style={{fontWeight: 'bold', fontSize: 'medium'}}>
+            Q: {getHighlightedText(question.question_body, highlight)}
+          </div>
+          <QuestionBarActionItem >
+            <QuestionReport
+              handleTrackingClick={handleTrackingClick}
+              handleReportClick={handleReportClick}/>
+            <AddanAnswer
+              handleTrackingClick={handleTrackingClick}
+              question_id={question.question_id}/>
+            <QuestionHelpfulness
+              handleTrackingClick={handleTrackingClick}
+              handleHelpfulClick={handleHelpfulClick}
+              question_helpfulness={question.question_helpfulness}
+              />
+          </QuestionBarActionItem>
+        </QuestionBar>
+        <div style={rowFlex}>
+          <div style={{fontWeight: 'bold'}}>A: </div>
+          <div>
+            <AnswersListView
+              handleTrackingClick={handleTrackingClick}
+              question_id={question.question_id}/>
+          </div>
         </div>
       </div>
+
     </QandAQuestionListView>
   )
 }
