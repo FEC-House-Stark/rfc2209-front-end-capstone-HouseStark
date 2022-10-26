@@ -7,7 +7,10 @@ import Moment from 'react-moment';
 import styled from 'styled-components';
 import {AnswerActionItemStyle, SellerFontWeight} from './QandA_Styles.jsx';
 
-const AnswerView = ({answer,handleTrackingClick}) =>  {
+const AnswerView = ({
+  answer,
+  handleTrackingClick,
+}) =>  {
 
   const handleRequestClick = (endpoint,method) => {
     let config = {

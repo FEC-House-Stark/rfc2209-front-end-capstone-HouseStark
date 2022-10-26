@@ -72,7 +72,8 @@ const AddaQuestionModal = ({
                 }}></textarea>
                 <p
                   style={{textAlign:'right', fontSize:'small', margin:'0', padding:'0', paddingTop:'-10px'}}
-                  >{1000-body.length} characters avaliable</p>
+                  >{1000-body.length} characters avaliable
+                </p>
             Nickname:
               <input
                 style={{height:'30px'}}
@@ -99,32 +100,33 @@ const AddaQuestionModal = ({
                 }}/>
               <p
                 style={{fontSize:'small', margin:'0', paddingBottom:'10px'}}
-                >For privacy reasons, do not use your full name or email address</p>
-                <div>
-                  <div
-                    style={{...buttonStyle, backgroundColor:'#768174', color: 'white', borderColor:'white', fontSize:'large', width:'80px', borderStyle:'outset'}}
-                    widget='QandA'
-                    element-name='Add_A_Question_Submit'
-                    onClick={(e)=> {
-                      if(name && body && isEmail(email)) {
-                        handleQuestionSubmit();
-                        setIsOpen(false);
-                        setShowError(false);
-                        setBody('');
-                        setName('');
-                        setEmail('');
-                      } else {
-                        setShowError(true);
-                      }
-                      // handleTrackingClick(e);
-                      }}>submit
-                    </div>
-                      {showError&&
-                        <div>
-                          <ErrorStyle>{!name &&"Nickname Can't be Blank"}</ErrorStyle>
-                          <ErrorStyle>{!body &&"Body Can't be Blank"}</ErrorStyle>
-                          <ErrorStyle>{!isEmail(email) && "The email address provided is not in correct email format"}</ErrorStyle>
-                        </div>
+                >For privacy reasons, do not use your full name or email address
+              </p>
+              <div>
+                <div
+                  style={{...buttonStyle, backgroundColor:'#768174', color: 'white', borderColor:'white', fontSize:'large', width:'80px', borderStyle:'outset'}}
+                  widget='QandA'
+                  element-name='Add_A_Question_Submit'
+                  onClick={(e)=> {
+                    if(name && body && isEmail(email)) {
+                      handleQuestionSubmit();
+                      setIsOpen(false);
+                      setShowError(false);
+                      setBody('');
+                      setName('');
+                      setEmail('');
+                    } else {
+                      setShowError(true);
+                    }
+                    // handleTrackingClick(e);
+                    }}>submit
+                  </div>
+                    {showError&&
+                      <div>
+                        <ErrorStyle>{!name &&"Nickname Can't be Blank"}</ErrorStyle>
+                        <ErrorStyle>{!body &&"Body Can't be Blank"}</ErrorStyle>
+                        <ErrorStyle>{!isEmail(email) && "The email address provided is not in correct email format"}</ErrorStyle>
+                      </div>
                       }
                 </div>
           </form>

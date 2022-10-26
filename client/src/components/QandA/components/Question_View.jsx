@@ -9,10 +9,59 @@ import {QandAQuestionListView,QuestionBar,QuestionBarActionItem,rowFlex} from '.
 
 
 const QuestionView = ({
+  productInfo,
   question,
-  handleTrackingClick,
   highlight,
+  handleTrackingClick,
 }) =>  {
+
+  const [answers, setAnswers] = useState ([]);
+  const [showAnswers, setShowAnswers] = useState([])
+
+  const getAnswersRequest = () => {
+
+    const SortAnswersBySeller = (answers) => {
+      var sellerPoint = 0;
+      var answerPoint = 0;
+      answers.forEach((a) => {
+        var isSeller = (a.answerer_name.toLowerCase() === 'seller');
+        if(isSeller) {
+          [answers[sellerPoint],answers[answerPoint]] = [answers[answerPoint],answers[sellerPoint]];
+          sellerPoint++;
+        }
+        answerPoint++;
+      })
+    }
+
+    let config = {
+      params: {
+        page: 1,
+        count: 500
+      },
+    }
+
+    axios.get(`/qa/questions/${question.question_id}/answers`,config)
+    .then((result)=> {
+      return result.data;
+    })
+    .then((data) => {
+      SortAnswersBySeller(data.results);
+      setAnswers(data.results);
+    })
+  }
+
+  useEffect (() => {
+    getAnswersRequest();
+  },[])
+
+  useEffect(() => {
+    if(!showAnswers.length) {
+      setShowAnswers(answers.slice(0,2));
+    } else {
+      setShowAnswers(answers);
+    }
+  },[answers])
+
 
   const handleRequestClick = (endpoint,method) => {
     let config = {
@@ -50,6 +99,7 @@ const QuestionView = ({
     ));
   }
 
+
   return (
     <QandAQuestionListView>
       <div widget='QandA'
@@ -63,8 +113,13 @@ const QuestionView = ({
               handleTrackingClick={handleTrackingClick}
               handleReportClick={handleReportClick}/>
             <AddanAnswer
+              productInfo={productInfo}
+              question_id={question.question_id}
+              question_body={question.question_body}
+              setAnswers={setAnswers}
+              getAnswersRequest={getAnswersRequest}
               handleTrackingClick={handleTrackingClick}
-              question_id={question.question_id}/>
+              />
             <QuestionHelpfulness
               handleTrackingClick={handleTrackingClick}
               handleHelpfulClick={handleHelpfulClick}
@@ -73,11 +128,15 @@ const QuestionView = ({
           </QuestionBarActionItem>
         </QuestionBar>
         <div style={rowFlex}>
-          <div style={{fontWeight: 'bold'}}>A: </div>
+          <div style={{fontWeight: 'bold', paddingRight:'5px'}}>A: </div>
           <div>
             <AnswersListView
+              question_id={question.question_id}
+              answers={answers}
+              showAnswers={showAnswers}
+              setShowAnswers={setShowAnswers}
               handleTrackingClick={handleTrackingClick}
-              question_id={question.question_id}/>
+              />
           </div>
         </div>
       </div>

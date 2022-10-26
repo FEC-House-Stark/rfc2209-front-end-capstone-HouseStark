@@ -60,8 +60,9 @@ const QuestionsView = ({
             ?showQuestion.map((q) => {
               return <QuestionView
               key={q.question_id}
-              product_id={product_id}
               question={q}
+              productInfo={productInfo}
+              product_id={product_id}
               highlight={highlight}
               handleTrackingClick={handleTrackingClick}
               />
