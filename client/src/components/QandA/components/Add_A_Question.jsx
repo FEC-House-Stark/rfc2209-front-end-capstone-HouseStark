@@ -8,10 +8,11 @@ import AddaQuestionModal from './Add_A_Question_Modal.jsx';
 import isEmail from 'validator/lib/isEmail';
 
 const AddaQuestion = ({
-  setQuestions,
-  product_id,
-  handleTrackingClick,
   productInfo,
+  product_id,
+  setQuestions,
+  getQuestionRequest,
+  handleTrackingClick,
 }) =>  {
 
   const [openModal, setIsOpen] = useState(false);
@@ -33,6 +34,8 @@ const AddaQuestion = ({
         setIsOpen={setIsOpen}
         product_id={product_id}
         productInfo={productInfo}
+        setQuestions={setQuestions}
+        getQuestionRequest={getQuestionRequest}
         />
     </div>
   )

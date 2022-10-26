@@ -7,10 +7,12 @@ import {modalBoxStyle, modalViewStyle, buttonStyle, ErrorStyle} from './QandA_St
 import isEmail from 'validator/lib/isEmail';
 
 const AddaQuestionModal = ({
-  product_id,
   productInfo,
+  product_id,
   openModal,
   setIsOpen,
+  setQuestions,
+  getQuestionRequest,
 }) =>  {
 
   const [body, setBody] = useState('');
@@ -18,16 +20,17 @@ const AddaQuestionModal = ({
   const [email, setEmail] = useState('');
   const [showError, setShowError] = useState(false);
 
-  let config = {
-    url: '/qa/questions',
-    method: 'post',
-    data: {body,name, email, product_id },
-  }
 
   const handleQuestionSubmit = () => {
-     axios(config)
+    let config = {
+      url: '/qa/questions',
+      method: 'post',
+      data: {body,name, email, product_id },
+    }
+    axios(config)
     .then((result)=> {
       console.log(result);
+      getQuestionRequest();
     })
     .then((err)=> {
       console.log(err);
