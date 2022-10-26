@@ -55,7 +55,7 @@ const Overview = (props) => {
   return (
     <div style={OverviewStyle} ref={ref}>
         <ImageGallery id="image-gallery" handleClick={props.handleClick} photos={style.photos} image_width={image_width} image_height={image_height} getBodyWidth={getBodyWidth} setThumbnailRow={setThumbnailRow} product_id={props.product_id}/>
-        <ProductInfo id="product-info" handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style}/>
+        <ProductInfo data-testid="product-info" handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style}/>
         <StyleSelector id="style-selector" handleClick={props.handleClick} styles={props.styles.results} style={style} setStyle={setStyle}/>
         <AddToCart id="add-to-cart" handleClick={props.handleClick} skus={style.skus}/>
         <ProductDesc id="product-desc" handleClick={props.handleClick} productInfo={props.productInfo}/>
