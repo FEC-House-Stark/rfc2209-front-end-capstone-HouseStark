@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Modal from 'react-modal';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -38,29 +38,32 @@ justify-content: space-between;
 padding-top: 5px;
 font-size: 12px;
 `;
-const ProductOne = styled.div`
-font-weight: bold;
-`;
-const ProductTwo = styled.div`
-font-weight: bold;
-`;
 const CurrentProduct = styled.div`
+font-weight: bold;
 `;
-const ToCompare = styled.div`
+const ComapredProduct = styled.div`
+font-weight: bold;
+`;
+const CurrentValue = styled.div`
+`;
+const ComparedValue = styled.div`
 `;
 const CurrentFeature = styled.div`
 `;
 
 const ComparisonModal = ({ setOpenModal, compare, currentProduct }) => {
+  const [allFeatures, setAllFeatures] = useState({});
+
   useEffect(() => {
-    let temp = compare.concat(currentProduct);
-    let allFeatures = {}
+    console.log(compare.features, currentProduct.features)
+    let temp = compare.features.concat(currentProduct.features);
+    let allFeatures = []
     temp.map((features, i) => {
       if (!allFeatures[features.feature]) {
         allFeatures[features.feature] = {}
       }
     })
-    // console.log(allFeatures)
+    console.log(allFeatures)
   }, [])
 
   let comparisonModal = useRef();
@@ -82,14 +85,14 @@ const ComparisonModal = ({ setOpenModal, compare, currentProduct }) => {
     <ModalContainer ref={comparisonModal}>
       <ModalHeader>COMPARING
         <ProductNames>
-          <ProductOne>Current Product</ProductOne>
-          <ProductTwo>Comapred Product</ProductTwo>
+          <CurrentProduct>{currentProduct.name}</CurrentProduct>
+          <ComapredProduct>{compare.name}</ComapredProduct>
         </ProductNames>
       </ModalHeader>
       <Features>
-        <CurrentProduct>{check}</CurrentProduct>
+        <CurrentValue>{check}</CurrentValue>
         <CurrentFeature>Feature</CurrentFeature>
-        <ToCompare>{check}</ToCompare>
+        <ComparedValue>{check}</ComparedValue>
       </Features>
     </ModalContainer>
   )
