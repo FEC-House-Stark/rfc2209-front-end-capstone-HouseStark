@@ -12,6 +12,7 @@ flex-direction: column;
 /* border:1px solid black; */
 /* contain: content; */
 `;
+Container.displayName = 'Container';
 
 const Related = ({ handleClick, product_id, setId, numReviews, avgRating, productInfo, styles }) => {
   const [related_ids, setRelatedIds] = useState([]);
@@ -38,7 +39,6 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
         setRelatedIds(Object.keys(unique))
       }).catch((err) => console.log('ERR in Product IDs', err))
   }, [product_id])
-
 
   useEffect(() => { //gets related products
     if (related_ids.length) {
@@ -128,7 +128,7 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
 
 
   return (
-    <Container>
+    <Container className='Container'>
       <ProductList data={data} setId={setId} setOpenModal={setOpenModal} openModal={openModal} setCompare={setCompare} />
       <OutfitList />
       {openModal && <ComparisonModal setOpenModal={setOpenModal} compare={compare} currentProduct={productInfo} />}

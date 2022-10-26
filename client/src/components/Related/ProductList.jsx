@@ -23,6 +23,7 @@ margin-top: 20px;
 margin-bottom: 20px;
 color: #4D6A6D;
 `;
+ProdHeader.displayName = 'ProdHeader';
 
 const NextButton = styled.div`
 position: absolute;
@@ -33,6 +34,7 @@ color:white;
 background-color: #798478;
 cursor: pointer;
 `;
+NextButton.displayName = 'NextButton';
 
 const BackButton = styled.div`
 position: absolute;
@@ -43,6 +45,7 @@ left:-10px;
 bottom: 45%;
 cursor: pointer;
 `;
+BackButton.displayName = 'BackButton';
 
 const ProductList = ({ data, setId, setOpenModal, openModal, setCompare }) => {
   const [length, setLength] = useState(0);

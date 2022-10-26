@@ -21,35 +21,51 @@ top: 0%;
 /* transform: translate(-50%, -50%); */
 overflow:auto;
 `;
+
 const ModalHeader = styled.div`
 font-family: system-ui;
 font-size: 9px;
 padding: 5px;
 `;
+ModalHeader.displayName = 'ModalHeader';
+
 const Features = styled.div`
 display: flex;
 justify-content: space-between;
 padding: 5px;
 font-size: 12px;
 `;
+Features.displayName = 'Features';
+
 const ProductNames = styled.div`
 display: flex;
 justify-content: space-between;
 padding-top: 5px;
 font-size: 12px;
 `;
+ProductNames.displayName = 'ProductNames';
+
 const CurrentProduct = styled.div`
 font-weight: bold;
 `;
+CurrentProduct.displayName = 'CurrentProduct';
+
 const ComapredProduct = styled.div`
 font-weight: bold;
 `;
+ComapredProduct.displayName = 'ComapredProduct';
+
 const CurrentValue = styled.div`
 `;
+CurrentValue.displayName = 'CurrentValue';
+
 const ComparedValue = styled.div`
 `;
+ComparedValue.displayName = 'ComparedValue';
+
 const CurrentFeature = styled.div`
 `;
+CurrentFeature.displayName = 'CurrentFeature';
 
 const ComparisonModal = ({ setOpenModal, compare, currentProduct }) => {
   const [allFeatures, setAllFeatures] = useState({});

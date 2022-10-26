@@ -9,7 +9,7 @@
     "test-overview": "npx jest client/test/Overview.test.js",
     "test-questions": "npx jest client/test/QandA.test.js",
     "test-reviews": "npx jest client/test/RandR.test.js",
-    "test-related": "npx jest client/test/Related.test.js",
+    "test-related": "npx jest client/test/Related.test.js --coverage",
     "react-dev": "webpack --mode development --watch"
   },
   "repository": {

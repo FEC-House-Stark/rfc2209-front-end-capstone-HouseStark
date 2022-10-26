@@ -31,6 +31,7 @@ cursor: pointer;
 background-color:#798478;
 color: white;
 `;
+Card.displayName = 'Card';
 
 const Photos = styled.img`
 max-width: 100%;
@@ -64,6 +65,7 @@ font-size: 20px;
 color: black;
 };
 `;
+Star.displayName = 'Star';
 
 const ProductCards = ({ data, setId, setOpenModal, openModal, setCompare }) => {
 
@@ -71,7 +73,7 @@ const ProductCards = ({ data, setId, setOpenModal, openModal, setCompare }) => {
     setOpenModal(!openModal)
     setCompare({ name, features })
   }
-
+//console.log(data)
   return (
     <CardContainer id='card-container'>
       {data.map((product, i) =>
