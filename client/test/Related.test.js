@@ -76,8 +76,4 @@ describe("ComparisonModal", () => {
   test("Renders ComparisonModal", () => {
     shallow(<ComparisonModal compare={{ name: 'name' }} currentProduct={{ name: 'name' }} />);
   });
-  // test("Renders ComapredProduct", () => {
-  //   const wrapper = shallow(<ComparisonModal compare={{name: 'name'}} currentProduct={{name: 'name'}}/>);
-  //   expect(wrapper.find('ComapredProduct')).toHaveLength(1)
-  // });
 });
