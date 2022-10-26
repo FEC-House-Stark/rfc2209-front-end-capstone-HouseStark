@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { expect, jest, test } from '@jest/globals';
 import React from "react";
 import Enzyme, { shallow, mount } from "enzyme";

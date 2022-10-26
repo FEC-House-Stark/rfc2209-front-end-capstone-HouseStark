@@ -28,7 +28,9 @@ export const BreakdownContainer = styled.section`
             box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
   margin: 20px;
   width: 325px;
-  height: 400px;
+  height: 420px;
+  justify-content: center;
+
 `;
 
 export const ListContainer = styled.section`

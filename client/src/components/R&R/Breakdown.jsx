@@ -27,6 +27,7 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
   }
 
   useEffect(() => {
+    // renderCharBar()
     characteristicsCalc()
     setStarCountObj(starCounter())
   }, [fullReviewList])
@@ -47,7 +48,7 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
       countObj[fullReviewList[i].rating] += 1
       total += 1
     }
-    // console.log('TEST', countObj)
+    // console.log('TEST', calcCharact)
     setSum(total)
     return countObj
   }
@@ -296,19 +297,24 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
   }
 
   var renderFilterList = () => {
+    // calcCharact.forEach((item) => {
+    //   let temp = Number(item.split(':')[1])
+    //   console.log(temp)
+    // })
+
     // let num = e.curr❎entTarget.id;
     let reconfig = {
-    1: handleBar1Click,
-    2: handleBar2Click,
-    3: handleBar3Click,
-    4: handleBar4Click,
-    5: handleBar5Click,
+      1: handleBar1Click,
+      2: handleBar2Click,
+      3: handleBar3Click,
+      4: handleBar4Click,
+      5: handleBar5Click,
     }
     if (filterObj.length) {
       return (
         filterObj.map((item, i) => {
           return (
-            <div key={i} id={item} onClick={(e) => { reconfig[item](e) }} style={{margin: '5px', border: '1px solid black', fontSize: '14px', borderRadius: '3px', cursor: 'pointer'}}>
+            <div key={i} id={item} onClick={(e) => { reconfig[item](e) }} style={{ margin: '5px', border: '1px solid black', fontSize: '14px', borderRadius: '3px', cursor: 'pointer' }}>
               {`${item} star ❌`}
               {/* <FontAwesomeIcon icon={faCircleXmark} /> */}
             </div>
@@ -320,10 +326,84 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
     }
   }
 
+  var renderCharBar = () => {
+    let barStyle = {
+      height: '15px',
+      width: `${310}px`,
+      backgroundColor: '#adb5bd',
+      border: '1px solid lightgrey',
+      borderRadius: '0px',
+      position: 'relative',
+    }
+
+
+    let lineStyle1 = {
+      position: 'absolute',
+      borderLeft: '6px solid white',
+      height: '20px',
+      left: '103px'
+    }
+
+    let lineStyle2 = {
+      position: 'absolute',
+      borderLeft: '6px solid white',
+      height: '20px',
+      right: '103px'
+    }
+
+    let result = []
+
+    calcCharact.forEach((item) => {
+      let value = Number(item.split(':')[1])
+      let char = item.split(':')[0]
+      let temp = []
+      temp.push(char)
+      temp.push(value)
+      // console.log(value / 5)
+      result.push(temp)
+    })
+
+    // var dynamicTrianglePlacer = () => {
+    //   result.forEach((item) => {
+    //     let percent = item[1] / 5
+    //   })
+    //   return {
+
+    //   }
+    // }
+
+    return (
+      <div>
+        {result.map((item, i) => {
+          let percent = item[1] / 5
+          console.log(percent * 310)
+          let triangleStyle = {
+            width: '0px',
+            height: '0px',
+            borderTop: '8px solid black',
+            borderLeft: '8px solid transparent',
+            borderRight: '8px solid transparent',
+            position: 'absolute',
+            right: `${percent * 310}px`
+          }
+
+          return (
+            <>
+            <div>{item[0]}</div>
+            <div key={i} style={barStyle}><div style={lineStyle2}></div><div style={lineStyle1}></div><div style={triangleStyle}></div></div>
+            </>
+          )
+        })}
+      </div>
+    )
+
+  }
+
   return (
     <>
       <h2>Ratings & Reviews</h2>
-      <h1 className='numberRating'>
+      <div className='ratingContainer' style={{display: 'flex'}}>
+      <h1 className='numberRating' style={{display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '25px'}}>
         {avgRating}
       </h1>
       <div>
@@ -334,43 +414,43 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
           fill='#4D6A6D' //optional
         />
       </div>
+      </div>
       <div>
         {`${recommendPercentageCalculator()}% of reviews recommend this product`}
+        <div style={{color: 'white', fontSize: '8px'}}>break</div>
       </div>
       <div style={containerStyle1}>
         <li id={5} onClick={(e) => { handleBar5Click(e) }}
           onMouseEnter={handleMouseEnter5}
           onMouseLeave={handleMouseLeave5}
           style={containerStyle2}>{`5 Stars`}{barRender(5)}{starCountObj[5]}</li>
+          <div style={{color: 'white'}}>break</div>
         <li id={4}
           onClick={(e) => { handleBar4Click(e) }}
           onMouseEnter={handleMouseEnter4}
           onMouseLeave={handleMouseLeave4}
           style={containerStyle2}>{`4 Stars`}{barRender(4)}{starCountObj[4]}</li>
+          <div style={{color: 'white'}}>break</div>
         <li id={3}
           onClick={(e) => { handleBar3Click(e) }}
           onMouseEnter={handleMouseEnter3}
           onMouseLeave={handleMouseLeave3}
           style={containerStyle2}>{`3 Stars`}{barRender(3)}{starCountObj[3]}</li>
+          <div style={{color: 'white'}}>break</div>
         <li id={2}
           onClick={(e) => { handleBar2Click(e) }}
           onMouseEnter={handleMouseEnter2}
           onMouseLeave={handleMouseLeave2}
           style={containerStyle2}>{`2 Stars`}{barRender(2)}{starCountObj[2]}</li>
+          <div style={{color: 'white'}}>break</div>
         <li id={1}
           onClick={(e) => { handleBar1Click(e) }}
           onMouseEnter={handleMouseEnter1}
           onMouseLeave={handleMouseLeave1}
           style={containerStyle2}>{`1 Stars`}{barRender(1)}{starCountObj[1]}</li>
-        <div style={{display: 'flex', flexWrap: 'wrap'}}>
-        {renderFilterList()}</div>
-        {calcCharact.map((item, i) => {
-          return (
-            <li key={i}>
-              {item}
-            </li>
-          )
-        })}
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {renderFilterList()}</div>
+        {renderCharBar()}
       </div>
     </>
   );
