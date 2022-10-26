@@ -36,9 +36,11 @@ Card.displayName = 'Card';
 const Photos = styled.img`
 max-width: 100%;
 height: 219px;
+border-bottom: 1px solid black;
 `;
 
 const Category = styled.div`
+font-size: 15px;
 margin-left:5px;
 margin-top:2px;
 `;
@@ -73,7 +75,11 @@ const ProductCards = ({ data, setId, setOpenModal, openModal, setCompare }) => {
     setOpenModal(!openModal)
     setCompare({ name, features })
   }
-//console.log(data)
+
+  // useEffect(() => {
+  //   console.log(data)
+  // }, [data])
+
   return (
     <CardContainer id='card-container'>
       {data.map((product, i) =>

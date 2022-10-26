@@ -27,21 +27,23 @@ ProdHeader.displayName = 'ProdHeader';
 
 const NextButton = styled.div`
 position: absolute;
-right:-10px;
+font-size: 35px;
+right:-25px;
 bottom: 45%;
-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.19);
-color:white;
-background-color: #798478;
+/* box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.19); */
+color:#798478;;
+/* background-color: white; */
 cursor: pointer;
 `;
 NextButton.displayName = 'NextButton';
 
 const BackButton = styled.div`
 position: absolute;
-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.19);
-color:white;
-background-color: #798478;
-left:-10px;
+font-size: 35px;
+/* box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.19); */
+color:#798478;;
+/* background-color: white; */
+left:-25px;
 bottom: 45%;
 cursor: pointer;
 `;
