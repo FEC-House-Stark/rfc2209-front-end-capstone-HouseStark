@@ -1,5 +1,8 @@
 const testQuestions = {
 	"product_id": "66644",
+	"productInfo" : {
+		"name" : "Morning Joggers",
+	},
 	"results": [
 		{
 			"question_id": 643385,
