@@ -376,7 +376,7 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
       <div>
         {result.map((item, i) => {
           let percent = item[1] / 5
-          console.log(percent * 310)
+          // console.log(percent * 310)
           let triangleStyle = {
             width: '0px',
             height: '0px',
@@ -388,10 +388,10 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
           }
 
           return (
-            <>
+            <div key={i}>
             <div>{item[0]}</div>
-            <div key={i} style={barStyle}><div style={lineStyle2}></div><div style={lineStyle1}></div><div style={triangleStyle}></div></div>
-            </>
+            <div style={barStyle}><div style={lineStyle2}></div><div style={lineStyle1}></div><div style={triangleStyle}></div></div>
+            </div>
           )
         })}
       </div>
