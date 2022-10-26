@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 const { useEffect, useState } = React;
 
 const AddToCartStyle = styled.div`
@@ -12,30 +14,57 @@ const addCartStyle = {
   height: '100%',
   width: '100%'
 }
+const row_ht = '40%';
+const color = '#666';
+const fontSize = '13px';
+const fontWeight = "bold";
 
 const selectSizeStyle = {
+  color: `${color}`,
   width: '65%',
-  height: '80%',
+  height: `${row_ht}`,
   border: '1pt solid #666',
+  paddingLeft: '10px',
+  fontSize,
+  fontWeight,
 }
 const selectQtyStyle = {
+  color: `${color}`,
   width: '30%',
-  height: '80%',
+  height: `${row_ht}`,
   border: '1pt solid #666',
+  paddingLeft: '10px',
+  fontSize,
+  fontWeight,
 }
-const formStyle = {
-  width: '90%',
-  height: '60px',
+const buttonStyle = {
+  color: `${color}`,
+  width: '80%',
+  height: `${row_ht}`,
+  border: '1pt solid #666',
+  paddingLeft: '15px',
+  paddingRight: '15px',
+  fontSize,
+  fontWeight,
+  backgroundColor: '#fff',
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center'
 }
+const formStyle = {
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'space-between',
+  flexWrap: 'wrap'
+}
 
-const AddToCart = ({ handleClick, skus }) => {
+const AddToCart = ({ handleClick, style }) => {
   const [selectedSize, setSelectedSize] = useState('');
-  const [selectedQty, setSelectedQty] = useState(1);
+  const [selectedQty, setSelectedQty] = useState('-');
   const [quantity, setQuantity] = useState([]);
-  let parsedSkus = {};
+  const [sizes, setSizes] = useState([]);
 
   const handleSizeChange = (e) => {
     e.preventDefault();
@@ -48,13 +77,15 @@ const AddToCart = ({ handleClick, skus }) => {
 
   useEffect(() => {
     if (selectedSize !== '') {
-      for (const key in skus) {
-        if (skus[key].size === selectedSize) {
+      for (const key in style.skus) {
+        if (style.skus[key].size === selectedSize) {
           let quantityArr = [];
-          for (let i = 1; i <= skus[key].quantity; i++) {
-            quantityArr.push(i);
+          for (let i = 1; i <= style.skus[key].quantity; i++) {
+            quantityArr.push(i.toString());
+            if (i === 15) break;
           }
           setQuantity(quantityArr);
+          if (selectedQty === '-') setSelectedQty(1);
           break;
         }
       }
@@ -63,44 +94,57 @@ const AddToCart = ({ handleClick, skus }) => {
   }, [selectedSize])
 
   useEffect(()=> {
+    console.log('new style.skus', style.skus);
     setSelectedSize('');
-    setSelectedQty(1);
+    setSelectedQty('-');
     setQuantity([]);
-  }, [skus])
+    let sizesArr = []
+    for (const key in style.skus) {
+      if (style.skus[key].quantity > 0) {
+        sizesArr.push(style.skus[key].size);
+      }
+    }
+    setSizes(sizesArr);
+  }, [style])
 
-
+  const handleCartClick = (e) => {
+    e.preventDefault();
+    console.log(`Adding to cart! Style: ${style.name} Size: ${selectedSize} Qty: ${selectedQty}`);
+  }
 
   return (
-    //    <AddToCartStyle>
     <>
-      {skus !== undefined &&
+      {style.skus !== undefined &&
         <div widget='Overview' style={addCartStyle} element-name='AddToCart' onClick={e => {//handleClick(e);
         }}>
           <form style={formStyle}>
             <select value={selectedSize} style={selectSizeStyle} onChange={handleSizeChange}>
               <option disabled={true} value="">
-                SELECT SIZE
+                {sizes.length > 0 ? <span>SELECT SIZE</span> : <span>OUT OF STOCK</span>}
               </option>
-              {Object.keys(skus).length > 0 &&
-                Object.keys(skus).map((key, i) => {
-                  if (skus[key].quantity > 0) { return <option>{skus[key].size}</option> };
-                })
-              }
-            </select>
-            <select style={selectQtyStyle} value={selectedQty} onChange={handleQtyChange}>
-              {quantity.length > 0 &&
+              {sizes.length > 0 &&
                 <>
-                  {quantity.map((val) => (
-                    <option>{val}</option>
+                  {sizes.map((val, i) => (
+                    <option key={val + i}>{val}</option>
                   ))}
                 </>
               }
             </select>
+            <select style={selectQtyStyle} value={selectedQty} onChange={handleQtyChange}>
+            <option disabled={true} value="-">-</option>
+              {quantity.length > 0 &&
+                <>
+                  {quantity.map((val, i) => (
+                    <option key={val + i}>{val}</option>
+                  ))}
+                </>
+              }
+            </select>
+            <button style={buttonStyle} onClick={handleCartClick}>ADD TO CART<FontAwesomeIcon icon={faCartShopping}/></button>
           </form>
         </div>
       }
     </>
-    //    </AddToCartStyle>
   )
 }
 
