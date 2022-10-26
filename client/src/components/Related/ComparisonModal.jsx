@@ -55,7 +55,7 @@ const ComparisonModal = ({ setOpenModal, compare, currentProduct }) => {
   const [allFeatures, setAllFeatures] = useState({});
 
   useEffect(() => {
-    console.log(compare.features, currentProduct.features)
+    //console.log(compare.features, currentProduct.features)
     let temp = compare.features.concat(currentProduct.features);
     let allFeatures = []
     temp.map((features, i) => {
@@ -63,7 +63,7 @@ const ComparisonModal = ({ setOpenModal, compare, currentProduct }) => {
         allFeatures[features.feature] = {}
       }
     })
-    console.log(allFeatures)
+    //console.log(allFeatures)
   }, [])
 
   let comparisonModal = useRef();

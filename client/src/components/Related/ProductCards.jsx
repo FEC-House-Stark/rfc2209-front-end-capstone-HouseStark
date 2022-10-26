@@ -65,10 +65,10 @@ color: black;
 };
 `;
 
-const ProductCards = ({ data, setId, setOpenModal, setCompare }) => {
+const ProductCards = ({ data, setId, setOpenModal, openModal, setCompare }) => {
 
   const handleOpen = (name, features) => {
-    setOpenModal(true)
+    setOpenModal(!openModal)
     setCompare({ name, features })
   }
 
