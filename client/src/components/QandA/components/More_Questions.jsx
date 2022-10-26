@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {buttonStyle} from './Q&A_Styles.jsx';
+import {buttonStyle} from './QandA_Styles.jsx';
 
 const MoreQuestionsButton = ({
   handleMoreQuestion,

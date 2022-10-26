@@ -3,10 +3,11 @@ import QuestionView from './Question_View.jsx';
 import AddaQuestion from './Add_A_Question.jsx';
 import MoreQuestionsButton from './More_Questions.jsx';
 import styled from 'styled-components';
-import {QandASearchView,QandAQuestionActions} from './Q&A_Styles.jsx';
+import {QandASearchView,QandAQuestionActions} from './QandA_Styles.jsx';
 
 
 const QuestionsView = ({
+  productInfo,
   questions,
   setQuestions,
   filter,
@@ -44,37 +45,43 @@ const QuestionsView = ({
   // }
 
 
+
   return (
     <QandASearchView>
-      <div>
-        { questions.length
-          ?showQuestion.map((q) => {
-            return <QuestionView
-            key={q.question_id}
-            product_id={product_id}
-            question={q}
-            highlight={highlight}
-            handleTrackingClick={handleTrackingClick}
-            />
-          })
-          :null
+      <div widget='QandA'
+        element-name='Questions_View'>
+        <div>
+          { questions.length
+            ?showQuestion.map((q) => {
+              return <QuestionView
+              key={q.question_id}
+              product_id={product_id}
+              question={q}
+              highlight={highlight}
+              handleTrackingClick={handleTrackingClick}
+              />
+            })
+            :null
+          }
+      </div>
+      <QandAQuestionActions>
+        {
+          questions.length
+            ? <MoreQuestionsButton
+              moreQuestions={moreQuestions}
+              handleMoreQuestion={handleMoreQuestion}
+              // handleLessQuestion={handleLessQuestion}
+              handleTrackingClick={handleTrackingClick}/>
+            :null
         }
-    </div>
-    <QandAQuestionActions>
-      {
-        questions.length
-          ? <MoreQuestionsButton
-            moreQuestions={moreQuestions}
-            handleMoreQuestion={handleMoreQuestion}
-            // handleLessQuestion={handleLessQuestion}
-            handleTrackingClick={handleTrackingClick}/>
-          :null
-      }
-       <AddaQuestion
-        product_id={product_id}
-        handleTrackingClick={handleTrackingClick}
-        />
-    </QandAQuestionActions>
+        <AddaQuestion
+          productInfo={productInfo}
+          product_id={product_id}
+          handleTrackingClick={handleTrackingClick}
+          />
+      </QandAQuestionActions>
+      </div>
+
   </QandASearchView>
   )
 }

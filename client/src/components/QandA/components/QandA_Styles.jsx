@@ -4,7 +4,7 @@ const QandASearchView = styled.div`
 display: flex;
 flex-direction: column;
 align-items: stretch;
-max-height: 1000px;
+max-height: 90vh;
 overflow-y: auto;
 padding-right :15px;
 `;
@@ -92,6 +92,10 @@ const AnswersListStyle = styled.div`
   align-items: stretch;
   flex-direction: column;
   gap: 10px;
+  max-height: 50vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 180px;
   `
 
 const moreAnswersButton = {
@@ -112,13 +116,6 @@ font-size: small;
 color : #808080	;
 `
 
-const photoStyle = {
-  border:'1px solid black',
-  minHeight:'100px',
-  minWidth:'100px',
-  maxHeight: '100px',
-  marginRight:'20px'
-}
 
 const modalBoxStyle = {
   content: {
@@ -126,12 +123,32 @@ const modalBoxStyle = {
     left: '50%',
     right: '50%',
     bottom: '50%',
-    minHeight:'300px',
-    minWidth:'500px',
+    minHeight:'600px',
+    minWidth:'800px',
     transform: 'translate(-50%, -50%)',
   },
 };
 
+const photoModalStyle = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: '50%',
+    bottom: '50%',
+    minHeight:'40vh',
+    minWidth:'60vh',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
+const photoStyle = {
+  border:'1px solid black',
+  minHeight:'100px',
+  minWidth:'100px',
+  maxHeight: '100px',
+  marginRight:'20px',
+  cursor:'pointer',
+}
 
 const modalViewStyle = {
   display: 'flex',
@@ -140,7 +157,25 @@ const modalViewStyle = {
   gap:'10px',
 }
 
+const modalImgStyle = {
+  display:'block',
+  marginLeft:'auto',
+  marginRight:'auto',
+  width:'60%',
+}
 
+const SellerFontWeight = {
+  fontWeight:'bolder',
+  color:'#505050',
+}
+
+const ErrorStyle = styled.p`
+color: red;
+font-size: small;
+margin: 0;
+padding:0;
+text-align: left;
+`
 
 export {
   QandASearchView,
@@ -160,4 +195,8 @@ export {
   photoStyle,
   modalBoxStyle,
   modalViewStyle,
+  SellerFontWeight,
+  photoModalStyle,
+  modalImgStyle,
+  ErrorStyle,
 }
