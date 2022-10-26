@@ -3,14 +3,15 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons'
-import {modalBoxStyle, modalViewStyle} from './Q&A_Styles.jsx';
+import {modalBoxStyle, modalViewStyle} from './QandA_Styles.jsx';
 
-const AddanAnswer = ({
+const AddanAnswerModal = ({
   handleTrackingClick,
   question_id,
+  openModal,
+  setIsOpen,
 }) =>  {
 
-  const [openModal, setIsOpen] = useState(false);
   const [body, setBody] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -36,16 +37,6 @@ const AddanAnswer = ({
 
 
   return (
-    <div >
-      <div
-        style={{textDecorationLine: 'underline', cursor:'pointer'}}
-        widget='QandA'
-        element-name='Add_Answer'
-        onClick={(e) => {
-        e.preventDefault();
-        setIsOpen(!openModal);
-        handleTrackingClick(e);
-      }}> Add an Answer </div>
       <Modal
         isOpen={openModal}
         style={modalBoxStyle}
@@ -59,11 +50,13 @@ const AddanAnswer = ({
               onClick={(e)=> {
                 console.log(e)
                 setIsOpen(!openModal)
-                const newTarget = {
-                  target: e.target.parentElement.parentElement,
-                  timeStamp: new Date()
-                }
-                handleTrackingClick(newTarget)}}>
+                // const newTarget = {
+                //   target: e.target.parentElement.parentElement,
+                //   timeStamp: new Date()
+                // }
+                // handleTrackingClick(newTarget)
+              }}
+                >
               <FontAwesomeIcon icon={faCircleXmark} />
             </div>
           </div>
@@ -77,12 +70,14 @@ const AddanAnswer = ({
           Name:
             <input
               type='text'
+              name='Name'
               onChange={(e)=> {
                 setName(e.target.value);
               }}/>
           email:
             <input
               type='email'
+              name='Email'
               onChange={(e)=> {
                 setEmail(e.target.value);
               }}/>
@@ -122,8 +117,7 @@ const AddanAnswer = ({
             }}>submit</button>
         </span>
       </Modal>
-    </div>
   )
 }
 
-export default AddanAnswer;
+export default AddanAnswerModal;

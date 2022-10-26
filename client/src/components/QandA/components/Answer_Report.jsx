@@ -2,17 +2,26 @@ import {useState, useEffect} from 'react';
 
 const AnswerReport = ({handleReportClick,handleTrackingClick}) =>  {
 
+  const [report, setReport] = useState(false);
+
   return (
     <div
     style={{textDecorationLine: 'underline',cursor:'pointer'}}
     widget='QandA'
-    element-name='Answer_Helpfulness'
+    element-name='Answer_Report'
     onClick={(e)=> {
-      handleReportClick();
-      handleTrackingClick(e);
+      if(!report) {
+        handleReportClick();
+        handleTrackingClick(e);
+        setReport(true);
+      } else {
+        handleTrackingClick(e);
+      }
     }}
     >
-     Report
+     {!report
+     ? 'Report'
+     :'Reported'}
   </div>
   )
 }
