@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
-const { useEffect, useState } = React;
+import { faCartShopping, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
+const { useEffect, useState, useRef } = React;
 
 const AddToCartStyle = styled.div`
   grid-column-start: 3;
@@ -19,15 +20,6 @@ const color = '#666';
 const fontSize = '13px';
 const fontWeight = "bold";
 
-const selectSizeStyle = {
-  color: `${color}`,
-  width: '65%',
-  height: `${row_ht}`,
-  border: '1pt solid #666',
-  paddingLeft: '10px',
-  fontSize,
-  fontWeight,
-}
 const selectQtyStyle = {
   color: `${color}`,
   width: '30%',
@@ -37,7 +29,7 @@ const selectQtyStyle = {
   fontSize,
   fontWeight,
 }
-const buttonStyle = {
+const cartButtonStyle = {
   color: `${color}`,
   width: '80%',
   height: `${row_ht}`,
@@ -53,7 +45,7 @@ const buttonStyle = {
 }
 const formStyle = {
   width: '100%',
-  height: '100%',
+  height: '85%',
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'space-between',
@@ -65,14 +57,90 @@ const AddToCart = ({ handleClick, style }) => {
   const [selectedQty, setSelectedQty] = useState('-');
   const [quantity, setQuantity] = useState([]);
   const [sizes, setSizes] = useState([]);
+  const [favorite, setFavorite] = useState(false);
+  const [selectSizeHt, setSelectSizeHt] = useState(row_ht);
+  const [noSizeCart, setNoSizeCart] = useState(false);
+  const selectRef = useRef();
+
+  const outOfStock = () => {
+    return sizes.length === 0;
+  }
+
+  const favButtonStyle = {
+    color: `${color}`,
+    width: `${!outOfStock() ? '15%' : '50px'}`,
+    height: `${row_ht}`,
+    border: '1pt solid #666',
+    paddingLeft: '15px',
+    paddingRight: '15px',
+    fontSize,
+    fontWeight,
+    backgroundColor: '#fff',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+
+  const starStyle = {
+    color: `${favorite ? 'gold' : '#666'}`,
+  };
+
+  const selectSizeStyle = {
+    color: `${color}`,
+    width: '65%',
+    height: `${selectSizeHt}`,
+    border: '1pt solid #666',
+    paddingLeft: '10px',
+    fontSize,
+    fontWeight,
+  }
 
   const handleSizeChange = (e) => {
     e.preventDefault();
     setSelectedSize(e.target.value);
+    e.target.size = '0';
+    setSelectSizeHt(row_ht);
+    setNoSizeCart(false);
   }
   const handleQtyChange = (e) => {
     e.preventDefault();
     setSelectedQty(e.target.value);
+  }
+
+  const handleSizeFocus = (e) => {
+    e.target.size = sizes.length;
+    setSelectSizeHt(row_ht);
+  }
+
+  const handleCartClick = (e) => {
+    e.preventDefault();
+    if (selectedSize === '') {
+      selectRef.current.focus();
+      setNoSizeCart(true);
+      //selectRef.current.click();
+    } else {
+      console.log(`Adding to cart!
+      Style: ${style.name} | Size: ${selectedSize} | Qty: ${selectedQty}`);
+    }
+  }
+
+  const handleFavClick = (e) => {
+    e.preventDefault();
+    setFavorite(!favorite);
+  }
+
+  const mouseClickEvents = ['mousedown'];
+  const simulateMouseClick = (element) => {
+    mouseClickEvents.forEach(mouseEventType =>
+      element.dispatchEvent(
+        new MouseEvent(mouseEventType, {
+          view: window,
+          bubbles: true,
+          cancelable: true,
+          buttons: 1
+        })
+      )
+    );
   }
 
   useEffect(() => {
@@ -93,11 +161,12 @@ const AddToCart = ({ handleClick, style }) => {
     }
   }, [selectedSize])
 
-  useEffect(()=> {
-    console.log('new style.skus', style.skus);
+  useEffect(() => {
     setSelectedSize('');
     setSelectedQty('-');
     setQuantity([]);
+    setFavorite(false);
+    setNoSizeCart(false);
     let sizesArr = []
     for (const key in style.skus) {
       if (style.skus[key].quantity > 0) {
@@ -107,22 +176,28 @@ const AddToCart = ({ handleClick, style }) => {
     setSizes(sizesArr);
   }, [style])
 
-  const handleCartClick = (e) => {
-    e.preventDefault();
-    console.log(`Adding to cart! Style: ${style.name} Size: ${selectedSize} Qty: ${selectedQty}`);
-  }
-
   return (
     <>
       {style.skus !== undefined &&
         <div widget='Overview' style={addCartStyle} element-name='AddToCart' onClick={e => {//handleClick(e);
         }}>
+          <div style={{height: '15%'}}>{noSizeCart && <>Please select a size.</>}</div>
           <form style={formStyle}>
-            <select value={selectedSize} style={selectSizeStyle} onChange={handleSizeChange}>
+            <select
+              value={selectedSize}
+              style={selectSizeStyle}
+              onChange={handleSizeChange}
+              onFocus={handleSizeFocus}
+              onBlur={(e) => {
+                e.target.size = '0';
+                setSelectSizeHt(row_ht);
+              }}
+              disabled={outOfStock()}
+              ref={selectRef}>
               <option disabled={true} value="">
-                {sizes.length > 0 ? <span>SELECT SIZE</span> : <span>OUT OF STOCK</span>}
+                {!outOfStock() ? <>SELECT SIZE</> : <>OUT OF STOCK</>}
               </option>
-              {sizes.length > 0 &&
+              {!outOfStock() &&
                 <>
                   {sizes.map((val, i) => (
                     <option key={val + i}>{val}</option>
@@ -130,8 +205,12 @@ const AddToCart = ({ handleClick, style }) => {
                 </>
               }
             </select>
-            <select style={selectQtyStyle} value={selectedQty} onChange={handleQtyChange}>
-            <option disabled={true} value="-">-</option>
+            <select
+              style={selectQtyStyle}
+              value={selectedQty}
+              onChange={handleQtyChange}
+              disabled={outOfStock()}>
+              <option disabled={true} value="-">-</option>
               {quantity.length > 0 &&
                 <>
                   {quantity.map((val, i) => (
@@ -140,7 +219,11 @@ const AddToCart = ({ handleClick, style }) => {
                 </>
               }
             </select>
-            <button style={buttonStyle} onClick={handleCartClick}>ADD TO CART<FontAwesomeIcon icon={faCartShopping}/></button>
+            {!outOfStock() &&
+              <button style={cartButtonStyle} onClick={handleCartClick}>ADD TO CART<FontAwesomeIcon icon={faCartShopping} /></button>
+            }
+            <button style={favButtonStyle} onClick={handleFavClick}><FontAwesomeIcon style={starStyle} icon={favorite ? faStar : faStarRegular} /></button>
+
           </form>
         </div>
       }
