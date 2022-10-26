@@ -3,7 +3,7 @@ import QuestionView from './Question_View.jsx';
 import AddaQuestion from './Add_A_Question.jsx';
 import MoreQuestionsButton from './More_Questions.jsx';
 import styled from 'styled-components';
-import {QandASearchView,QandAQuestionActions} from './Q&A_Styles.jsx';
+import {QandASearchView,QandAQuestionActions} from './QandA_Styles.jsx';
 
 
 const QuestionsView = ({

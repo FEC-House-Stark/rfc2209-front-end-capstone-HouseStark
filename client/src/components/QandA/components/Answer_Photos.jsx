@@ -3,7 +3,7 @@ import AnswerPhoto from './Answer_Photo.jsx';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
-import {modalViewStyle, photoModalStyle,modalImgStyle} from './Q&A_Styles.jsx';
+import {modalViewStyle, photoModalStyle,modalImgStyle} from './QandA_Styles.jsx';
 
 
 const AnswerPhotos = ({

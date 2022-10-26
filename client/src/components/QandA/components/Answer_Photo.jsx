@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {photoStyle} from './Q&A_Styles.jsx';
+import {photoStyle} from './QandA_Styles.jsx';
 
 const AnswerPhoto = ({photo, setIsOpen, setClickImg}) =>  {
   return (

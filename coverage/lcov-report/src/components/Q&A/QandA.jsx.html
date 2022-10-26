@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.33% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/12</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.33% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/12</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -130,30 +130,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,20 +186,20 @@ import QuestionsView from './components/Questions_View.jsx';
 import QuestionSearchBar from './components/Question_Search_Bar.jsx';
 import {QandAOverViewStyle,QandAHeader} from './components/Q&amp;A_Styles.jsx';
 &nbsp;
-const QandA = <span class="fstat-no" title="function not covered" >({</span>product_id,handleClick, productInfo,}) =&gt;  {
+const QandA = ({product_id,handleClick, productInfo,}) =&gt;  {
 &nbsp;
-  const [questions,setQuestions] = <span class="cstat-no" title="statement not covered" >useState([]);</span>
-  const [filter, setFilter] = <span class="cstat-no" title="statement not covered" >useState([]);</span>
-  const [highlight, setHighlight] = <span class="cstat-no" title="statement not covered" >useState('');</span>
+  const [questions,setQuestions] = useState([]);
+  const [filter, setFilter] = useState([]);
+  const [highlight, setHighlight] = useState('');
 &nbsp;
   // const compareAnswerLength = (a,b) =&gt; {
   //   return
   // }
-  let config = <span class="cstat-no" title="statement not covered" >{</span>
+  let config = {
     params: { product_id, page: 1, count: 20 },
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect (<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+  useEffect (<span class="fstat-no" title="function not covered" >()</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >    axios.get('/qa/questions',config)</span>
     .then(<span class="fstat-no" title="function not covered" >(r</span>esult) =&gt; {
       const questions = <span class="cstat-no" title="statement not covered" >result.data.results;</span>
@@ -207,16 +207,16 @@ const QandA = <span class="fstat-no" title="function not covered" >({</span>prod
     })
   },[product_id]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span>=&gt; {</span>
+  useEffect(<span class="fstat-no" title="function not covered" >()</span>=&gt; {
 <span class="cstat-no" title="statement not covered" >    setFilter(questions);</span>
   },[questions]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;QandAOverViewStyle &gt;
       &lt;QandAHeader&gt;QUESTION {'&amp;'} ANSWERS&lt;/QandAHeader&gt;
       {
         questions.length
-        ? &lt;QuestionSearchBar
+        ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;QuestionSearchBar</span>
           questions={questions}
           setFilter={setFilter}
           setHighlight={setHighlight}
@@ -244,7 +244,7 @@ export default QandA;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-25T23:07:16.753Z
+                at 2022-10-26T06:04:10.362Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

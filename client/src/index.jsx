@@ -4,7 +4,7 @@ const { useState, useEffect } = React;
 import axios from 'axios';
 import { createRoot } from 'react-dom/client';
 import Overview from './components/overview/Overview.jsx';
-import QandA from './components/Q&A/QandA.jsx';
+import QandA from './components/QandA/QandA.jsx';
 import Reviews from './components/R&R/Reviews.jsx';
 import Related from './components/Related/Related.jsx';
 import styled from 'styled-components';

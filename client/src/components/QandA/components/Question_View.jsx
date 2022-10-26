@@ -5,7 +5,7 @@ import AddanAnswer from './Add_An_Answer.jsx';
 import QuestionReport from './Question_Report.jsx'
 import AnswersListView from './Answers_List_View.jsx'
 import QuestionHelpfulness from './Question_Helpfulness.jsx';
-import {QandAQuestionListView,QuestionBar,QuestionBarActionItem,rowFlex} from './Q&A_Styles.jsx';
+import {QandAQuestionListView,QuestionBar,QuestionBarActionItem,rowFlex} from './QandA_Styles.jsx';
 
 
 const QuestionView = ({

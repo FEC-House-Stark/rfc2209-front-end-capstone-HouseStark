@@ -6,6 +6,8 @@ import { testQuestions } from "./QandA.test.data.js";
 import {
   AddanAnswer,
   AddaQuestion,
+  AddaQuestionModal,
+  AddanAnswerModal,
   AnswerHelpfulness,
   AnswerPhoto,
   AnswerPhotos,
@@ -19,14 +21,55 @@ import {
   QuestionsView,
   QuestionView,
   MoreQuestionsButton,
-  AddaQuestionModal,
-  AddanAnswerModal,
-} from '../src/components/Q&A/components'
+} from '../src/components/QandA/components'
 import { useState } from 'react';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("Question and Answers", () => {
+  // QandA.jsx
+  describe("QandA", () => {
+    const props = {
+      product_id: testQuestions.product_id,
+      handleClick: jest.fn(),
+      productInfo: testQuestions.productInfo
+    }
+    const wrapper = shallow(<QandA {...props}/>);
+    test("It renders", () => {
+      expect(wrapper.exists()).toBe(true);
+    });
+  });
+
+  // Add_A_Question_Modal.jsx
+  describe("Add a Question Modal", () => {
+    const props = {
+      product_id: testQuestions.product_id,
+      productInfo: testQuestions.productInfo,
+      openModal: true,
+      setIsOpen: jest.fn()
+    }
+    const wrapper = shallow(<AddaQuestionModal {...props}/>);
+    test("It renders", () => {
+      expect(wrapper.exists()).toBe(true);
+    });
+    test("It shows the close modal button", () => {
+      const closeModalButton = wrapper.props().children.props.children[0].props.children.props
+      expect(closeModalButton['element-name']).toBe('Add_A_Question_Modal_Close')
+    })
+    test("It closes when clicked", () => {
+      wrapper.find("[element-name='Add_A_Question_Modal_Close']").simulate('click')
+      expect(props.setIsOpen).toHaveBeenCalled()
+    })
+    test("It handles text input", () => {
+      wrapper.find("[placeholder='Your Question ...']").simulate('change', { target: { value: 'test' }})
+      wrapper.find("[name='name']").simulate('change', { target: { value: 'test' }})
+      wrapper.find("[type='email']").simulate('change', { target: { value: 'test' }})
+    })
+    test("It handles submission", () => {
+      wrapper.find("[element-name='Add_A_Question_Submit']").simulate('click')
+    })
+  });
+
   // Add_A_Question.jsx
   describe("Add a Question", () => {
     const props = {
@@ -34,7 +77,7 @@ describe("Question and Answers", () => {
       setQuestions: '() -> {}',
       product_id: testQuestions.product_id,
       productInfo: testQuestions.productInfo,
-      handleTrackingClick: () => {}
+      handleTrackingClick: jest.fn()
     }
     const wrapper = shallow(<AddaQuestion {...props}/>);
     test("It renders", () => {
@@ -43,20 +86,41 @@ describe("Question and Answers", () => {
     test("It renders 'Add a Question' button text", () => {
       expect(wrapper.find('[element-name="Add_A_Question"]').text()).toContain('Add a Question');
     });
-    test("It renders a modal when clicked", () => {
-      const handleClick = jest.fn()
-      wrapper.find('[element-name="Add_A_Question"]').simulate('click', { preventDefault: () => {}})
-      expect(handleClick).toHaveBeenCalled()
+    test("Its clickable", () => {
+      wrapper.find('[element-name="Add_A_Question"]').simulate('click', { preventDefault: jest.fn() })
+      expect(props.handleTrackingClick).toHaveBeenCalled()
     })
   });
 
-
+  // Add_An_Answer_Modal.jsx
+  describe("Add an Answer Modal", () => {
+    const props = {
+      handleTrackingClick: jest.fn(),
+      question_id: testQuestions.results[0].question_id,
+      openModal: true,
+      setIsOpen: jest.fn(),
+    }
+    const wrapper = shallow(<AddanAnswerModal {...props}/>);
+    test("It renders", () => {
+      expect(wrapper.exists()).toBe(true);
+    });
+    test("It closes when clicked", () => {
+      wrapper.find("[element-name='Add_Answer_Modal_Close']").simulate('click')
+      expect(props.setIsOpen).toHaveBeenCalled()
+    });
+    test("It handles text input", () => {
+      wrapper.find("[name='Answer']").simulate('change', { target: { value: 'test' }})
+      wrapper.find("[name='Name']").simulate('change', { target: { value: 'test' }})
+      wrapper.find("[name='Email']").simulate('change', { target: { value: 'test' }})
+      wrapper.find("[type='url']").simulate('change', { target: { value: 'test' }})
+    })
+  });
 
   // Add_An_Answer.jsx
   describe("Add an Answer", () => {
     const props = {
       question_id: testQuestions.results[0].question_id,
-      handleTrackingClick: '() -> {}'
+      handleTrackingClick: jest.fn()
     }
     const wrapper = shallow(<AddanAnswer {...props}/>);
     test("It renders", () => {
@@ -65,14 +129,18 @@ describe("Question and Answers", () => {
     test("It renders 'Add an Answer' button text", () => {
       expect(wrapper.find('[element-name="Add_Answer"]').text()).toContain('Add an Answer');
     });
+    test("Its clickable", () => {
+      wrapper.find('[element-name="Add_Answer"]').simulate('click', { preventDefault: jest.fn() })
+      expect(props.handleTrackingClick).toHaveBeenCalled()
+    })
   });
 
   // Answer_Helpfulness.jsx
   describe("Answer Helpfulness", () => {
     const props = {
-      handleTrackingClick: '() -> {}',
+      handleTrackingClick: jest.fn(),
       helpfulness: testQuestions.results[0].question_helpfulness,
-      handleHelpfulClick: '() -> {}'
+      handleHelpfulClick: jest.fn()
     }
     const wrapper = shallow(<AnswerHelpfulness {...props}/>);
     test("It renders", () => {
@@ -81,6 +149,10 @@ describe("Question and Answers", () => {
     test("It renders 'Helpful?' text", () => {
       expect(wrapper.find('[element-name="Answer_Helpfulness"]').text()).toContain('Helpful?');
     });
+    test("Its clickable", () => {
+      wrapper.find('[element-name="Answer_Helpfulness"]').simulate('click', { preventDefault: jest.fn() })
+      expect(props.handleTrackingClick).toHaveBeenCalled()
+    })
   });
 
   // Answer_Photo.jsx
@@ -124,8 +196,8 @@ describe("Question and Answers", () => {
   // Answer_Report.jsx
   describe("Answer Report", () => {
     const props = {
-      handleReportClick: '() -> {}',
-      handleTrackingClick: '() -> {}',
+      handleReportClick: jest.fn(),
+      handleTrackingClick: jest.fn(),
     }
     const wrapper = shallow(<AnswerReport {...props}/>);
     test("It renders", () => {
@@ -134,6 +206,11 @@ describe("Question and Answers", () => {
     test("It renders 'Report' text", () => {
       expect(wrapper.find('[element-name="Answer_Report"]').text()).toContain('Report');
     });
+    test("Its clickable", () => {
+      wrapper.find('[element-name="Answer_Report"]').simulate('click', { preventDefault: jest.fn() })
+      wrapper.find('[element-name="Answer_Report"]').simulate('click', { preventDefault: jest.fn() })
+      expect(props.handleTrackingClick).toHaveBeenCalled()
+    })
   });
 
   // Answer_View.jsx
@@ -155,7 +232,7 @@ describe("Question and Answers", () => {
   describe("Answers List View", () => {
     const props = {
       question_id: testQuestions.results[0].question_id,
-      handleTrackingClick: '() -> {}',
+      handleTrackingClick: jest.fn(),
     }
     const wrapper = shallow(<AnswersListView {...props}/>);
     test("It renders", () => {
@@ -169,9 +246,9 @@ describe("Question and Answers", () => {
   // More_Questions.jsx
   describe("More Questions", () => {
     const props = {
-      handleMoreQuestion: '() -> {}',
-      handleLessQuestion: '() -> {}',
-      handleTrackingClick: '() -> {}',
+      handleMoreQuestion: jest.fn(),
+      handleLessQuestion: jest.fn(),
+      handleTrackingClick: jest.fn(),
       moreQuestions: false,
     }
     const wrapper = shallow(<MoreQuestionsButton {...props}/>);
@@ -181,13 +258,17 @@ describe("Question and Answers", () => {
     test("It renders 'More Answered Questions' text", () => {
       expect(wrapper.find('[element-name="More_Questions"]').text()).toContain('More Answered Questions');
     });
+    test("Its clickable", () => {
+      wrapper.find('[element-name="More_Questions"]').simulate('click', { preventDefault: jest.fn() })
+      expect(props.handleTrackingClick).toHaveBeenCalled()
+    })
   });
 
   // Question_Helpfulness.jsx
   describe("Question Helpfulness", () => {
     const props = {
-      handleTrackingClick: '() -> {}',
-      handleHelpfulClick: '() -> {}',
+      handleTrackingClick: jest.fn(),
+      handleHelpfulClick: jest.fn(),
       question_helpfulness: testQuestions.results[0].question_helpfulness
     }
     const wrapper = shallow(<QuestionHelpfulness {...props}/>);
@@ -201,13 +282,17 @@ describe("Question and Answers", () => {
     test("It renders helpfulness count", () => {
       expect(wrapper.find('[element-name="Question_Helpfulness"]').text()).toContain(`Yes (${props.question_helpfulness})`);
     });
+    test("Its clickable", () => {
+      wrapper.find('[element-name="Question_Helpfulness"]').simulate('click', { preventDefault: jest.fn() })
+      expect(props.handleTrackingClick).toHaveBeenCalled()
+    })
   });
 
   // Question_Report.jsx
   describe("Question Report", () => {
     const props = {
-      handleReportClick: '() -> {}',
-      handleTrackingClick: '() -> {}',
+      handleReportClick: jest.fn(),
+      handleTrackingClick: jest.fn(),
     }
     const wrapper = shallow(<QuestionReport {...props}/>);
     test("It renders", () => {
@@ -215,17 +300,20 @@ describe("Question and Answers", () => {
     });
     test("It renders 'Report' text", () => {
       expect(wrapper.find('[element-name="Question_Report"]').text()).toContain('Report');
-
     });
+    test("Its clickable", () => {
+      wrapper.find('[element-name="Question_Report"]').simulate('click', { preventDefault: jest.fn() })
+      expect(props.handleTrackingClick).toHaveBeenCalled()
+    })
   });
 
   // Question_Search_Bar.jsx
   describe("Question Search Bar", () => {
     const props = {
       questions: testQuestions.results,
-      setFilter: '() -> {}',
-      handleTrackingClick: '() -> {}',
-      setHighlight: '() -> {}',
+      setFilter: jest.fn(),
+      handleTrackingClick: jest.fn(),
+      setHighlight: jest.fn(),
     }
     const wrapper = shallow(<QuestionSearchBar {...props}/>);
     test("It renders", () => {
@@ -234,6 +322,14 @@ describe("Question and Answers", () => {
     test("It renders 'Have a question? Search for answers' text", () => {
       expect(wrapper.props().children[0].props.placeholder).toContain('Have a question? Search for answers');
     });
+    test("Its clickable", () => {
+      wrapper.find("[element-name='Question_Search_Bar']").simulate('click', { preventDefault: jest.fn() })
+      expect(props.handleTrackingClick).toHaveBeenCalled()
+    })
+    test("It can handle text input", () => {
+      wrapper.find("[element-name='Question_Search_Bar']").simulate('change', { target: { value: 'test' } })
+      expect(props.setFilter).toHaveBeenCalled()
+    })
   });
 
   // Question_View.jsx

@@ -3,7 +3,7 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons'
-import {modalBoxStyle, modalViewStyle} from './Q&A_Styles.jsx';
+import {modalBoxStyle, modalViewStyle} from './QandA_Styles.jsx';
 
 const AddanAnswerModal = ({
   handleTrackingClick,
@@ -70,12 +70,14 @@ const AddanAnswerModal = ({
           Name:
             <input
               type='text'
+              name='Name'
               onChange={(e)=> {
                 setName(e.target.value);
               }}/>
           email:
             <input
               type='email'
+              name='Email'
               onChange={(e)=> {
                 setEmail(e.target.value);
               }}/>

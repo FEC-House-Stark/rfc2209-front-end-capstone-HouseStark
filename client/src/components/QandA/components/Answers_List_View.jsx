@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import AnswerView from './Answer_View.jsx'
 import styled from 'styled-components';
-import {AnswersListStyle,moreAnswersButton} from './Q&A_Styles.jsx';
+import {AnswersListStyle,moreAnswersButton} from './QandA_Styles.jsx';
 
 const AnswersListView = ({
   question_id,

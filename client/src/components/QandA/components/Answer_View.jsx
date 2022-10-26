@@ -5,7 +5,7 @@ import AnswerHelpfulness from './Answer_Helpfulness.jsx';
 import AnswerReport from './Answer_Report.jsx';
 import Moment from 'react-moment';
 import styled from 'styled-components';
-import {AnswerActionItemStyle, SellerFontWeight} from './Q&A_Styles.jsx';
+import {AnswerActionItemStyle, SellerFontWeight} from './QandA_Styles.jsx';
 
 const AnswerView = ({answer,handleTrackingClick}) =>  {
 

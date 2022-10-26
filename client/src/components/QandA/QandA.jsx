@@ -3,7 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import QuestionsView from './components/Questions_View.jsx';
 import QuestionSearchBar from './components/Question_Search_Bar.jsx';
-import {QandAOverViewStyle,QandAHeader} from './components/Q&A_Styles.jsx';
+import {QandAOverViewStyle,QandAHeader} from './components/QandA_Styles.jsx';
 
 const QandA = ({product_id,handleClick, productInfo,}) =>  {
 
