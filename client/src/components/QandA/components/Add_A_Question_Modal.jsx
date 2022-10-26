@@ -85,9 +85,10 @@ const AddaQuestionModal = ({
                 onChange={(e)=> {
                   setName(e.target.value);
                 }}/>
-                <p
-                  style={{fontSize:'small', margin:'0', paddingBottom:'20px'}}
-                  >For authentication reasons, you will not be emailed</p>
+              <p
+                style={{fontSize:'small', margin:'0', paddingBottom:'10px'}}
+                >For privacy reasons, do not use your full name or email address
+              </p>
             Email:
               <input
                 style={{height:'30px'}}
@@ -98,10 +99,10 @@ const AddaQuestionModal = ({
                 onChange={(e)=> {
                   setEmail(e.target.value);
                 }}/>
-              <p
-                style={{fontSize:'small', margin:'0', paddingBottom:'10px'}}
-                >For privacy reasons, do not use your full name or email address
-              </p>
+                <p
+                  style={{fontSize:'small', margin:'0', paddingBottom:'20px'}}
+                  >For authentication reasons, you will not be emailed
+                </p>
               <div>
                 <div
                   style={{...buttonStyle, backgroundColor:'#768174', color: 'white', borderColor:'white', fontSize:'large', width:'80px', borderStyle:'outset'}}
@@ -123,9 +124,15 @@ const AddaQuestionModal = ({
                   </div>
                     {showError&&
                       <div>
-                        <ErrorStyle>{!name &&"Nickname Can't be Blank"}</ErrorStyle>
-                        <ErrorStyle>{!body &&"Body Can't be Blank"}</ErrorStyle>
-                        <ErrorStyle>{!isEmail(email) && "The email address provided is not in correct email format"}</ErrorStyle>
+                        {!body &&
+                          <ErrorStyle>Body Can't be Blank</ErrorStyle>
+                        }
+                        {!name &&
+                         <ErrorStyle>Nickname Can't be Blank</ErrorStyle>
+                        }
+                        {!isEmail(email) &&
+                          <ErrorStyle>The Email Address Provided is Not in Correct Email Format</ErrorStyle>
+                        }
                       </div>
                       }
                 </div>

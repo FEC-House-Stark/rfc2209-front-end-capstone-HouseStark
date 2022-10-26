@@ -95,9 +95,10 @@ const AddanAnswerModal = ({
                 onChange={(e)=> {
                   setName(e.target.value);
                 }}/>
-                <p
-                  style={{fontSize:'small', margin:'0', paddingBottom:'20px'}}
-                  >For authentication reasons, you will not be emailed</p>
+              <p
+                style={{fontSize:'small', margin:'0', paddingBottom:'10px'}}
+                >For privacy reasons, do not use your full name or email address
+              </p>
                 Email:
               <input
                 style={{height:'30px'}}
@@ -108,12 +109,11 @@ const AddanAnswerModal = ({
                 onChange={(e)=> {
                   setEmail(e.target.value);
                 }}/>
-              <p
-                style={{fontSize:'small', margin:'0', paddingBottom:'10px'}}
-                >For privacy reasons, do not use your full name or email address
-              </p>
+                <p
+                  style={{fontSize:'small', margin:'0', paddingBottom:'20px'}}
+                  >For authentication reasons, you will not be emailed</p>
           Photos URL:
-            <form
+            <div
               widget='QandA'
               element-name='Add_Answer_Add_Photo_Button'
               onSubmit={(e)=> {
@@ -137,7 +137,7 @@ const AddanAnswerModal = ({
                   return  <img src={p}></img>
                 })}
               </div>
-            </form>
+            </div>
             <div>
                 <div
                   style={{...buttonStyle, backgroundColor:'#768174', color: 'white', borderColor:'white', fontSize:'large', width:'80px', borderStyle:'outset'}}
@@ -159,9 +159,15 @@ const AddanAnswerModal = ({
                   </div>
                     {showError&&
                       <div>
-                        <ErrorStyle>{!name &&"Nickname Can't be Blank"}</ErrorStyle>
-                        <ErrorStyle>{!body &&"Body Can't be Blank"}</ErrorStyle>
-                        <ErrorStyle>{!isEmail(email) && "The email address provided is not in correct email format"}</ErrorStyle>
+                        {!body &&
+                          <ErrorStyle>Body Can't be Blank</ErrorStyle>
+                        }
+                        {!name &&
+                         <ErrorStyle>Nickname Can't be Blank</ErrorStyle>
+                        }
+                        {!isEmail(email) &&
+                          <ErrorStyle>The Email Address Provided is Not in Correct Email Format</ErrorStyle>
+                        }
                       </div>
                       }
                 </div>
