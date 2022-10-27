@@ -3,8 +3,9 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
-import {modalBoxStyle, modalViewStyle, buttonStyle, ErrorStyle} from './QandA_Styles.jsx';
+import {modalBoxStyle, modalViewStyle, buttonStyle, ErrorStyle, UploadPhotos, uploadPhotoStyle} from './QandA_Styles.jsx';
 import isEmail from 'validator/lib/isEmail';
+import { fetchPhotos, openUploadWidget } from "../../../CloudinaryService.jsx";
 
 const AddanAnswerModal = ({
   productInfo,
@@ -41,6 +42,24 @@ const AddanAnswerModal = ({
     })
   }
 
+  const beginUpload = tag => {
+    const uploadOptions = {
+      cloudName: "dbij37ike",
+      tags: [tag],
+      uploadPreset: "cc8qp3hn"
+    };
+
+    openUploadWidget(uploadOptions, (error, uploadPhoto) => {
+      if (!error) {
+        if(uploadPhoto.event === 'success'){
+          console.log(uploadPhoto.info);
+          setPhotos([...photos, uploadPhoto.info.secure_url]);
+        }
+      } else {
+        console.log(error);
+      }
+    })
+  }
 
   return (
       <Modal
@@ -84,6 +103,25 @@ const AddanAnswerModal = ({
                   style={{textAlign:'right', fontSize:'small', margin:'0', padding:'0', paddingTop:'-10px'}}
                   >{1000-body.length} characters avaliable
                 </p>
+                <div
+                  widget='QandA'
+                  element-name='Add_Answer_Add_Photo_Button'>
+                    {photos.length < 5
+                     ?<div
+                     style={{...buttonStyle, backgroundColor:'#899489', color: 'white', borderColor:'white', fontSize:'small', width:'80px', borderStyle:'outset'
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      beginUpload()}}>Upload Image
+                      </div>
+                      :null
+                    }
+                  <UploadPhotos>
+                    {photos.map((p,index)=> {
+                      return  <img style={uploadPhotoStyle} key={index} src={p}></img>
+                    })}
+                  </UploadPhotos>
+                </div>
                 Nickname:
               <input
                 style={{height:'30px'}}
@@ -112,32 +150,6 @@ const AddanAnswerModal = ({
                 <p
                   style={{fontSize:'small', margin:'0', paddingBottom:'20px'}}
                   >For authentication reasons, you will not be emailed</p>
-          Photos URL:
-            <div
-              widget='QandA'
-              element-name='Add_Answer_Add_Photo_Button'
-              onClick={(e)=> {
-                e.preventDefault();
-                setPhotos([...photos,newphoto]);
-                setNewPhoto('');
-                handleTrackingClick(e);
-              }}>
-              <input
-              type='url'
-              value={newphoto}
-              onChange={(e)=> {
-                setNewPhoto(e.target.value);
-              }}
-              />
-              <button
-                disabled={!newphoto}
-                type='submit'>add Photo</button>
-              <div>
-                {photos.map((p,index)=> {
-                  return  <img src={p}></img>
-                })}
-              </div>
-            </div>
             <div>
                 <div
                   style={{...buttonStyle, backgroundColor:'#768174', color: 'white', borderColor:'white', fontSize:'large', width:'80px', borderStyle:'outset'}}
