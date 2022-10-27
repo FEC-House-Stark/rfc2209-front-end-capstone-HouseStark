@@ -181,7 +181,7 @@ const AddToCart = ({ handleClick, style }) => {
       {style.skus !== undefined &&
         <div widget='Overview' style={addCartStyle} element-name='AddToCart' onClick={e => {//handleClick(e);
         }}>
-          <div style={{height: '15%'}}>{noSizeCart && <>Please select a size.</>}</div>
+          <div style={{height: '15%', color:'#666', fontSize: '15px'}}>{noSizeCart && <>Please select a size.</>}</div>
           <form style={formStyle}>
             <select
               value={selectedSize}

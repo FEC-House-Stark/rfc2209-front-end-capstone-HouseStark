@@ -11,7 +11,7 @@ const ProductInfoStyle = styled.div`
 const prodInfoStyle = {
   'gridColumnStart': '4',
   height: '100%',
-  width: '100%',
+  width: 'clamp(230px, 100%, 310px)',
   position: 'relative',
 }
 const shareButtonStyle = {

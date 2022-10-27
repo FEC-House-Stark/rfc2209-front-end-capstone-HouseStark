@@ -75,7 +75,7 @@ const StyleSelector = ({ style, styles, setStyle }) => {
               ))}
           </div>
         </div>
-        {scrollTop === 0 &&
+        {styles !== undefined && scrollTop === 0 && styles.length > 8 &&
           <div style={{
             height: '10%',
             display: 'flex',

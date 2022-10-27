@@ -9,10 +9,10 @@ import ProductFeat from './components/ProductFeat.jsx';
 import styled from 'styled-components';
 
 const info_height = 200;
-const style_height = 150;
-const cart_height = 125;
+const style_height = 165;
+const cart_height = 115;
 const image_height = info_height + style_height + cart_height;
-const image_width = Math.floor(image_height * 1.2)-.01;
+const image_width = Math.floor(image_height * 1.1)-.01;
 const body_min_width = 800;
 const body_padding = 40;
 const min_spacer_width = 10;
@@ -42,10 +42,10 @@ const Overview = (props) => {
     //set the price
     //if on sale
     if (props.styles.results !== undefined) {
+      setStyle(props.styles.results[0]);
       for (const style of props.styles.results) {
         if (style['default?']) {
           setStyle(style);
-         // console.log('style:', style);
           break;
         }
       }
