@@ -8,9 +8,9 @@ import ProductDesc from './components/ProductDesc.jsx';
 import ProductFeat from './components/ProductFeat.jsx';
 import styled from 'styled-components';
 
-const info_height = 175;
+const info_height = 200;
 const style_height = 150;
-const cart_height = 150;
+const cart_height = 125;
 const image_height = info_height + style_height + cart_height;
 const image_width = Math.floor(image_height * 1.15)-.01;
 const body_min_width = 800;
@@ -57,7 +57,7 @@ const Overview = (props) => {
         <ImageGallery handleClick={props.handleClick} photos={style.photos} image_width={image_width} image_height={image_height} getBodyWidth={getBodyWidth} setThumbnailRow={setThumbnailRow} product_id={props.product_id}/>
         <ProductInfo handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style}/>
         <StyleSelector handleClick={props.handleClick} styles={props.styles.results} style={style} setStyle={setStyle}/>
-        <AddToCart handleClick={props.handleClick} skus={style.skus}/>
+        <AddToCart handleClick={props.handleClick} style={style}/>
         <ProductDesc handleClick={props.handleClick} productInfo={props.productInfo}/>
         <ProductFeat handleClick={props.handleClick} features={props.productInfo.features}/>
     </div>

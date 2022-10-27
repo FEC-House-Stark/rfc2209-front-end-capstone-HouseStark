@@ -7,10 +7,12 @@ import {modalBoxStyle, modalViewStyle, buttonStyle, ErrorStyle} from './QandA_St
 import isEmail from 'validator/lib/isEmail';
 
 const AddaQuestionModal = ({
-  product_id,
   productInfo,
+  product_id,
   openModal,
   setIsOpen,
+  setQuestions,
+  getQuestionRequest,
 }) =>  {
 
   const [body, setBody] = useState('');
@@ -18,16 +20,17 @@ const AddaQuestionModal = ({
   const [email, setEmail] = useState('');
   const [showError, setShowError] = useState(false);
 
-  let config = {
-    url: '/qa/questions',
-    method: 'post',
-    data: {body,name, email, product_id },
-  }
 
   const handleQuestionSubmit = () => {
-     axios(config)
+    let config = {
+      url: '/qa/questions',
+      method: 'post',
+      data: {body,name, email, product_id },
+    }
+    axios(config)
     .then((result)=> {
       console.log(result);
+      getQuestionRequest();
     })
     .then((err)=> {
       console.log(err);
@@ -69,7 +72,8 @@ const AddaQuestionModal = ({
                 }}></textarea>
                 <p
                   style={{textAlign:'right', fontSize:'small', margin:'0', padding:'0', paddingTop:'-10px'}}
-                  >{1000-body.length} characters avaliable</p>
+                  >{1000-body.length} characters avaliable
+                </p>
             Nickname:
               <input
                 style={{height:'30px'}}
@@ -81,9 +85,10 @@ const AddaQuestionModal = ({
                 onChange={(e)=> {
                   setName(e.target.value);
                 }}/>
-                <p
-                  style={{fontSize:'small', margin:'0', paddingBottom:'20px'}}
-                  >For authentication reasons, you will not be emailed</p>
+              <p
+                style={{fontSize:'small', margin:'0', paddingBottom:'10px'}}
+                >For privacy reasons, do not use your full name or email address
+              </p>
             Email:
               <input
                 style={{height:'30px'}}
@@ -94,34 +99,41 @@ const AddaQuestionModal = ({
                 onChange={(e)=> {
                   setEmail(e.target.value);
                 }}/>
-              <p
-                style={{fontSize:'small', margin:'0', paddingBottom:'10px'}}
-                >For privacy reasons, do not use your full name or email address</p>
-                <div>
-                  <div
-                    style={{...buttonStyle, backgroundColor:'#768174', color: 'white', borderColor:'white', fontSize:'large', width:'80px', borderStyle:'outset'}}
-                    widget='QandA'
-                    element-name='Add_A_Question_Submit'
-                    onClick={(e)=> {
-                      if(name && body && isEmail(email)) {
-                        handleQuestionSubmit();
-                        setIsOpen(false);
-                        setShowError(false);
-                        setBody('');
-                        setName('');
-                        setEmail('');
-                      } else {
-                        setShowError(true);
-                      }
-                      // handleTrackingClick(e);
-                      }}>submit
-                    </div>
-                      {showError&&
-                        <div>
-                          <ErrorStyle>{!name &&"Nickname Can't be Blank"}</ErrorStyle>
-                          <ErrorStyle>{!body &&"Body Can't be Blank"}</ErrorStyle>
-                          <ErrorStyle>{!isEmail(email) && "The email address provided is not in correct email format"}</ErrorStyle>
-                        </div>
+                <p
+                  style={{fontSize:'small', margin:'0', paddingBottom:'20px'}}
+                  >For authentication reasons, you will not be emailed
+                </p>
+              <div>
+                <div
+                  style={{...buttonStyle, backgroundColor:'#768174', color: 'white', borderColor:'white', fontSize:'large', width:'80px', borderStyle:'outset'}}
+                  widget='QandA'
+                  element-name='Add_A_Question_Submit'
+                  onClick={(e)=> {
+                    if(name && body && isEmail(email)) {
+                      handleQuestionSubmit();
+                      setIsOpen(false);
+                      setShowError(false);
+                      setBody('');
+                      setName('');
+                      setEmail('');
+                    } else {
+                      setShowError(true);
+                    }
+                    // handleTrackingClick(e);
+                    }}>submit
+                  </div>
+                    {showError&&
+                      <div>
+                        {!body &&
+                          <ErrorStyle>Body Can't be Blank</ErrorStyle>
+                        }
+                        {!name &&
+                         <ErrorStyle>Nickname Can't be Blank</ErrorStyle>
+                        }
+                        {!isEmail(email) &&
+                          <ErrorStyle>The Email Address Provided is Not in Correct Email Format</ErrorStyle>
+                        }
+                      </div>
                       }
                 </div>
           </form>

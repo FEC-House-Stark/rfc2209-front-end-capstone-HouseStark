@@ -9,7 +9,7 @@ import Reviews from './components/R&R/Reviews.jsx';
 import Related from './components/Related/Related.jsx';
 import styled from 'styled-components';
 import logo from './assets/WolfLogo.png';
-
+import { CloudinaryContext } from "cloudinary-react";
 
 
 const Header = styled.h1`
@@ -188,4 +188,4 @@ const App = () => {
 }
 const container = document.getElementById('root');
 const root = createRoot(container);
-root.render(<App />);
+root.render(<CloudinaryContext cloudName="dbij37ike"><App /></CloudinaryContext>);
