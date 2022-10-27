@@ -29,8 +29,8 @@ ProdHeader.displayName = 'ProdHeader';
 
 const NextButton = styled.div`
 position: absolute;
-font-size: 35px;
-right:-25px;
+font-size: 15px;
+right:-15px;
 bottom: 45%;
 /* box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.19); */
 color:#798478;;
@@ -41,11 +41,11 @@ NextButton.displayName = 'NextButton';
 
 const BackButton = styled.div`
 position: absolute;
-font-size: 35px;
+font-size: 15px;
 /* box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.19); */
 color:#798478;;
 /* background-color: white; */
-left:-25px;
+left:-15px;
 bottom: 45%;
 cursor: pointer;
 `;

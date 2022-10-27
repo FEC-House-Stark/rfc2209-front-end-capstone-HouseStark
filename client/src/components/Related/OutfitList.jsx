@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import OutfitCards from './OutfitCards.jsx';
 
 const OutfitContainer = styled.div`
+max-width:820px;
+min-width: 820px;
 display: flex;
 flex-direction:column;
 align-self:center;
@@ -19,11 +21,26 @@ font-size: 13px;
 color: #4D6A6D;
 `;
 
-const OutfitList = () => {
+const OutfitList = ({ productInfo, avgRating }) => {
+  const [outfit, setOutfit] = useState([])
+  const [current_product, setCurrentPorduct] = useState([])
+
+  useEffect(() => {
+
+    if (productInfo.id) {
+      let temp = productInfo
+      temp['avgRating'] = avgRating
+      console.log(temp)
+    }
+
+  }, [productInfo])
+
+
+
   return (
     <OutfitContainer>
       <OutfitHeader>YOUR OUTFIT</OutfitHeader>
-      <OutfitCards />
+      <OutfitCards productInfo={productInfo} avgRating={avgRating} />
     </OutfitContainer>
   )
 }
