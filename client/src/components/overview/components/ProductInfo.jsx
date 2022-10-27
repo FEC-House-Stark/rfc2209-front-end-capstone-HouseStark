@@ -46,7 +46,7 @@ const ProductInfo = (props) => {
             spacing={2} //optional
             fill='#4D6A6D' //optional
           />
-          <a href="#product-desc" style={{
+          <a href="#ratings-reviews" style={{
             color: '#666',
             paddingLeft: '10px',
             fontSize: '15px'
