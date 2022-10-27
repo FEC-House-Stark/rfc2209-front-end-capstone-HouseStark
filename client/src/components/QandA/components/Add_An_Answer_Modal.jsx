@@ -116,7 +116,7 @@ const AddanAnswerModal = ({
             <div
               widget='QandA'
               element-name='Add_Answer_Add_Photo_Button'
-              onSubmit={(e)=> {
+              onClick={(e)=> {
                 e.preventDefault();
                 setPhotos([...photos,newphoto]);
                 setNewPhoto('');
@@ -151,6 +151,7 @@ const AddanAnswerModal = ({
                       setBody('');
                       setName('');
                       setEmail('');
+                      setPhotos([]);
                     } else {
                       setShowError(true);
                     }
