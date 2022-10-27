@@ -7,8 +7,11 @@ import Breakdown from './Breakdown.jsx'
 import StarRating from './StarRating.jsx'
 import ImageGallary from './ImageGallary.jsx'
 import { BreakdownContainer, ListContainer, ReviewContainer } from "./file-upload.styles";
+import { modalBoxStyle, modalViewStyle, buttonStyle, ErrorStyle, UploadPhotos, uploadPhotoStyle } from '../QandA/components/QandA_Styles.jsx'
 import Stars from 'react-stars-display';
 import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -36,6 +39,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   const [submitFlag, setSubmitFlag] = useState(false);
   const [filterObj, setFilterObj] = useState([]);
   const [filterList, setFilterList] = useState([]);
+  const [photos, setPhotos] = useState([]);
 
   const host_url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/'
 
@@ -230,18 +234,18 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       "recommend": temp,
       "name": nickname,
       "email": email,
-      "photos": [],
+      "photos": photos,
       "characteristics": resultObj
     }
-    // console.log(config)
+    console.log(config)
 
-    axios.post(host_url + 'reviews', config, { headers: { 'Authorization': process.env.TOKEN } })
-      .then((result) => {
-        // console.log('TEST', result);
-      })
-      .catch((err) => {
-        console.log('TEST', err);
-      })
+    // axios.post(host_url + 'reviews', config, { headers: { 'Authorization': process.env.TOKEN } })
+    //   .then((result) => {
+    //     // console.log('TEST', result);
+    //   })
+    //   .catch((err) => {
+    //     console.log('TEST', err);
+    //   })
   }
 
   var listDecider = () => {
@@ -260,7 +264,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       return (
         temp.slice(0, reviewCount).map((item, i) => {
           return (
-            <div key={i} style={{ border: '1px solid black' }}>
+            <div key={i} style={{ borderBottom: '1px solid black'}}>
               <div className='topRowContainer' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '90%', margin: 'auto', margin: '20px', gap: '15px'}}>
                 <div >
                   <Stars
@@ -274,6 +278,13 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
               </div>
               <span style={{ fontWeight: 'bold' }}>{item.summary}</span>
               <div>{item.body}</div>
+              <div className='review-photos'>
+                {item.photos.map((photo, i) => {
+                  return (
+                    <img src={photo.url} height='150' width='150'></img>
+                  )
+                })}
+              </div>
               <div className='helpfulAndReport Container' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '90%', margin: 'auto', margin: '20px', gap: '15px'}}>
               <div onClick={() => {handleHelpful(item.review_id)}} style={{ cursor: 'pointer' }}>{`Helpful? Yes (${item.helpfulness})`} </div>
               <div onClick={() => {handleReport(item.review_id)}} style={{ cursor: 'pointer' }}>Report</div>
@@ -287,8 +298,9 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     if (!filterObj.length) {
       return (
         reviewList.slice(0, reviewCount).map((item, i) => {
+          console.log(item.photos)
           return (
-            <div key={i} style={{ border: '1px solid black' }}>
+            <div key={i} style={{ borderBottom: '1px solid black' }}>
               <div className='topRowContainer' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '90%', margin: 'auto', margin: '20px', gap: '15px'}}>
                 <div >
                   <Stars
@@ -302,6 +314,13 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
               </div>
               <span style={{ fontWeight: 'bold' }}>{item.summary}</span>
               <div>{item.body}</div>
+              <div className='review-photos'>
+                {item.photos.map((photo, i) => {
+                  return (
+                    <img src={photo.url} height='150' width='150'></img>
+                  )
+                })}
+              </div>
               <div className='helpfulAndReport Container' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '90%', margin: 'auto', margin: '20px', gap: '15px'}}>
               <div style={{ cursor: 'pointer' }} onClick={() => {handleHelpful(item.review_id)}} >{`Helpful? Yes (${item.helpfulness})`} </div>
               <div onClick={() => {handleReport(item.review_id)}} style={{ cursor: 'pointer' }}>Report</div>
@@ -367,7 +386,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
               <option value="newest">newest</option>
             </select>
           </div>
-          <div>{listDecider()}</div>
+          <div style={{maxHeight: '80vh', overflowY: 'auto'}}>{listDecider()}</div>
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '90%', margin: 'auto', margin: '20px', gap: '15px' }}>
             {reviewCount >= reviewList.length ? null : <button style={buttonStyle} data-testid="increment" onClick={handleMoreReviews}>{reviewList.length < 3 ? null : 'More Reviews'}</button>}
             <button style={buttonStyle} onClick={toggleModal}>Add A Review + </button>
@@ -378,12 +397,20 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
         isOpen={isOpen}
         onRequestClose={toggleModal}
         contentLabel="Add A Review"
+        style={modalBoxStyle}
       >
-        <h1>Write your review</h1>
-        <h2>About the item</h2>
-        <div>
+        <div style={{display:'flex', flexDirection:'row-reverse'}}>
+            <div
+              widget='RandR'
+              element-name='Add_Review'
+              onClick={(e)=> {
+                toggleModal()
+              }}
+                >
+              <FontAwesomeIcon icon={faCircleXmark} />
+            </div>
+          </div>
           <StarRating currentValue={currentValue} setCurrentValue={setCurrentValue} />
-        </div>
         <li>
           <label>Recommend? <div style={{ color: 'red' }}>*</div></label>
           <input type="radio" value='yes' name="yes" checked={newRecomended === 'yes'} onChange={(e) => { setNewRecomended(e.target.value) }} />
@@ -408,7 +435,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
             <label>{review.length > 49 ? 'Minimum reached' : `Minimum required characters left: ${50 - review.length}`}</label>
           </li>
           <div className='file-upload'>
-            <FileUpload files={files} setFiles={setFiles} />
+            <FileUpload photos={photos} setPhotos={setPhotos} />
           </div>
           <li>
             <label>Nickname <div style={{ color: 'red' }}>*</div></label>

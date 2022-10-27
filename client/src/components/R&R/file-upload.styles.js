@@ -2,15 +2,15 @@ import styled from "styled-components";
 
 export const ReviewContainer = styled.section`
   display: flex;
-  justify-content: center;
-  width: 90%;
+  justify-content: space-between;
+  width: 100%;
   margin: auto;
+  padding: 0;
 `;
 
 export const BreakdownContainer = styled.section`
   position: relative;
-  margin: 25px 0 15px;
-  border: 2px solid black;
+  margin: 25px 0;
   padding: 35px 20px;
   border-radius: 15px;
   display: flex;
@@ -21,13 +21,10 @@ export const BreakdownContainer = styled.section`
             justify-content: left;
             flex-direction: column;
             text-align: left;
-            margin: 13% 0;
             min-height: 300px;
             background-color:white;
             align-items: left;
-            box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-  margin: 20px;
-  width: 325px;
+  width: 33%;
   height: 500px;
   justify-content: center;
 
@@ -35,8 +32,7 @@ export const BreakdownContainer = styled.section`
 
 export const ListContainer = styled.section`
   position: relative;
-  margin: 25px 0 15px;
-  border: 2px solid black;
+  margin: 25px 0;
   padding: 35px 20px;
   border-radius: 15px;
   display: flex;
@@ -47,13 +43,11 @@ export const ListContainer = styled.section`
             justify-content: left;
             flex-direction: column;
             text-align: left;
-            margin: 13% 0;
             min-height: 300px;
             background-color:white;
             align-items: left;
-            box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-  margin: 20px;
-  width: 1050px;
+
+  width: 55%;
 
 `;
 

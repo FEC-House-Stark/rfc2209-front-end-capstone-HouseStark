@@ -1,58 +1,71 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import { fetchPhotos, openUploadWidget } from "../../CloudinaryService.jsx";
+import { modalBoxStyle, modalViewStyle, buttonStyle, ErrorStyle, UploadPhotos, uploadPhotoStyle } from '../QandA/components/QandA_Styles.jsx'
+
+// client/src/components/QandA/components/QandA_Styles.jsx
+
+function FileUpload({photos, setPhotos}) {
 
 
-function FileUpload() {
-	const [selectedFile, setSelectedFile] = useState();
-	const [isFilePicked, setIsFilePicked] = useState(false);
+  const beginUpload = tag => {
+    const uploadOptions = {
+      cloudName: "dbij37ike",
+      tags: [tag],
+      uploadPreset: "cc8qp3hn"
+    };
 
-	const changeHandler = (event) => {
-		setSelectedFile(event.target.files[0]);
-		setIsFilePicked(true);
-	};
+    openUploadWidget(uploadOptions, (error, uploadPhoto) => {
+      if (!error) {
+        if(uploadPhoto.event === 'success'){
+          setPhotos([...photos, uploadPhoto.info.secure_url]);
+        }
+      } else {
+        console.log(error);
+      }
+    })
+  }
 
-	const handleSubmission = () => {
-		// const formData = new FormData();
+  if (photos.length < 5) {
+    return (
+      <>
+      <div
+      style={{
+        ...buttonStyle, backgroundColor: '#899489', color: 'white', borderColor: 'white', fontSize: 'small', width: '80px', borderStyle: 'outset'
+      }}
+      onClick={(e) => {
+        e.preventDefault();
+        beginUpload()
+      }}>Upload Image
+    </div>
+    <UploadPhotos>
+    {photos.map((p,index)=> {
+      return  <img style={uploadPhotoStyle} key={index} src={p}></img>
+    })}
+  </UploadPhotos>
+  </>
+    )
+  } else {
+    return (
+      <UploadPhotos>
+    {photos.map((p,index)=> {
+      return  <img style={uploadPhotoStyle} key={index} src={p}></img>
+    })}
+  </UploadPhotos>
+    )
+  }
 
-		// formData.append('File', selectedFile);
-
-    let data = {
-      'media': selectedFile,
-      'key': '000023bdf05b798223669e66dce461ff'
-    }
-
-console.log(data)
-axios.post('https://thumbsnap.com/api/upload', data)
-			.then((response) => response.json())
-			.then((result) => {
-				console.log('Success:', result);
-			})
-			.catch((error) => {
-				console.error('Error:', error);
-			});
-	};
-
-	return(
-   <div>
-			<input type="file" name="file" onChange={changeHandler} />
-			{isFilePicked ? (
-				<div>
-					<p>Filename: {selectedFile.name}</p>
-					<p>Filetype: {selectedFile.type}</p>
-					<p>Size in bytes: {selectedFile.size}</p>
-					<p>
-						lastModifiedDate:{' '}
-						{selectedFile.lastModifiedDate.toLocaleDateString()}
-					</p>
-				</div>
-			) : (
-				<p>Select a file to show details</p>
-			)}
-			<div>
-				<button onClick={handleSubmission}>Submit</button>
-			</div>
-		</div>
-	)
+  // return (
+  //   <div
+  //     style={{
+  //       ...buttonStyle, backgroundColor: '#899489', color: 'white', borderColor: 'white', fontSize: 'small', width: '80px', borderStyle: 'outset'
+  //     }}
+  //     onClick={(e) => {
+  //       e.preventDefault();
+  //       beginUpload()
+  //     }}>Upload Image
+  //   </div>
+  // )
 }
 
 export default FileUpload;
