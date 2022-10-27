@@ -28,6 +28,7 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
 
   useEffect(() => {
     // renderCharBar()
+    // console.log(filterObj)
     characteristicsCalc()
     setStarCountObj(starCounter())
   }, [fullReviewList])
@@ -363,20 +364,20 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
       result.push(temp)
     })
 
-    // var dynamicTrianglePlacer = () => {
-    //   result.forEach((item) => {
-    //     let percent = item[1] / 5
-    //   })
-    //   return {
-
-    //   }
-    // }
+  let charStorage = {
+    Fit: ['Too Small', 'Too Big'],
+    Length: ['Runs Short', 'Runs Long'],
+    Comfort: ['Uncomfortable', 'Perfect'],
+    Quality: ['Poor', 'Perfect'],
+    Size: ['Too Small', 'Too Big'],
+    Width: ['Too Narrow', 'Too Wide'],
+  }
 
     return (
       <div>
         {result.map((item, i) => {
           let percent = item[1] / 5
-          // console.log(percent * 310)
+          // console.log(item[0])
           let triangleStyle = {
             width: '0px',
             height: '0px',
@@ -391,6 +392,10 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
             <div key={i}>
             <div>{item[0]}</div>
             <div style={barStyle}><div style={lineStyle2}></div><div style={lineStyle1}></div><div style={triangleStyle}></div></div>
+            <div className='charContainer' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+            <div style={{fontSize: '13px'}}>{`${charStorage[item[0]][0]}`}</div>
+            <div style={{fontSize: '13px'}}>{`${charStorage[item[0]][1]}`}</div>
+            </div>
             </div>
           )
         })}
@@ -403,8 +408,8 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
     <>
       <h2>Ratings & Reviews</h2>
       <div className='ratingContainer' style={{display: 'flex'}}>
-      <h1 className='numberRating' style={{display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '25px'}}>
-        {avgRating}
+      <h1 className='numberRating' style={{display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px'}}>
+        {avgRating.toFixed(1)}
       </h1>
       <div>
         <Stars
@@ -423,31 +428,31 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
         <li id={5} onClick={(e) => { handleBar5Click(e) }}
           onMouseEnter={handleMouseEnter5}
           onMouseLeave={handleMouseLeave5}
-          style={containerStyle2}>{`5 Stars`}{barRender(5)}{starCountObj[5]}</li>
+          style={containerStyle2}>{`5 Stars`}{barRender(5)}</li>
           <div style={{color: 'white'}}>break</div>
         <li id={4}
           onClick={(e) => { handleBar4Click(e) }}
           onMouseEnter={handleMouseEnter4}
           onMouseLeave={handleMouseLeave4}
-          style={containerStyle2}>{`4 Stars`}{barRender(4)}{starCountObj[4]}</li>
+          style={containerStyle2}>{`4 Stars`}{barRender(4)}</li>
           <div style={{color: 'white'}}>break</div>
         <li id={3}
           onClick={(e) => { handleBar3Click(e) }}
           onMouseEnter={handleMouseEnter3}
           onMouseLeave={handleMouseLeave3}
-          style={containerStyle2}>{`3 Stars`}{barRender(3)}{starCountObj[3]}</li>
+          style={containerStyle2}>{`3 Stars`}{barRender(3)}</li>
           <div style={{color: 'white'}}>break</div>
         <li id={2}
           onClick={(e) => { handleBar2Click(e) }}
           onMouseEnter={handleMouseEnter2}
           onMouseLeave={handleMouseLeave2}
-          style={containerStyle2}>{`2 Stars`}{barRender(2)}{starCountObj[2]}</li>
+          style={containerStyle2}>{`2 Stars`}{barRender(2)}</li>
           <div style={{color: 'white'}}>break</div>
         <li id={1}
           onClick={(e) => { handleBar1Click(e) }}
           onMouseEnter={handleMouseEnter1}
           onMouseLeave={handleMouseLeave1}
-          style={containerStyle2}>{`1 Stars`}{barRender(1)}{starCountObj[1]}</li>
+          style={containerStyle2}>{`1 Stars`}{barRender(1)}</li>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {renderFilterList()}</div>
         {renderCharBar()}

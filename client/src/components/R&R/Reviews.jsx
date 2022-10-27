@@ -7,7 +7,7 @@ import Breakdown from './Breakdown.jsx'
 import StarRating from './StarRating.jsx'
 import { BreakdownContainer, ListContainer, ReviewContainer } from "./file-upload.styles";
 import Stars from 'react-stars-display';
-
+import moment from 'moment';
 
 
 
@@ -73,7 +73,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   }
 
   useEffect(() => {
-    console.log(characteristics)
+    // console.log(characteristics)
     Modal.setAppElement('body');
 
     axios.get(host_url + 'reviews/', config1)
@@ -116,6 +116,24 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     .catch((err) => {
       console.log('Err on helpful put req', err);
     })
+  }
+
+  var handleReport = (id) => {
+    let config = {
+      url: host_url + `reviews/${id}/report`,
+      method: 'put',
+      headers: {
+        'Authorization': process.env.TOKEN,
+      },
+    }
+    axios(config)
+    .then((result) => {
+      // console.log('TEST', result);
+    })
+    .catch((err) => {
+      console.log('Err on helpful put req', err);
+    })
+    alert('Report Submitted')
   }
 
   var handleReviewSubmit = () => {
@@ -242,20 +260,23 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
         temp.slice(0, reviewCount).map((item, i) => {
           return (
             <div key={i} style={{ border: '1px solid black' }}>
-              <div className='topRowContainer' >
-                <div>
+              <div className='topRowContainer' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '90%', margin: 'auto', margin: '20px', gap: '15px'}}>
+                <div >
                   <Stars
                     stars={item.rating}
-                    size={15} //optional
+                    size={25} //optional
                     spacing={2} //optional
                     fill='#ea9c46' //optional
                   />
                 </div>
-                <div>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
+                <div style={{ marginLeft: '10px'}}>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
               </div>
               <span style={{ fontWeight: 'bold' }}>{item.summary}</span>
               <div>{item.body}</div>
-              <div onClick={() => {handleHelpful(item.review_id)}} >{`Helpful? ${item.helpfulness}`}</div>
+              <div className='helpfulAndReport Container' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '90%', margin: 'auto', margin: '20px', gap: '15px'}}>
+              <div onClick={() => {handleHelpful(item.review_id)}} style={{ cursor: 'pointer' }}>{`Helpful? Yes (${item.helpfulness})`} </div>
+              <div onClick={() => {handleReport(item.review_id)}} style={{ cursor: 'pointer' }}>Report</div>
+              </div>
             </div>
           )
         })
@@ -267,20 +288,23 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
         reviewList.slice(0, reviewCount).map((item, i) => {
           return (
             <div key={i} style={{ border: '1px solid black' }}>
-              <div className='topRowContainer'>
-              <div>
+              <div className='topRowContainer' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '90%', margin: 'auto', margin: '20px', gap: '15px'}}>
+                <div >
                   <Stars
                     stars={item.rating}
-                    size={15} //optional
+                    size={25} //optional
                     spacing={2} //optional
                     fill='#ea9c46' //optional
                   />
                 </div>
-              <div>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
+                <div style={{ marginLeft: '10px'}}>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
               </div>
               <span style={{ fontWeight: 'bold' }}>{item.summary}</span>
               <div>{item.body}</div>
-              <div onClick={() => {handleHelpful(item.review_id)}}>{`Helpful? ${item.helpfulness}`}</div>
+              <div className='helpfulAndReport Container' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '90%', margin: 'auto', margin: '20px', gap: '15px'}}>
+              <div style={{ cursor: 'pointer' }} onClick={() => {handleHelpful(item.review_id)}} >{`Helpful? Yes (${item.helpfulness})`} </div>
+              <div onClick={() => {handleReport(item.review_id)}} style={{ cursor: 'pointer' }}>Report</div>
+              </div>
             </div>
           )
         })
@@ -291,20 +315,23 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
 
   var uniqueCharacteristicsCalc = () => {
     let reconfig = {
-      Comfort: [comfortRating, setComfortRating],
-      Fit: [fitRating, setFitRating],
-      Length: [lengthRating, setLengthRating],
-      Quality: [qualityRating, setQualityRating],
-      Size: [sizeRating, setSizeRating],
-      Width: [widthRating, setWidthRating],
+      Comfort: [comfortRating, setComfortRating, 'Uncomfortable', 'Slightly Uncomfortable', 'Ok', 'Comfortable', 'Perfect'],
+      Fit: [fitRating, setFitRating, 'Runs Tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'],
+      Length: [lengthRating, setLengthRating, 'Runs short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'],
+      Quality: [qualityRating, setQualityRating, 'Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'],
+      Size: [sizeRating, setSizeRating, 'A size too small', '1/2 size too small', 'Perfect', '1/2 size too big', 'A size too wide'],
+      Width: [widthRating, setWidthRating, 'Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'],
     }
+
 
     let temp = Object.keys(characteristics);
 
     return (
       temp.map((item, i) => {
+        let inner = Number(reconfig[item][0]) + 1
+        // console.log(reconfig[item][inner])
         return (
-          <li key={i}>
+          <li key={i} style={{display: "flex", flexDirection: "column", alignItems: "left"}}>
             <form>
               <label>{`Rate the ${item}`} <div style={{ color: 'red' }}>*</div></label>
               <input type="radio" value={'1'} name={'1'} checked={reconfig[item][0] === '1'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
@@ -317,6 +344,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
               <label>4</label>
               <input type="radio" value={'5'} name={'5'} checked={reconfig[item][0] === '5'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
               <label>5</label>
+            <div style={{display: "flex", flexDirection: "row"}}>{reconfig[item][0] === '0' ? null : reconfig[item][inner]}</div>
             </form>
           </li>
         )
@@ -398,6 +426,8 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
 
   )
 }
+
+// item.date.slice(0, 10)
 
 export default Reviews;
 
