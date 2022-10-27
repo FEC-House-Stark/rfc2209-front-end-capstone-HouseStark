@@ -105,8 +105,13 @@ const QuestionView = ({
       <div widget='QandA'
         element-name='Question_View'>
         <QuestionBar>
-          <div style={{fontWeight: 'bold', fontSize: 'medium'}}>
-            Q: {getHighlightedText(question.question_body, highlight)}
+          <div style={{fontWeight: 'bold', fontSize: 'medium', display:'flex', flexDirection:'row', gap:'5px'}}>
+            <div>
+              Q:
+            </div>
+            <div>
+              {getHighlightedText(question.question_body, highlight)}
+            </div>
           </div>
           <QuestionBarActionItem >
             <QuestionReport

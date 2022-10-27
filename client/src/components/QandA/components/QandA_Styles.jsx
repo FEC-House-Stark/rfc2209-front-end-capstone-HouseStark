@@ -77,9 +77,9 @@ const QandAQuestionListView = styled.div`
 const QuestionBar = styled.div`
   display: grid;
   align-items: stretch;
-  grid-template-columns: 60% 40% ;
-  height: 20px;
-`
+  grid-template-columns: 70% 30% ;
+  padding-bottom: 10px;
+  `
 const QuestionBarActionItem = styled.span`
   display: flex;
   flex-direction: row-reverse;
