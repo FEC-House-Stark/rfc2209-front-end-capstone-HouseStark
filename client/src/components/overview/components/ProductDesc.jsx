@@ -19,7 +19,7 @@ const ProductDesc = (props) => {
   return (
     //<ProductDescStyle>
     <div style={prodDescStyle}>
-      <h2 widget='Overview' element-name='Product Slogan' onClick={props.handleClick}>{props.productInfo.slogan}</h2>
+      <h2 id='product-desc' widget='Overview' element-name='Product Slogan' onClick={props.handleClick}>{props.productInfo.slogan}</h2>
       <p widget='Overview' element-name='Product Description' onClick={props.handleClick}>{props.productInfo.slogan}>{props.productInfo.description}</p>
     </div>
     //</ProductDescStyle>
