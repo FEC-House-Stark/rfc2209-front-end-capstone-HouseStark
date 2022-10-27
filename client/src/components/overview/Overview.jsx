@@ -29,7 +29,7 @@ const Overview = (props) => {
   const OverviewStyle = {
     display: 'grid',
     gridTemplateColumns: `1px ${image_width}px minmax(${min_spacer_width}px,75px) minmax(${min_info_width}px, 1fr) 1px`,
-    gridTemplateRows: `${info_height}px ${style_height}px ${cart_height}px ${thumbnailRow ? 50 : 0}px 10px 200px`,
+    gridTemplateRows: `${info_height}px ${style_height}px ${cart_height}px ${thumbnailRow ? 50 : 0}px 10px 175px`,
     padding: '15px 0px',
   };
 
