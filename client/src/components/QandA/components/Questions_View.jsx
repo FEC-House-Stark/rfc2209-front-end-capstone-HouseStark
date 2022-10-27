@@ -8,12 +8,13 @@ import {QandASearchView,QandAQuestionActions} from './QandA_Styles.jsx';
 
 const QuestionsView = ({
   productInfo,
-  questions,
-  setQuestions,
-  filter,
-  handleTrackingClick,
   product_id,
+  questions,
+  filter,
   highlight,
+  setQuestions,
+  getQuestionRequest,
+  handleTrackingClick,
 }) =>  {
 
   const [showQuestion, setShowQuestions] = useState([])
@@ -21,7 +22,11 @@ const QuestionsView = ({
   // const [count, setCount] = useState(0);
 
   useEffect(() => {
-    setShowQuestions(filter.slice(0,2));
+    if(!moreQuestions) {
+      setShowQuestions(filter.slice(0,2));
+    } else {
+      setShowQuestions(filter);
+    }
     // setCount(2);
   },[filter]);
 
@@ -55,8 +60,9 @@ const QuestionsView = ({
             ?showQuestion.map((q) => {
               return <QuestionView
               key={q.question_id}
-              product_id={product_id}
               question={q}
+              productInfo={productInfo}
+              product_id={product_id}
               highlight={highlight}
               handleTrackingClick={handleTrackingClick}
               />
@@ -66,7 +72,7 @@ const QuestionsView = ({
       </div>
       <QandAQuestionActions>
         {
-          questions.length
+          questions.length > 2
             ? <MoreQuestionsButton
               moreQuestions={moreQuestions}
               handleMoreQuestion={handleMoreQuestion}
@@ -77,6 +83,8 @@ const QuestionsView = ({
         <AddaQuestion
           productInfo={productInfo}
           product_id={product_id}
+          setQuestions={setQuestions}
+          getQuestionRequest={getQuestionRequest}
           handleTrackingClick={handleTrackingClick}
           />
       </QandAQuestionActions>

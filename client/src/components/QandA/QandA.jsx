@@ -5,25 +5,29 @@ import QuestionsView from './components/Questions_View.jsx';
 import QuestionSearchBar from './components/Question_Search_Bar.jsx';
 import {QandAOverViewStyle,QandAHeader} from './components/QandA_Styles.jsx';
 
-const QandA = ({product_id,handleClick, productInfo,}) =>  {
+const QandA = ({
+  productInfo,
+  product_id,
+  handleClick,
+}) =>  {
 
   const [questions,setQuestions] = useState([]);
   const [filter, setFilter] = useState([]);
   const [highlight, setHighlight] = useState('');
 
-  // const compareAnswerLength = (a,b) => {
-  //   return
-  // }
-  let config = {
-    params: { product_id, page: 1, count: 20 },
-  }
-
-  useEffect (() => {
+  const getQuestionRequest = () => {
+    let config = {
+      params: { product_id, page: 1, count: 20 },
+    }
     axios.get('/qa/questions',config)
     .then((result) => {
       const questions = result.data.results;
       setQuestions(questions);
     })
+  }
+
+  useEffect (() => {
+    getQuestionRequest();
   },[product_id]);
 
   useEffect(()=> {
@@ -47,9 +51,10 @@ const QandA = ({product_id,handleClick, productInfo,}) =>  {
         productInfo={productInfo}
         product_id={product_id}
         questions={questions}
-        setQuestions={setQuestions}
         filter={filter}
         highlight={highlight}
+        setQuestions={setQuestions}
+        getQuestionRequest={getQuestionRequest}
         handleTrackingClick={handleClick}
         />
   </QandAOverViewStyle>

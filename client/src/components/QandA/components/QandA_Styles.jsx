@@ -123,7 +123,7 @@ const modalBoxStyle = {
     left: '50%',
     right: '50%',
     bottom: '50%',
-    minHeight:'600px',
+    minHeight:'700px',
     minWidth:'800px',
     transform: 'translate(-50%, -50%)',
   },
@@ -176,6 +176,19 @@ margin: 0;
 padding:0;
 text-align: left;
 `
+const UploadPhotos = styled.div`
+display: flex;
+flex-direction: row;
+max-height: 100px;
+gap: 15px;
+padding-top: 10px;
+`;
+
+const uploadPhotoStyle = {
+  border:'1px solid black',
+  objectFit: 'scale-down',
+  maxHeight: '100px',
+}
 
 export {
   QandASearchView,
@@ -199,4 +212,6 @@ export {
   photoModalStyle,
   modalImgStyle,
   ErrorStyle,
+  UploadPhotos,
+  uploadPhotoStyle,
 }
