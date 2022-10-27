@@ -72,7 +72,7 @@ const QuestionsView = ({
       </div>
       <QandAQuestionActions>
         {
-          questions.length
+          questions.length > 2
             ? <MoreQuestionsButton
               moreQuestions={moreQuestions}
               handleMoreQuestion={handleMoreQuestion}
