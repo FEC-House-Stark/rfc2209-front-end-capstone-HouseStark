@@ -1,6 +1,7 @@
 import React from 'react';
 const { useState, useEffect } = React;
-
+import Snowfall from 'react-snowfall'
+import ToggleSwitch from './ToggleSwitch.jsx'
 import axios from 'axios';
 import { createRoot } from 'react-dom/client';
 import Overview from './components/overview/Overview.jsx';
@@ -84,6 +85,19 @@ const App = () => {
   const [recommended, setRecommended] = useState({});
   const [productInfo, setProductInfo] = useState({});
   const [styles, setStyles] = useState({});
+  const [checked, setChecked] = useState(false);
+  const [font, setFont] = useState('#7E8B7E');
+  const [background, setBackground] = useState({});
+
+  useEffect (()=> {
+    if(checked) {
+      setBackground({background: '#282c34', color:'white'});
+      setFont('white');
+    } else {
+      setBackground({});
+      setFont('white');
+    }
+  },[checked])
 
   useEffect(() => {
     let config = {
@@ -139,46 +153,62 @@ const App = () => {
       });
   }, [product_id]);
 
-
   return (
     <ClickTracking>
       {
         (value) => {
           return (
+              <div style={{
+                position: 'relative', ...background,
+                }}>
+              <Snowfall
+                style={{
+                  position:'absolute',
+                  width: '100%',
+                  height: `${checked?'100%':'60px'}`,
+              }}
+                snowflakeCount={`${checked? 200: 25}`}/>
             <>
-              <Header>
-                <Logo src={logo} /> House Stark
-                <Search></Search>
-              </Header>
-              <Body className='widget-body'>
-                <Overview
-                  handleClick={value}
-                  product_id={product_id}
-                  numReviews={numReviews}
-                  avgRating={avgRating}
-                  productInfo={productInfo}
-                  styles={styles} />
-                <Related
-                  handleClick={value}
-                  product_id={product_id}
-                  setId={setProductId}
-                  numReviews={numReviews}
-                  avgRating={avgRating}
-                  productInfo={productInfo}
-                  styles={styles} />
-                <QandA
-                  handleClick={value}
-                  productInfo={productInfo}
-                  product_id={product_id} />
-                <Reviews
-                  handleClick={value}
-                  product_id={product_id}
-                  numReviews={numReviews}
-                  avgRating={avgRating}
-                  characteristics={characteristics}
-                  recommended={recommended} />
-              </Body>
+                <Header>
+                  <Logo src={logo} /> House Stark
+                  <div >
+                    <Search></Search>
+                    <ToggleSwitch
+                      checked={checked}
+                      setChecked={setChecked}
+                      />
+                  </div>
+                </Header>
+                <Body className='widget-body'>
+                  <Overview
+                    handleClick={value}
+                    product_id={product_id}
+                    numReviews={numReviews}
+                    avgRating={avgRating}
+                    productInfo={productInfo}
+                    styles={styles} />
+                  <Related
+                    handleClick={value}
+                    product_id={product_id}
+                    setId={setProductId}
+                    numReviews={numReviews}
+                    avgRating={avgRating}
+                    productInfo={productInfo}
+                    styles={styles} />
+                  <QandA
+                    handleClick={value}
+                    productInfo={productInfo}
+                    product_id={product_id} />
+                  <Reviews
+                    handleClick={value}
+                    product_id={product_id}
+                    numReviews={numReviews}
+                    avgRating={avgRating}
+                    characteristics={characteristics}
+                    recommended={recommended} />
+                </Body>
             </>
+              </div>
           )
         }
       }
@@ -188,4 +218,7 @@ const App = () => {
 }
 const container = document.getElementById('root');
 const root = createRoot(container);
-root.render(<CloudinaryContext cloudName="dbij37ike"><App /></CloudinaryContext>);
+root.render(
+  <CloudinaryContext cloudName="dbij37ike">
+    <App />
+  </CloudinaryContext>);
