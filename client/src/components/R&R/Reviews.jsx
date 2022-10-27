@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import FileUpload from './FileUpload.jsx'
 import Breakdown from './Breakdown.jsx'
 import StarRating from './StarRating.jsx'
+import ImageGallary from './ImageGallary.jsx'
 import { BreakdownContainer, ListContainer, ReviewContainer } from "./file-upload.styles";
 import Stars from 'react-stars-display';
 import moment from 'moment';

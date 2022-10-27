@@ -1,104 +1,59 @@
-import React, { useRef, useState } from "react";
-import {
-  FileUploadContainer,
-  FormField,
-  DragDropText,
-  UploadFileBtn,
-  FilePreviewContainer,
-  ImagePreview,
-  PreviewContainer,
-  PreviewList,
-  FileMetaData,
-  RemoveFileIcon,
-  InputLabel
-} from "./file-upload.styles";
+import React, {useState} from 'react';
+import axios from 'axios';
 
-const KILO_BYTES_PER_BYTE = 1000;
-const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 500000;
 
-const convertNestedObjectToArray = (nestedObj) =>
-  Object.keys(nestedObj).map((key) => nestedObj[key]);
+function FileUpload() {
+	const [selectedFile, setSelectedFile] = useState();
+	const [isFilePicked, setIsFilePicked] = useState(false);
 
-const convertBytesToKB = (bytes) => Math.round(bytes / KILO_BYTES_PER_BYTE);
+	const changeHandler = (event) => {
+		setSelectedFile(event.target.files[0]);
+		setIsFilePicked(true);
+	};
 
-const FileUpload = ({files, setFiles, maxFileSizeInBytes = DEFAULT_MAX_FILE_SIZE_IN_BYTES, ...otherProps}) => {
-  const fileInputField = useRef(null);
-  // const [files, setFiles] = useState({});
+	const handleSubmission = () => {
+		// const formData = new FormData();
 
-  const handleUploadBtnClick = () => {
-    fileInputField.current.click();
-  };
+		// formData.append('File', selectedFile);
 
-  const addNewFiles = (newFiles) => {
-    for (let file of newFiles) {
-      if (file.size < maxFileSizeInBytes) {
-        if (!otherProps.multiple) {
-          return { file };
-        }
-        files[file.name] = file;
-      }
+    let data = {
+      'media': selectedFile,
+      'key': '000023bdf05b798223669e66dce461ff'
     }
-    return { ...files };
-  };
 
+console.log(data)
+axios.post('https://thumbsnap.com/api/upload', data)
+			.then((response) => response.json())
+			.then((result) => {
+				console.log('Success:', result);
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
+	};
 
-
-
-
-
-
-  return (
-    <>
-      <FileUploadContainer>
-        <InputLabel>Label</InputLabel>
-        <DragDropText>Drag and drop your files anywhere or</DragDropText>
-        <UploadFileBtn type="button" onClick={handleUploadBtnClick}>
-          <i className="fas fa-file-upload" />
-          <span> Upload {otherProps.multiple ? "files" : "a file"}</span>
-        </UploadFileBtn>
-        <FormField
-          type="file"
-          ref={fileInputField}
-          onChange={(e) => {console.log(e.target)}}
-          title=""
-          value=""
-          {...otherProps}
-        />
-      </FileUploadContainer>
-      {/* <FilePreviewContainer>
-        <span>To Upload</span>
-        <PreviewList>
-          {Object.keys(files).map((fileName, index) => {
-            let file = files[fileName];
-            let isImageFile = file.type.split("/")[0] === "image";
-            return (
-              <PreviewContainer key={fileName}>
-                <div>
-                  {isImageFile && (
-                    <ImagePreview
-                      src={URL.createObjectURL(file)}
-                      alt={`file preview ${index}`}
-                    />
-                  )}
-                  <FileMetaData isImageFile={isImageFile}>
-                    <span>{file.name}</span>
-                    <aside>
-                      <span>{convertBytesToKB(file.size)} kb</span>
-                      <RemoveFileIcon
-                        className="fas fa-trash-alt"
-                        onClick={() => removeFile(fileName)}
-                      />
-                    </aside>
-                  </FileMetaData>
-                </div>
-              </PreviewContainer>
-            );
-          })}
-        </PreviewList>
-      </FilePreviewContainer> */}
-    </>
-  );
-};
+	return(
+   <div>
+			<input type="file" name="file" onChange={changeHandler} />
+			{isFilePicked ? (
+				<div>
+					<p>Filename: {selectedFile.name}</p>
+					<p>Filetype: {selectedFile.type}</p>
+					<p>Size in bytes: {selectedFile.size}</p>
+					<p>
+						lastModifiedDate:{' '}
+						{selectedFile.lastModifiedDate.toLocaleDateString()}
+					</p>
+				</div>
+			) : (
+				<p>Select a file to show details</p>
+			)}
+			<div>
+				<button onClick={handleSubmission}>Submit</button>
+			</div>
+		</div>
+	)
+}
 
 export default FileUpload;
 
