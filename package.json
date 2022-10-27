@@ -9,7 +9,7 @@
     "test-overview": "npx jest client/test/Overview.test.js",
     "test-questions": "npx jest client/test/QandA.test.js --coverage",
     "test-reviews": "npx jest client/test/RandR.test.js",
-    "test-related": "npx jest client/test/Related.test.js",
+    "test-related": "npx jest client/test/Related.test.js --coverage",
     "react-dev": "webpack --mode development --watch"
   },
   "repository": {
@@ -46,6 +46,7 @@
   "homepage": "https://github.com/FEC-House-Stark/rfc2209-front-end-capstone-HouseStark#readme",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/free-regular-svg-icons": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "axios": "^1.1.2",
