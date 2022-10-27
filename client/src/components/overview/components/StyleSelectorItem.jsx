@@ -15,9 +15,6 @@ const Checkmark = styled.div`
   border: none;
   border-radius: 50%;
   background-color: white;
-  position: absolute;
-  top: 12%;
-  right: 14%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,13 +43,20 @@ const StyleSelectorItem = ({ photo, selected, handleClick, index, height }) => {
   `;
 
   return (
-    <>
+    <div style={{width: '100%'}}>
       <div css={selectorItemStyle} widget='Overview' element-name='StyleSelectorItem' onClick={(e) => handleClick(e, index)} />
       {selected &&
+      <div style={{
+        width: '100%',
+        position: 'absolute',
+        top: '10%',
+        left: '68%',
+      }}>
         <Checkmark>
           <FontAwesomeIcon icon={faCircleCheck} />
-        </Checkmark>}
-    </>
+        </Checkmark>
+        </div>}
+    </div>
   )
 }
 
