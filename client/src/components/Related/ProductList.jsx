@@ -8,6 +8,8 @@ const rightArrow = <FontAwesomeIcon icon={faAngleRight} />
 const leftArrow = <FontAwesomeIcon icon={faAngleLeft} />
 
 const ProdList = styled.div`
+max-width:820px;
+min-width: 820px;
 display: flex;
 flex-direction:column;
 align-self:center;

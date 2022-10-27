@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
+import Stars from 'react-stars-display';
 
 const star = <FontAwesomeIcon icon={faStar} />
 
 const CardContainer = styled.div`
-max-width:820px;
-min-width: 800px;
+width:100%;
 box-sizing: border-box;
 display: flex;
 overflow-x: hidden;
@@ -40,7 +40,7 @@ border-bottom: 1px solid black;
 `;
 
 const Category = styled.div`
-font-size: 15px;
+font-size: 14px;
 margin-left:5px;
 margin-top:2px;
 `;
@@ -49,7 +49,7 @@ margin-left:5px;
 margin-top:2px;
 `;
 const Price = styled.div`
-font-size: 13px;
+font-size: 12px;
 margin-left:5px;
 margin-top:2px;
 `;
@@ -61,7 +61,7 @@ margin-top:2px;
 const Star = styled.div`
 position: absolute;
 right:0px;
-color: gold;
+color: #C9ADA1;
 font-size: 20px;
 &:hover {
 color: black;
@@ -89,7 +89,14 @@ const ProductCards = ({ data, setId, setOpenModal, openModal, setCompare }) => {
           <Category onClick={() => setId(product.id)}>{product.category}</Category>
           <Name onClick={() => setId(product.id)}>{product.name}</Name>
           <Price onClick={() => setId(product.id)}>{'$' + product.price}</Price>
-          <Review onClick={() => setId(product.id)}>{product.totalReviews + ' reviews: ' + product.avg}</Review>
+          <Review onClick={() => setId(product.id)}>
+            <Stars
+              stars={product.avg}
+              size={12} //optional
+              spacing={2} //optional
+              fill='#C9ADA1' //optional
+            />
+          </Review>
         </Card>
       )}
     </CardContainer>
