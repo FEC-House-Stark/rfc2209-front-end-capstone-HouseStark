@@ -52,6 +52,8 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "axios": "^1.1.2",
     "babel-plugin-macros": "^3.1.0",
+    "cloudinary-core": "^2.13.0",
+    "cloudinary-react": "^1.8.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "moment": "^2.29.4",

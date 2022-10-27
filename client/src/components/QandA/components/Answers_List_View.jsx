@@ -6,44 +6,11 @@ import {AnswersListStyle,moreAnswersButton} from './QandA_Styles.jsx';
 
 const AnswersListView = ({
   question_id,
+  answers,
+  showAnswers,
+  setShowAnswers,
   handleTrackingClick,
 }) =>  {
-
-  const [answers, setAnswers] = useState ([]);
-  const [showAnswers, setShowAnswers] = useState([])
-
-  const config = {
-    params: {
-      page: 1,
-      count: 100
-    },
-  }
-
-  const SortAnswersBySeller = (answers) => {
-    var sellerPoint = 0;
-    var answerPoint = 0;
-    answers.forEach((a) => {
-      var isSeller = (a.answerer_name.toLowerCase() === 'seller');
-      if(isSeller) {
-        [answers[sellerPoint],answers[answerPoint]] = [answers[answerPoint],answers[sellerPoint]];
-        sellerPoint++;
-      }
-      answerPoint++;
-    })
-  }
-
-  useEffect (() => {
-    axios.get(`/qa/questions/${question_id}/answers`,config)
-    .then((result)=> {
-      return result.data;
-    })
-    .then((data) => {
-      SortAnswersBySeller(data.results);
-      setAnswers(data.results);
-      setShowAnswers(data.results.slice(0,2));
-    })
-  },[])
-
 
   return (
     <AnswersListStyle>
@@ -54,7 +21,9 @@ const AnswersListView = ({
             return <AnswerView
             key={a.answer_id}
             answer={a}
-            handleTrackingClick={handleTrackingClick}/>
+            question_id={question_id}
+            handleTrackingClick={handleTrackingClick}
+            />
           })}
         </div>
         <div>
