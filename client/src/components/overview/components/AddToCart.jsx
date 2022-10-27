@@ -41,7 +41,8 @@ const cartButtonStyle = {
   backgroundColor: '#fff',
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center'
+  alignItems: 'center',
+  cursor: 'pointer'
 }
 const formStyle = {
   width: '100%',
@@ -78,7 +79,8 @@ const AddToCart = ({ handleClick, style }) => {
     backgroundColor: '#fff',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    cursor: 'pointer'
   }
 
   const starStyle = {
