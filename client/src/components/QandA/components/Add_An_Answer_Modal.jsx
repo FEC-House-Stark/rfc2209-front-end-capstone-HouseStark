@@ -52,7 +52,6 @@ const AddanAnswerModal = ({
     openUploadWidget(uploadOptions, (error, uploadPhoto) => {
       if (!error) {
         if(uploadPhoto.event === 'success'){
-          console.log(uploadPhoto.info);
           setPhotos([...photos, uploadPhoto.info.secure_url]);
         }
       } else {
