@@ -1,9 +1,7 @@
 import { expect, jest, test } from '@jest/globals';
 import '@testing-library/jest-dom';
 import React from "react";
-import Enzyme, { shallow, mount } from "enzyme";
-import { render, fireEvent, screen } from '@testing-library/react';
-import Adapter from "enzyme-adapter-react-16";
+import {render, fireEvent, screen} from '@testing-library/react';
 import { prodInfo, styles, style, avgRating, numReviews } from "./Overview.test.data.js";
 import Overview from "../src/components/overview/Overview.jsx";
 import ProductInfo from "../src/components/overview/components/ProductInfo.jsx";
@@ -295,13 +293,10 @@ describe("Product Info", () => {
 });
 describe("Image Gallery", () => {
   const minProps = {
-    handleClick: jest.fn(),
+    handleClick: '() -> {}',
     photos: style.photos,
   };
-
-  let wrapper = shallow(<ImageGallery {...minProps} />);
-  let instance = wrapper.instance();
-
+  const wrapper = shallow(<ImageGallery {...minProps} />);
   test("It renders", () => {
     expect(wrapper.exists()).toBe(true);
   });
@@ -315,14 +310,20 @@ describe("Image Gallery", () => {
     expect(wrapper.find(ZoomView).length).toBe(1);
   });
   it('renders one right arrow', () => {
-
-    // const spy = jest.spyOn(event, "preventDefault");
-    // console.log('***Image gallery arrow buttons: ', wrapper.find({ direction: 'right' }).length);
-    // wrapper.find({ direction: 'right' }).simulate('click');
-    // expect(spy).toHaveBeenCalled();
-    // const img_gal = overview_wrapper.find("ImageGallery");
-    // console.log('photoIndex', img_gal);
-
+    const wrapper = shallow(<ImageGallery {...minProps}/>);
+    console.log('state photoIndex', wrapper.props());
+    // const minProps = {
+    //   handleClick: '() -> {}',
+    //   productInfo: prodInfo,
+    //   product_id: prodInfo.id,
+    //   'avgRating': avgRating,
+    //   'numReviews': numReviews,
+    //   styles: styles,
+    // };
+   // const overview_wrapper = mount(<Overview {...minProps}/>);
+    console.log('***Image gallery arrow buttons: ', wrapper.find({direction: 'left'}).length);
+    //const img_gal = overview_wrapper.find("ImageGallery").first().props();
+    //console.log('photoIndex', img_gal);
     expect(true).toBe(true);
   })
   describe("Thumbnail Gallery", () => {
@@ -355,13 +356,13 @@ describe("Image Gallery", () => {
   });
   describe("ArrowButton", () => {
     const minProps = {
-      //  handleClick: '() -> {}',
+    //  handleClick: '() -> {}',
       direction: 'up',
       active: 'true',
       height: 450,
       carousel_height: 300,
-      // handleEnter: '() -> {}',
-      //  handleLeave: '() -> {}',
+     // handleEnter: '() -> {}',
+    //  handleLeave: '() -> {}',
       expanded: false
     };
     const wrapper = shallow(<ArrowButton {...minProps} />);
