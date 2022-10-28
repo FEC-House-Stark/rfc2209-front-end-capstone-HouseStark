@@ -72,81 +72,103 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
 
   var barRender = (star) => {
 
+
+
     let masterObj = {
       1: [{
         height: '15px',
         width: `${415}px`,
         backgroundColor: isHovering1 ? '#a2d2ff' : '#adb5bd',
-        border: '1px solid lightgrey',
         borderRadius: '0px',
         position: 'relative',
-        boxShadow: isHovering1 ? '0 0 15px 1px rgba(0, 0, 0, 0.4)' : '',
       }, {
         height: '15px',
         width: `${415 * percentageCalc(star)}px`,
-        backgroundColor: isHovering1 ? '#457b9d' : '#4D6A6D',
+        backgroundColor: '#4D6A6D',
         borderRadius: '1px',
         position: 'absolute',
+      },
+      {
+        right: '3px',
+        position: 'absolute',
+        fontSize: '13px',
+        color: isHovering1 ? '#264653' : '#adb5bd'
       }],
       2: [{
         height: '15px',
         width: `${415}px`,
         backgroundColor: isHovering2 ? '#a2d2ff' : '#adb5bd',
-        border: '1px solid lightgrey',
         borderRadius: '0px',
         position: 'relative',
-        boxShadow: isHovering2 ? '0 0 15px 1px rgba(0, 0, 0, 0.4)' : '',
       }, {
         height: '15px',
         width: `${415 * percentageCalc(star)}px`,
         backgroundColor: isHovering2 ? '#457b9d' : '#4D6A6D',
         borderRadius: '1px',
         position: 'absolute',
+      },
+      {
+        right: '3px',
+        position: 'absolute',
+        fontSize: '13px',
+        color: isHovering2 ? '#264653' : '#adb5bd'
       }],
       3: [{
         height: '15px',
         width: `${415}px`,
         backgroundColor: isHovering3 ? '#a2d2ff' : '#adb5bd',
-        border: '1px solid lightgrey',
         borderRadius: '0px',
         position: 'relative',
-        boxShadow: isHovering3 ? '0 0 15px 1px rgba(0, 0, 0, 0.4)' : '',
       }, {
         height: '15px',
         width: `${415 * percentageCalc(star)}px`,
         backgroundColor: isHovering3 ? '#457b9d' : '#4D6A6D',
         borderRadius: '1px',
         position: 'absolute',
+      },
+      {
+        right: '3px',
+        position: 'absolute',
+        fontSize: '13px',
+        color: isHovering3 ? '#264653' : '#adb5bd'
       }],
       4: [{
         height: '15px',
         width: `${415}px`,
         backgroundColor: isHovering4 ? '#a2d2ff' : '#adb5bd',
-        border: '1px solid lightgrey',
         borderRadius: '0px',
         position: 'relative',
-        boxShadow: isHovering4 ? '0 0 15px 1px rgba(0, 0, 0, 0.4)' : '',
       }, {
         height: '15px',
         width: `${415 * percentageCalc(star)}px`,
         backgroundColor: isHovering4 ? '#457b9d' : '#4D6A6D',
         borderRadius: '1px',
         position: 'absolute',
+      },
+      {
+        right: '3px',
+        position: 'absolute',
+        fontSize: '13px',
+        color: isHovering4 ? '#264653' : '#adb5bd'
       }],
       5: [{
         height: '15px',
         width: `${415}px`,
         backgroundColor: isHovering5 ? '#a2d2ff' : '#adb5bd',
-        border: '1px solid lightgrey',
         borderRadius: '0px',
         position: 'relative',
-        boxShadow: isHovering5 ? '0 0 15px 1px rgba(0, 0, 0, 0.4)' : '',
       }, {
         height: '15px',
         width: `${415 * percentageCalc(star)}px`,
         backgroundColor: isHovering5 ? '#457b9d' : '#4D6A6D',
         borderRadius: '1px',
         position: 'absolute',
+      },
+      {
+        right: '3px',
+        position: 'absolute',
+        fontSize: '13px',
+        color: isHovering5 ? '#264653' : '#adb5bd'
       }]
     }
 
@@ -156,10 +178,8 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
       height: '15px',
       width: `${415}px`,
       backgroundColor: isHovering5 ? '#a2d2ff' : '#adb5bd',
-      border: '1px solid lightgrey',
       borderRadius: '0px',
       position: 'relative',
-      boxShadow: isHovering5 ? '0 0 15px 1px rgba(0, 0, 0, 0.4)' : '',
 
     }
 
@@ -171,9 +191,16 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
       position: 'absolute',
     }
 
+    let numberStyle = {
+      right: '0px',
+      position: 'absolute',
+      fontSize: '13px',
+      color: isHovering1 ? '#264653' : '#adb5bd'
+    }
+
 
     return (
-      <div style={masterObj[star][0]}><div style={masterObj[star][1]}></div></div>
+      <div style={masterObj[star][0]}><div style={masterObj[star][1]}></div><div style={masterObj[star][2]}>{starCountObj[star]}</div></div>
     )
   }
 
@@ -332,7 +359,6 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
       height: '15px',
       width: `${310}px`,
       backgroundColor: '#adb5bd',
-      border: '1px solid lightgrey',
       borderRadius: '0px',
       position: 'relative',
     }

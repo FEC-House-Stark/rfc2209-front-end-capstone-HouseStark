@@ -40,6 +40,8 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   const [filterObj, setFilterObj] = useState([]);
   const [filterList, setFilterList] = useState([]);
   const [photos, setPhotos] = useState([]);
+  const [isOpenPhoto, setIsOpenPhoto] = useState(false);
+  const [clickPhoto, setClickPhoto] = useState('')
 
   const host_url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/'
 
@@ -65,6 +67,18 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     cursor: 'pointer'
   }
 
+  const glassPanel = {
+    maxWidth: '400px',
+    margin: '100px auto',
+    padding: '30px',
+    boxSizing: 'border-box',
+    textAlign: 'center',
+    backgroundColor: '#fff',
+    background: 'rgba(255, 21, 255, 0.5)',
+    backdropFilter: 'blur(6px)',
+    WebkitBackdropFilter: 'blur(6px)'
+  }
+
   // console.log(numReviews)
   let config1 = {
     headers: {
@@ -78,7 +92,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   }
 
   useEffect(() => {
-    // console.log(characteristics)
+    // console.log(fullReviewList)
     Modal.setAppElement('body');
 
     axios.get(host_url + 'reviews/', config1)
@@ -93,17 +107,24 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   }, [product_id, sortType, numReviews, submitFlag]);
 
   var handleMoreReviews = () => {
-    if (reviewCount >= reviewList.length - 1) {
-      setReviewCount(reviewList.length)
-    }
-    if (reviewCount < reviewList.length) {
-      setReviewCount(reviewCount + 2)
-    }
+    setReviewCount(numReviews)
+    // if (reviewCount >= reviewList.length - 1) {
+    //   setReviewCount(reviewList.length)
+    // }
+    // if (reviewCount < reviewList.length) {
+    //   setReviewCount(reviewCount + 2)
+    // }
     // setReviewList(reviewList.slice(0, 2))
   }
 
   var toggleModal = () => {
     setIsOpen(!isOpen);
+  }
+
+  var toggleModalPhoto = (arg) => {
+    // console.log(typeof arg.target.src)
+    setIsOpenPhoto(!isOpenPhoto)
+    setClickPhoto(arg.target.src)
   }
 
   var handleHelpful = (id) => {
@@ -115,12 +136,12 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       },
     }
     axios(config)
-    .then((result) => {
-      // console.log('TEST', result);
-    })
-    .catch((err) => {
-      console.log('Err on helpful put req', err);
-    })
+      .then((result) => {
+        // console.log('TEST', result);
+      })
+      .catch((err) => {
+        console.log('Err on helpful put req', err);
+      })
   }
 
   var handleReport = (id) => {
@@ -132,12 +153,12 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       },
     }
     axios(config)
-    .then((result) => {
-      // console.log('TEST', result);
-    })
-    .catch((err) => {
-      console.log('Err on helpful put req', err);
-    })
+      .then((result) => {
+        // console.log('TEST', result);
+      })
+      .catch((err) => {
+        console.log('Err on helpful put req', err);
+      })
     alert('Report Submitted')
   }
 
@@ -264,8 +285,8 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       return (
         temp.slice(0, reviewCount).map((item, i) => {
           return (
-            <div key={i} style={{ borderBottom: '1px solid black'}}>
-              <div className='topRowContainer' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '90%', margin: 'auto', margin: '20px', gap: '15px'}}>
+            <div key={i} style={{ borderBottom: '1px solid black' }}>
+              <div className='topRowContainer' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '90%', margin: 'auto', margin: '20px', gap: '15px' }}>
                 <div >
                   <Stars
                     stars={item.rating}
@@ -274,20 +295,27 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
                     fill='#ea9c46' //optional
                   />
                 </div>
-                <div style={{ marginLeft: '10px'}}>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
+                <div style={{ marginLeft: '10px' }}>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
               </div>
               <span style={{ fontWeight: 'bold' }}>{item.summary}</span>
               <div>{item.body}</div>
               <div className='review-photos'>
                 {item.photos.map((photo, i) => {
                   return (
-                    <img src={photo.url} height='150' width='150'></img>
+                    <>
+                    <img style={{cursor: 'pointer'}} src={photo.url} height='75' width='75' onClick={(e) => {toggleModalPhoto(e)}}></img>
+                    <Modal
+                    isOpen={isOpenPhoto}
+        onRequestClose={toggleModalPhoto}>
+<img src={clickPhoto} height='600' width='600'></img>
+                    </Modal>
+                    </>
                   )
                 })}
               </div>
-              <div className='helpfulAndReport Container' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '90%', margin: 'auto', margin: '20px', gap: '15px'}}>
-              <div onClick={() => {handleHelpful(item.review_id)}} style={{ cursor: 'pointer' }}>{`Helpful? Yes (${item.helpfulness})`} </div>
-              <div onClick={() => {handleReport(item.review_id)}} style={{ cursor: 'pointer' }}>Report</div>
+              <div className='helpfulAndReport Container' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '90%', margin: 'auto', margin: '20px', gap: '15px' }}>
+                <div onClick={() => { handleHelpful(item.review_id) }} style={{ cursor: 'pointer' }}>{`Helpful? Yes (${item.helpfulness})`} </div>
+                <div onClick={() => { handleReport(item.review_id) }} style={{ cursor: 'pointer' }}>Report</div>
               </div>
             </div>
           )
@@ -298,10 +326,9 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     if (!filterObj.length) {
       return (
         reviewList.slice(0, reviewCount).map((item, i) => {
-          console.log(item.photos)
           return (
             <div key={i} style={{ borderBottom: '1px solid black' }}>
-              <div className='topRowContainer' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '90%', margin: 'auto', margin: '20px', gap: '15px'}}>
+              <div className='topRowContainer' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '90%', margin: 'auto', margin: '20px', gap: '15px' }}>
                 <div >
                   <Stars
                     stars={item.rating}
@@ -310,20 +337,27 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
                     fill='#ea9c46' //optional
                   />
                 </div>
-                <div style={{ marginLeft: '10px'}}>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
+                <div style={{ marginLeft: '10px' }}>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
               </div>
               <span style={{ fontWeight: 'bold' }}>{item.summary}</span>
               <div>{item.body}</div>
               <div className='review-photos'>
                 {item.photos.map((photo, i) => {
                   return (
-                    <img src={photo.url} height='150' width='150'></img>
+                    <div key={i} >
+                    <img style={{cursor: 'pointer'}} src={photo.url} height='75' width='75' onClick={(e) => {toggleModalPhoto(e)}}></img>
+                    <Modal
+                    isOpen={isOpenPhoto}
+        onRequestClose={toggleModalPhoto}>
+<img src={clickPhoto} height='600' width='600'></img>
+                    </Modal>
+                    </div>
                   )
                 })}
               </div>
-              <div className='helpfulAndReport Container' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '90%', margin: 'auto', margin: '20px', gap: '15px'}}>
-              <div style={{ cursor: 'pointer' }} onClick={() => {handleHelpful(item.review_id)}} >{`Helpful? Yes (${item.helpfulness})`} </div>
-              <div onClick={() => {handleReport(item.review_id)}} style={{ cursor: 'pointer' }}>Report</div>
+              <div className='helpfulAndReport Container' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '90%', margin: 'auto', margin: '20px', gap: '15px' }}>
+                <div style={{ cursor: 'pointer' }} onClick={() => { handleHelpful(item.review_id) }} >{`Helpful? Yes (${item.helpfulness})`} </div>
+                <div onClick={() => { handleReport(item.review_id) }} style={{ cursor: 'pointer' }}>Report</div>
               </div>
             </div>
           )
@@ -351,7 +385,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
         let inner = Number(reconfig[item][0]) + 1
         // console.log(reconfig[item][inner])
         return (
-          <li key={i} style={{display: "flex", flexDirection: "column", alignItems: "left"}}>
+          <li key={i} style={{ display: "flex", flexDirection: "column", alignItems: "left" }}>
             <form>
               <label>{`Rate the ${item}`} <div style={{ color: 'red' }}>*</div></label>
               <input type="radio" value={'1'} name={'1'} checked={reconfig[item][0] === '1'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
@@ -364,7 +398,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
               <label>4</label>
               <input type="radio" value={'5'} name={'5'} checked={reconfig[item][0] === '5'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
               <label>5</label>
-            <div style={{display: "flex", flexDirection: "row"}}>{reconfig[item][0] === '0' ? null : reconfig[item][inner]}</div>
+              <div style={{ display: "flex", flexDirection: "row" }}>{reconfig[item][0] === '0' ? null : reconfig[item][inner]}</div>
             </form>
           </li>
         )
@@ -386,70 +420,72 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
               <option value="newest">newest</option>
             </select>
           </div>
-          <div style={{maxHeight: '80vh', overflowY: 'auto'}}>{listDecider()}</div>
+          <div style={{ maxHeight: '80vh', overflowY: 'auto' }}>{listDecider()}</div>
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '90%', margin: 'auto', margin: '20px', gap: '15px' }}>
             {reviewCount >= reviewList.length ? null : <button style={buttonStyle} data-testid="increment" onClick={handleMoreReviews}>{reviewList.length < 3 ? null : 'More Reviews'}</button>}
             <button style={buttonStyle} onClick={toggleModal}>Add A Review + </button>
           </div>
         </ListContainer>
       </ReviewContainer>
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={toggleModal}
-        contentLabel="Add A Review"
-        style={modalBoxStyle}
-      >
-        <div style={{display:'flex', flexDirection:'row-reverse'}}>
-            <div
-              widget='RandR'
-              element-name='Add_Review'
-              onClick={(e)=> {
-                toggleModal()
-              }}
-                >
-              <FontAwesomeIcon icon={faCircleXmark} />
-            </div>
-          </div>
-          <StarRating currentValue={currentValue} setCurrentValue={setCurrentValue} />
-        <li>
-          <label>Recommend? <div style={{ color: 'red' }}>*</div></label>
-          <input type="radio" value='yes' name="yes" checked={newRecomended === 'yes'} onChange={(e) => { setNewRecomended(e.target.value) }} />
-          <label>Yes</label>
-          <input type="radio" value='no' name="no" checked={newRecomended === 'no'} onChange={(e) => { setNewRecomended(e.target.value) }} />
-          <label>No</label>
-        </li>
-        <div>
-          {uniqueCharacteristicsCalc()}
-        </div>
-        <form onSubmit={(e) => {
-          e.preventDefault()
-          handleReviewSubmit()
-        }}>
-          <li>
-            <label>Title</label>
-            <input type='text' placeholder='...' value={title} onChange={(e) => { setTitle(e.target.value) }} />
-          </li>
-          <li>
-            <label>Review <div style={{ color: 'red' }}>*</div></label>
-            <textarea type='text' rows={5} cols={25} placeholder='...' value={review} onChange={(e) => { setReview(e.target.value) }} />
-            <label>{review.length > 49 ? 'Minimum reached' : `Minimum required characters left: ${50 - review.length}`}</label>
-          </li>
-          <div className='file-upload'>
-            <FileUpload photos={photos} setPhotos={setPhotos} />
-          </div>
-          <li>
-            <label>Nickname <div style={{ color: 'red' }}>*</div></label>
-            <input type='text' placeholder='...' value={nickname} onChange={(e) => { setNickname(e.target.value) }} />
-          </li>
-          <li>
-            <label>Email <div style={{ color: 'red' }}>*</div></label>
-            <input type='text' placeholder='...' value={email} onChange={(e) => { setEmail(e.target.value) }} />
-          </li>
-          <button type="submit">Submit</button>
-        </form>
+      <div>
+        <div >
+          <Modal
+            isOpen={isOpen}
+            onRequestClose={toggleModal}
+            contentLabel="Add A Review"
+            style={{ display: 'flex' }}
+          >
+            <div className='glassPanel' >
+              <div >
+                <div onClick={(e) => { toggleModal() }}>
+                  <FontAwesomeIcon icon={faCircleXmark} />
+                </div>
+              </div>
+              <div className='modalTopRowContainer'>
+                <StarRating currentValue={currentValue} setCurrentValue={setCurrentValue} />
+              </div>
+              <div className='modalRecommendContainer'>
+                <label>Recommend? <div style={{ color: 'red' }}>*</div></label>
+                <input type="radio" value='yes' name="yes" checked={newRecomended === 'yes'} onChange={(e) => { setNewRecomended(e.target.value) }} />
+                <label>Yes</label>
+                <input type="radio" value='no' name="no" checked={newRecomended === 'no'} onChange={(e) => { setNewRecomended(e.target.value) }} />
+                <label>No</label>
+              </div>
+              <div className='characteristicsContainer'>
+                {uniqueCharacteristicsCalc()}
+              </div>
+              <form className='formContainer' onSubmit={(e) => {
+                e.preventDefault()
+                handleReviewSubmit()
+              }}>
+                <div className='titleContainer'>
+                  <label>Title</label>
+                  <input type='text' placeholder='...' value={title} onChange={(e) => { setTitle(e.target.value) }} />
+                </div>
+                <div className='review'>
+                  <label>Review <div style={{ color: 'red' }}>*</div></label>
+                  <textarea type='text' rows={5} cols={25} placeholder='...' value={review} onChange={(e) => { setReview(e.target.value) }} />
+                  <label>{review.length > 49 ? 'Minimum reached' : `Minimum required characters left: ${50 - review.length}`}</label>
+                </div>
+                <div className='file-upload'>
+                  <FileUpload photos={photos} setPhotos={setPhotos} />
+                </div>
+                <div className='nicknameContainer'>
+                  <label>Nickname <div style={{ color: 'red' }}>*</div></label>
+                  <input type='text' placeholder='...' value={nickname} onChange={(e) => { setNickname(e.target.value) }} />
+                </div>
+                <div className='emailContainer'>
+                  <label>Email <div style={{ color: 'red' }}>*</div></label>
+                  <input type='text' placeholder='...' value={email} onChange={(e) => { setEmail(e.target.value) }} />
+                </div>
+                <button type="submit">Submit</button>
+              </form>
 
-        <button onClick={toggleModal}>Close modal</button>
-      </Modal>
+              <button onClick={toggleModal}>Close modal</button>
+            </div>
+          </Modal>
+        </div>
+      </div>
     </>
 
   )

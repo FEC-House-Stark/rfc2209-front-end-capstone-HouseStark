@@ -15,14 +15,12 @@ export const BreakdownContainer = styled.section`
   border-radius: 15px;
   display: flex;
   flex-direction: row;
-  background-color: white;
   display: flex;
             align-items: left;
             justify-content: left;
             flex-direction: column;
             text-align: left;
             min-height: 300px;
-            background-color:white;
             align-items: left;
   width: 33%;
   height: 500px;
@@ -37,14 +35,12 @@ export const ListContainer = styled.section`
   border-radius: 15px;
   display: flex;
   flex-direction: row;
-  background-color: white;
   display: flex;
             align-items: left;
             justify-content: left;
             flex-direction: column;
             text-align: left;
             min-height: 300px;
-            background-color:white;
             align-items: left;
 
   width: 55%;
