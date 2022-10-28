@@ -8,9 +8,9 @@ import ProductDesc from './components/ProductDesc.jsx';
 import ProductFeat from './components/ProductFeat.jsx';
 import styled from 'styled-components';
 
-const info_height = 200;
-const style_height = 150;
-const cart_height = 125;
+const info_height = 180;
+const style_height = 175;
+const cart_height = 115;
 const image_height = info_height + style_height + cart_height;
 const image_width = Math.floor(image_height * 1.2)-.01;
 const body_min_width = 800;
@@ -29,7 +29,7 @@ const Overview = (props) => {
   const OverviewStyle = {
     display: 'grid',
     gridTemplateColumns: `1px ${image_width}px minmax(${min_spacer_width}px,75px) minmax(${min_info_width}px, 1fr) 1px`,
-    gridTemplateRows: `${info_height}px ${style_height}px ${cart_height}px ${thumbnailRow ? 50 : 0}px 10px 200px`,
+    gridTemplateRows: `${info_height}px ${style_height}px ${cart_height}px ${thumbnailRow ? 50 : 0}px 10px 175px`,
     padding: '15px 0px',
   };
 
@@ -42,10 +42,10 @@ const Overview = (props) => {
     //set the price
     //if on sale
     if (props.styles.results !== undefined) {
+      setStyle(props.styles.results[0]);
       for (const style of props.styles.results) {
         if (style['default?']) {
           setStyle(style);
-         // console.log('style:', style);
           break;
         }
       }
@@ -55,9 +55,9 @@ const Overview = (props) => {
   return (
     <div style={OverviewStyle} ref={ref}>
         <ImageGallery handleClick={props.handleClick} photos={style.photos} image_width={image_width} image_height={image_height} getBodyWidth={getBodyWidth} setThumbnailRow={setThumbnailRow} product_id={props.product_id}/>
-        <ProductInfo handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style}/>
-        <StyleSelector handleClick={props.handleClick} styles={props.styles.results} style={style} setStyle={setStyle}/>
-        <AddToCart handleClick={props.handleClick} style={style}/>
+        <ProductInfo handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style} starkMode={props.starkMode}/>
+        <StyleSelector handleClick={props.handleClick} styles={props.styles.results} style={style} setStyle={setStyle} starkMode={props.starkMode}/>
+        <AddToCart handleClick={props.handleClick} style={style} starkMode={props.starkMode}/>
         <ProductDesc handleClick={props.handleClick} productInfo={props.productInfo}/>
         <ProductFeat handleClick={props.handleClick} features={props.productInfo.features}/>
     </div>

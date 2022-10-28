@@ -2,23 +2,23 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck } from '@fortawesome/free-regular-svg-icons'
 
 const StyleSelectorStyle = styled.div`
   grid-column-start: 3;
   grid-row-start: 2;
 `;
 const Checkmark = styled.div`
-  width: 17px;
-  height: 17px;
+  color: #666;
+  width: 14px;
+  height: 14px;
+  border: none;
   border-radius: 50%;
   background-color: white;
-  border: 1pt solid #222;
-  position: absolute;
-  top: 10%;
-  left: 70%;
-  display: flex:
+  display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 16px;
 `;
 
 
@@ -43,13 +43,20 @@ const StyleSelectorItem = ({ photo, selected, handleClick, index, height }) => {
   `;
 
   return (
-    <>
+    <div style={{width: '100%'}}>
       <div css={selectorItemStyle} widget='Overview' element-name='StyleSelectorItem' onClick={(e) => handleClick(e, index)} />
       {selected &&
+      <div style={{
+        width: '100%',
+        position: 'absolute',
+        top: '10%',
+        left: '68%',
+      }}>
         <Checkmark>
-          <FontAwesomeIcon icon={faCheck} />
-        </Checkmark>}
-    </>
+          <FontAwesomeIcon icon={faCircleCheck} />
+        </Checkmark>
+        </div>}
+    </div>
   )
 }
 

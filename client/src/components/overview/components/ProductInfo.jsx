@@ -11,7 +11,7 @@ const ProductInfoStyle = styled.div`
 const prodInfoStyle = {
   'gridColumnStart': '4',
   height: '100%',
-  width: '100%',
+  width: 'clamp(230px, 100%, 355px)',
   position: 'relative',
 }
 const shareButtonStyle = {
@@ -46,15 +46,16 @@ const ProductInfo = (props) => {
             spacing={2} //optional
             fill='#4D6A6D' //optional
           />
-          <a href="#product-desc" style={{
-            color: '#666',
+          <a href="#ratings-reviews" style={{
             paddingLeft: '10px',
-            fontSize: '15px'
-          }}>Read all {props.numReviews} reviews.</a>
+            color: `${props.starkMode ? 'white':''}`,
+          }} className="link">Read all {props.numReviews} reviews</a>
         </div>
       }
-      <h3 className="product-category">{props.productInfo.category}</h3>
-      <h1 className="product-name">{props.productInfo.name}</h1>
+      <h4 className="product-category">{props.productInfo.category && props.productInfo.category.toUpperCase()}</h4>
+      <h1 className="product-name" style={{
+        marginBottom:'20px',
+      }}>{props.productInfo.name}</h1>
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -65,7 +66,7 @@ const ProductInfo = (props) => {
           <>
             <span style={{ color: 'red' }}>${props.style.sale_price}</span>
             &nbsp;
-            <span style={{ textDecoration: 'line-through', color: '#666' }}>${props.style.original_price}</span>
+            <span style={{ textDecoration: 'line-through'}}>${props.style.original_price}</span>
           </>
           :
           <>${props.style.original_price}</>
@@ -76,13 +77,13 @@ const ProductInfo = (props) => {
           justifyContent: 'center'
         }}>
           <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Facebook')}>
-            <FontAwesomeIcon icon={faFacebook} />
+            <FontAwesomeIcon style={{color: `${props.starkMode ? 'white':''}`,}} icon={faFacebook} />
           </div>
           <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Instagram')}>
-            <FontAwesomeIcon icon={faInstagram} />
+            <FontAwesomeIcon style={{color: `${props.starkMode ? 'white':''}`,}} icon={faInstagram} />
           </div>
           <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Twitter')}>
-            <FontAwesomeIcon icon={faTwitter} />
+            <FontAwesomeIcon style={{color: `${props.starkMode ? 'white':''}`,}} icon={faTwitter} />
           </div>
         </div>
       </div>

@@ -10,29 +10,33 @@ import Reviews from './components/R&R/Reviews.jsx';
 import Related from './components/Related/Related.jsx';
 import styled from 'styled-components';
 import logo from './assets/WolfLogo.png';
+import logo_white from './assets/wolf_logo_white.png';
 import { CloudinaryContext } from "cloudinary-react";
 
+const header_ht = 80;
 
 const Header = styled.h1`
 color: white;
 margin:0px;
 min-width: 800px;
-height: 60px;
+height: ${header_ht}px;
 box-sizing: border-box;
 display: flex;
-padding-left: 10px;
-padding-right: 10px;
+padding: 0 20px;
 justify-content:space-between;
 align-items:center;
 background-color: #4D6A6D;
+position: sticky;
+top: 0;
+z-index: 2;
 `;
 
 const Search = styled.input`
 `;
 
 const Logo = styled.img`
-max-width: 100%;
-max-height: 100%;
+width: 60px;
+height: 60px;
 `;
 const Body = styled.div`
 max-width: 1000px;
@@ -78,26 +82,26 @@ const ClickTracking = (props) => {
 
 
 const App = () => {
-  const [product_id, setProductId] = useState(66644);
+  const [product_id, setProductId] = useState(66649);
   const [numReviews, setNumReviews] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
   const [characteristics, setCharacteristics] = useState({});
   const [recommended, setRecommended] = useState({});
   const [productInfo, setProductInfo] = useState({});
   const [styles, setStyles] = useState({});
-  const [checked, setChecked] = useState(false);
+  const [starkMode, setStarkMode] = useState(false);
   const [font, setFont] = useState('#7E8B7E');
   const [background, setBackground] = useState({});
 
   useEffect (()=> {
-    if(checked) {
+    if(starkMode) {
       setBackground({background: '#282c34', color:'white'});
       setFont('white');
     } else {
       setBackground({});
       setFont('white');
     }
-  },[checked])
+  },[starkMode])
 
   useEffect(() => {
     let config = {
@@ -163,19 +167,32 @@ const App = () => {
                 }}>
               <Snowfall
                 style={{
-                  position:'absolute',
+                  position:`${starkMode?'absolute':'fixed'}`,
                   width: '100%',
-                  height: `${checked?'100%':'60px'}`,
+                  top: '0',
+                  height: `${starkMode?'100%':`${header_ht}px`}`,
+                  zIndex: `${starkMode?'3':'3'}`,
               }}
-                snowflakeCount={`${checked? 200: 25}`}/>
+                snowflakeCount={`${starkMode? 225: 15}`}/>
             <>
-                <Header>
-                  <Logo src={logo} /> House Stark
+                <Header style={{zIndex: `${starkMode?'2':'2'}`,}}>
+                  <div style={{
+                    height: '60px',
+                    width: '410px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <Logo src={starkMode ? "https://media3.giphy.com/media/KHKbbGKm3jAdsO8vhl/200w.webp?cid=790b7611xk4y1gulrmxxwlzccljlodabzdrf0d9ux6qqwbh3&rid=200w.webp&ct=s" : logo_white}
+                  style={{width: `${starkMode ? '70px': '60px'}`,
+                    height: `${starkMode ? '70px': '50px'}`}}/>
+                  <h2>HOUSE STARK</h2>
+                  </div>
                   <div >
                     <Search></Search>
                     <ToggleSwitch
-                      checked={checked}
-                      setChecked={setChecked}
+                      checked={starkMode}
+                      setChecked={setStarkMode}
                       />
                   </div>
                 </Header>
@@ -186,7 +203,8 @@ const App = () => {
                     numReviews={numReviews}
                     avgRating={avgRating}
                     productInfo={productInfo}
-                    styles={styles} />
+                    styles={styles}
+                    starkMode={starkMode}/>
                   <Related
                     handleClick={value}
                     product_id={product_id}
@@ -194,18 +212,21 @@ const App = () => {
                     numReviews={numReviews}
                     avgRating={avgRating}
                     productInfo={productInfo}
-                    styles={styles} />
+                    styles={styles}
+                    starkMode={starkMode}/>
                   <QandA
                     handleClick={value}
                     productInfo={productInfo}
-                    product_id={product_id} />
+                    product_id={product_id}
+                    starkMode={starkMode}/>
                   <Reviews
                     handleClick={value}
                     product_id={product_id}
                     numReviews={numReviews}
                     avgRating={avgRating}
                     characteristics={characteristics}
-                    recommended={recommended} />
+                    recommended={recommended}
+                    starkMode={starkMode}/>
                 </Body>
             </>
               </div>
