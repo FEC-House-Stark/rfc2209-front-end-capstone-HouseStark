@@ -18,7 +18,7 @@ position: relative;
 /* border: 1px solid red; */
 `;
 
-const ProdHeader = styled.div`
+const ProdHeader = styled.h4`
 font-family: system-ui;
 font-size: 13px;
 margin-top: 20px;

@@ -35,8 +35,8 @@ var StarRating = ({currentValue, setCurrentValue}) => {
   }
 
   return (
-    <div style={styles.container}> Rate the product<div style={{color: 'red'}}>*</div>
-      <div style={styles.stars}>
+    <div > Rate the product<div style={{color: 'red'}}>*</div>
+      <div >
         {stars.map((_, index) => {
           return (
             <FaStar
