@@ -145,6 +145,7 @@ margin: 0px;
 #qanda-modal_container {
   margin: 60px auto;
   display: table;
+  max-height: 90vh;
 }
 #qanda-modal-content {
   display: flex;
