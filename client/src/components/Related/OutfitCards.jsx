@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Stars from 'react-stars-display';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faX } from '@fortawesome/free-solid-svg-icons'
+
+const del = <FontAwesomeIcon icon={faX} />
 
 const OutfitCardContainer = styled.div`
 width:100%;
@@ -79,21 +83,24 @@ margin-left:5px;
 margin-top:2px;
 `;
 
-// const Star = styled.div`
-// position: absolute;
-// right:0px;
-// color: #C9ADA1;
-// font-size: 20px;
-// &:hover {
-// color: black;
-// };
-// `;
+const Delete = styled.div`
+position: absolute;
+right:2px;
+color: #C9ADA1;
+font-size: 15px;
+&:hover {
+color: black;
+};
+`;
 
-const OutfitCards = ({ current_product, avgRating }) => {
-  const [data, setData] = useState([]);
+const OutfitCards = ({ current_product, clicked, setClicked, data, setData }) => {
+  // const [data, setData] = useState([]);
 
   const handleOutfit = () => {
-    setData((data) => [...data, current_product])
+    if (clicked) {
+      setClicked(false);
+      setData((data) => [...data, current_product])
+    }
   }
 
 
@@ -105,8 +112,8 @@ const OutfitCards = ({ current_product, avgRating }) => {
       </AddToOutfit>
       {data.map((product, i) =>
         <OutfitCard id='outfit-card' key={i} >
-          {/* <Star>{'star'}</Star> */}
-          <Photos src={product.urls.url} />
+          <Delete>{del}</Delete>
+          <Photos src={product.urls.thumbnail_url} />
           <Category>{product.category}</Category>
           <Name>{product.name}</Name>
           <Price>{'$' + product.default_price}</Price>

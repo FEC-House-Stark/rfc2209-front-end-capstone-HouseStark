@@ -22,7 +22,7 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
   const [data, setData] = useState([]);
   const [compare, setCompare] = useState({})
   const [openModal, setOpenModal] = useState(false);
-
+  // const [current_product, setCurrentPorduct] = useState([])
   useEffect(() => { //gets related IDs
     axios(`/products/${product_id}/related`)
       .then((res) => {

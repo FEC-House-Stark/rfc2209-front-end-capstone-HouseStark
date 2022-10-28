@@ -32,9 +32,7 @@ position: absolute;
 font-size: 15px;
 right:-15px;
 bottom: 45%;
-/* box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.19); */
 color:#798478;;
-/* background-color: white; */
 cursor: pointer;
 `;
 NextButton.displayName = 'NextButton';
