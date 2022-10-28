@@ -35,7 +35,7 @@ const selectorItemContainerStyle = {
   position: 'relative',
 }
 
-const StyleSelector = ({ style, styles, setStyle }) => {
+const StyleSelector = ({ style, styles, setStyle, starkMode }) => {
   const styleRef = useRef(null);
   const [scrollTop, setScrollTop] = useState(0)
 
@@ -56,7 +56,7 @@ const StyleSelector = ({ style, styles, setStyle }) => {
       <div style={selectorStyle} widget='Overview' element-name='StyleSelector'>
         <div style={{
           height:'10%',
-       }}><h4><b>STYLE ></b> {style.name && style.name.toUpperCase()}</h4></div>
+       }}><h4 style={{margin: '5px 0',}}><b>STYLE ></b> {style.name && style.name.toUpperCase()}</h4></div>
         {/* onClick={props.handleClick}> */}
         <div style={{
           display: 'flex',
@@ -80,7 +80,9 @@ const StyleSelector = ({ style, styles, setStyle }) => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-start',
-            alignItems: 'center',}}>
+            alignItems: 'center',
+            color: `${starkMode ? 'white' : ''}`,
+            }}>
             Scroll for more styles
             <FontAwesomeIcon icon={faChevronDown}/>
           </div>

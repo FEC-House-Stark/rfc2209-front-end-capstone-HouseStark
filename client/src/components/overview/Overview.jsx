@@ -9,7 +9,7 @@ import ProductFeat from './components/ProductFeat.jsx';
 import styled from 'styled-components';
 
 const info_height = 180;
-const style_height = 165;
+const style_height = 175;
 const cart_height = 115;
 const image_height = info_height + style_height + cart_height;
 const image_width = Math.floor(image_height * 1.2)-.01;
@@ -55,9 +55,9 @@ const Overview = (props) => {
   return (
     <div style={OverviewStyle} ref={ref}>
         <ImageGallery handleClick={props.handleClick} photos={style.photos} image_width={image_width} image_height={image_height} getBodyWidth={getBodyWidth} setThumbnailRow={setThumbnailRow} product_id={props.product_id}/>
-        <ProductInfo handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style}/>
-        <StyleSelector handleClick={props.handleClick} styles={props.styles.results} style={style} setStyle={setStyle}/>
-        <AddToCart handleClick={props.handleClick} style={style}/>
+        <ProductInfo handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style} starkMode={props.starkMode}/>
+        <StyleSelector handleClick={props.handleClick} styles={props.styles.results} style={style} setStyle={setStyle} starkMode={props.starkMode}/>
+        <AddToCart handleClick={props.handleClick} style={style} starkMode={props.starkMode}/>
         <ProductDesc handleClick={props.handleClick} productInfo={props.productInfo}/>
         <ProductFeat handleClick={props.handleClick} features={props.productInfo.features}/>
     </div>

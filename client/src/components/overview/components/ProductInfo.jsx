@@ -48,7 +48,8 @@ const ProductInfo = (props) => {
           />
           <a href="#ratings-reviews" style={{
             paddingLeft: '10px',
-          }} className="link">Read all {props.numReviews} reviews.</a>
+            color: `${props.starkMode ? 'white':''}`,
+          }} className="link">Read all {props.numReviews} reviews</a>
         </div>
       }
       <h4 className="product-category">{props.productInfo.category && props.productInfo.category.toUpperCase()}</h4>
@@ -76,13 +77,13 @@ const ProductInfo = (props) => {
           justifyContent: 'center'
         }}>
           <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Facebook')}>
-            <FontAwesomeIcon icon={faFacebook} />
+            <FontAwesomeIcon style={{color: `${props.starkMode ? 'white':''}`,}} icon={faFacebook} />
           </div>
           <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Instagram')}>
-            <FontAwesomeIcon icon={faInstagram} />
+            <FontAwesomeIcon style={{color: `${props.starkMode ? 'white':''}`,}} icon={faInstagram} />
           </div>
           <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Twitter')}>
-            <FontAwesomeIcon icon={faTwitter} />
+            <FontAwesomeIcon style={{color: `${props.starkMode ? 'white':''}`,}} icon={faTwitter} />
           </div>
         </div>
       </div>
