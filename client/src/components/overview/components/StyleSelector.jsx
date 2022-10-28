@@ -25,7 +25,8 @@ const selectorContainerStyle = {
   alignItems: 'flex-start',
   justifyContent: 'flex-start',
   flexWrap: 'wrap',
-  overflowY: 'scroll'
+  overflowY: 'auto',
+  overflowX: 'hidden'
 }
 
 
