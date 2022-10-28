@@ -99,7 +99,6 @@ const App = () => {
       setFont('white');
     } else {
       setBackground({});
-      setFont('white');
     }
   },[starkMode])
 

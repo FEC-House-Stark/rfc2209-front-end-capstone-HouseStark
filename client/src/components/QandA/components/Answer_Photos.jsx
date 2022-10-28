@@ -3,8 +3,7 @@ import AnswerPhoto from './Answer_Photo.jsx';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
-import {modalViewStyle, photoModalStyle,modalImgStyle} from './QandA_Styles.jsx';
-
+import {frostyStyle} from './QandA_Styles.jsx'
 
 const AnswerPhotos = ({
   photos,
@@ -16,7 +15,9 @@ const AnswerPhotos = ({
 
   return (
     <>
-      <div widget='QandA' element-name='Answer_Photos'>
+      <div
+        className='answer_photos_container'
+        widget='QandA' element-name='Answer_Photos'>
         {photos.map((p) => {
           return <AnswerPhoto
             key={p.id}
@@ -27,27 +28,23 @@ const AnswerPhotos = ({
         })}
       </div>
       <Modal
+        id='qanda-modal_container'
         isOpen={openModal}
-        style={photoModalStyle}
         ariaHideApp={false}
+        style={frostyStyle}
       >
-        <span style={modalViewStyle}>
-          <div style={{display:'flex', flexDirection:'row-reverse'}}>
-            <button
+        <span id='qanda-modal-content'>
+          <div id='qanda-modal-close-button'>
+            <div
               widget='QandA'
               element-name='Zoom_Photo_Modal_Close'
               onClick={(e)=> {
                 setIsOpen(!openModal);
                 }}>
               <FontAwesomeIcon icon={faCircleXmark} />
-            </button>
+            </div>
           </div>
-          <div style={{textAlign: 'center'}}>
-            <img
-              style={modalImgStyle}
-              src={clickImg}
-              />
-          </div>
+            <img id='answer-photo-zone' src={clickImg} />
         </span>
       </Modal>
     </>

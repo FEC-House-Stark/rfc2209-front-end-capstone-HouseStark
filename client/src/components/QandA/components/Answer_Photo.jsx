@@ -1,12 +1,11 @@
 import {useState, useEffect} from 'react';
-import {photoStyle} from './QandA_Styles.jsx';
 
 const AnswerPhoto = ({photo, setIsOpen, setClickImg}) =>  {
   return (
     <img
+      className='answer-photos'
       widget='QandA'
       element-name='Answer_Photo'
-      style={photoStyle}
       src={photo.url}
       onClick={(e)=> {
         setIsOpen(true);

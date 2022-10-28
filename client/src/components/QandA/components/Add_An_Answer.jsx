@@ -3,7 +3,6 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons'
-import {modalBoxStyle, modalViewStyle} from './QandA_Styles.jsx'
 import AddanAnswerModal from './Add_An_Answer_Modal.jsx'
 
 const AddanAnswer = ({
