@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react';
-import {buttonStyle} from './QandA_Styles.jsx';
 
 const MoreQuestionsButton = ({
   handleMoreQuestion,
@@ -14,8 +13,7 @@ const MoreQuestionsButton = ({
     {
       !moreQuestions
       ?
-      <div
-      style={buttonStyle}
+      <div className='qanda_button'
       widget='QandA'
       element-name='More_Questions'
       onClick={(e) => {
@@ -27,7 +25,7 @@ const MoreQuestionsButton = ({
       </div>
       : null
       // <div
-      //     style={buttonStyle}
+      //     className='qanda_button'
       //     widget='QandA'
       //     element-name='Less_Questions'
       //     onClick={(e) => {

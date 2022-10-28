@@ -3,7 +3,7 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
-import {modalBoxStyle, modalViewStyle, buttonStyle, ErrorStyle} from './QandA_Styles.jsx';
+import { ErrorStyle, frostyStyle} from './QandA_Styles.jsx';
 import isEmail from 'validator/lib/isEmail';
 
 const AddaQuestionModal = ({
@@ -40,26 +40,28 @@ const AddaQuestionModal = ({
   return (
       <Modal
         isOpen={openModal}
-        style={modalBoxStyle}
         ariaHideApp={false}
+        style={frostyStyle}
+        id='qanda-modal_container'
       >
         <span widget='QandA'
         element-name='Add_A_Question_Modal'>
-          <div style={{display:'flex', flexDirection:'row-reverse'}}>
-            <button
+          <div id='qanda-modal-close-button'>
+            <div
               widget='QandA'
               element-name='Add_A_Question_Modal_Close'
               onClick={(e)=> {
                 setIsOpen(!openModal);
                 // handleTrackingClick(e);
                 setShowError(false);
-                }}>
+              }}>
               <FontAwesomeIcon icon={faCircleXmark} />
-            </button>
+            </div>
           </div>
-            <h3 style={{textAlign:'center', margin:'0'}}>Ask Your Question</h3>
+
+            <h3 id='qanda-modal-title' >Ask Your Question</h3>
             <h4>About the {productInfo.name}</h4>
-            <form style={modalViewStyle}>
+            <form id='qanda-modal-content'>
               Your Question:
               <textarea
                 style={{height:'100px'}}
@@ -70,9 +72,8 @@ const AddaQuestionModal = ({
                 onChange={(e)=> {
                   setBody(e.target.value);
                 }}></textarea>
-                <p
-                  style={{textAlign:'right', fontSize:'small', margin:'0', padding:'0', paddingTop:'-10px'}}
-                  >{1000-body.length} characters avaliable
+                <p id='modal-textfield-description'>
+                  {1000-body.length} characters avaliable
                 </p>
             Nickname:
               <input
@@ -85,9 +86,8 @@ const AddaQuestionModal = ({
                 onChange={(e)=> {
                   setName(e.target.value);
                 }}/>
-              <p
-                style={{fontSize:'small', margin:'0', paddingBottom:'10px'}}
-                >For privacy reasons, do not use your full name or email address
+              <p id='modal-textfield-description'>
+                For privacy reasons, do not use your full name or email address
               </p>
             Email:
               <input
@@ -99,13 +99,12 @@ const AddaQuestionModal = ({
                 onChange={(e)=> {
                   setEmail(e.target.value);
                 }}/>
-                <p
-                  style={{fontSize:'small', margin:'0', paddingBottom:'20px'}}
-                  >For authentication reasons, you will not be emailed
+                <p id='modal-textfield-description'>
+                  For authentication reasons, you will not be emailed
                 </p>
               <div>
                 <div
-                  style={{...buttonStyle, backgroundColor:'#768174', color: 'white', borderColor:'white', fontSize:'large', width:'80px', borderStyle:'outset'}}
+                  className='qanda_button qanda_button_modal_resize'
                   widget='QandA'
                   element-name='Add_A_Question_Submit'
                   onClick={(e)=> {
