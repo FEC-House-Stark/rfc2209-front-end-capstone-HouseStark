@@ -3,7 +3,7 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
-import {modalBoxStyle, modalViewStyle, buttonStyle, ErrorStyle, UploadPhotos, uploadPhotoStyle} from './QandA_Styles.jsx';
+import { ErrorStyle, UploadPhotos, frostyStyle} from './QandA_Styles.jsx';
 import isEmail from 'validator/lib/isEmail';
 import { fetchPhotos, openUploadWidget } from "../../../CloudinaryService.jsx";
 
@@ -63,12 +63,14 @@ const AddanAnswerModal = ({
   return (
       <Modal
         isOpen={openModal}
-        style={modalBoxStyle}
         ariaHideApp={false}
+        transparent={true}
+        style={frostyStyle}
+        id='qanda-modal_container'
       >
         <span widget='QandA'
         element-name='Add_Answer_Modal'>
-          <div style={{display:'flex', flexDirection:'row-reverse'}}>
+          <div id='qanda-modal-close-button'>
             <div
               widget='QandA'
               element-name='Add_Answer_Modal_Close'
@@ -85,9 +87,9 @@ const AddanAnswerModal = ({
               <FontAwesomeIcon icon={faCircleXmark} />
             </div>
           </div>
-            <h3 style={{textAlign:'center', margin:'0'}}>Submit Your Answer</h3>
+            <h3 id='qanda-modal-title'>Submit Your Answer</h3>
             <h4>{productInfo.name} : {question_body}</h4>
-            <form style={modalViewStyle}>
+            <form id='qanda-modal-content'>
               Your Answer:
               <textarea
                 style={{height:'100px'}}
@@ -98,8 +100,7 @@ const AddanAnswerModal = ({
                 onChange={(e)=> {
                   setBody(e.target.value);
                 }}></textarea>
-                <p
-                  style={{textAlign:'right', fontSize:'small', margin:'0', padding:'0', paddingTop:'-10px'}}
+                <p id='modal-textfield-description'
                   >{1000-body.length} characters avaliable
                 </p>
                 <div
@@ -107,8 +108,7 @@ const AddanAnswerModal = ({
                   element-name='Add_Answer_Add_Photo_Button'>
                     {photos.length < 5
                      ?<div
-                     style={{...buttonStyle, backgroundColor:'#899489', color: 'white', borderColor:'white', fontSize:'small', width:'80px', borderStyle:'outset'
-                    }}
+                     className='qanda_button qanda_button_modal_resize'
                     onClick={(e) => {
                       e.preventDefault();
                       beginUpload()}}>Upload Image
@@ -117,7 +117,7 @@ const AddanAnswerModal = ({
                     }
                   <UploadPhotos>
                     {photos.map((p,index)=> {
-                      return  <img style={uploadPhotoStyle} key={index} src={p}></img>
+                      return  <img id='qanda-answer-photos' key={index} src={p}></img>
                     })}
                   </UploadPhotos>
                 </div>
@@ -132,8 +132,7 @@ const AddanAnswerModal = ({
                 onChange={(e)=> {
                   setName(e.target.value);
                 }}/>
-              <p
-                style={{fontSize:'small', margin:'0', paddingBottom:'10px'}}
+              <p id='modal-textfield-description'
                 >For privacy reasons, do not use your full name or email address
               </p>
                 Email:
@@ -146,12 +145,12 @@ const AddanAnswerModal = ({
                 onChange={(e)=> {
                   setEmail(e.target.value);
                 }}/>
-                <p
-                  style={{fontSize:'small', margin:'0', paddingBottom:'20px'}}
-                  >For authentication reasons, you will not be emailed</p>
+                <p id='modal-textfield-description'>
+                  For authentication reasons, you will not be emailed
+                </p>
             <div>
                 <div
-                  style={{...buttonStyle, backgroundColor:'#768174', color: 'white', borderColor:'white', fontSize:'large', width:'80px', borderStyle:'outset'}}
+                  className='qanda_button qanda_button_modal_resize'
                   widget='QandA'
                   element-name='Add_A_Question_Submit'
                   onClick={(e)=> {

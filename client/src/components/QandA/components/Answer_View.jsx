@@ -4,8 +4,6 @@ import AnswerPhotos from './Answer_Photos.jsx';
 import AnswerHelpfulness from './Answer_Helpfulness.jsx';
 import AnswerReport from './Answer_Report.jsx';
 import Moment from 'react-moment';
-import styled from 'styled-components';
-import {AnswerActionItemStyle, SellerFontWeight} from './QandA_Styles.jsx';
 
 const AnswerView = ({
   answer,
@@ -36,25 +34,27 @@ const AnswerView = ({
 
   return (
     <div widget='QandA'
-      element-name='Answer_View' >
+      element-name='Answer_View input_fields' >
       <div style={{fontSize:'medium'}}>
         {answer.body}
       </div>
       <AnswerPhotos
         handleTrackingClick={handleTrackingClick}
         photos={answer.photos}/>
-      <AnswerActionItemStyle >
+      <div className='qanda_action_items'>
         <div >By </div>
         <div>
           {
             answer.answerer_name.toLowerCase()==='seller'
-            ?  <div style={SellerFontWeight}>{answer.answerer_name}</div>
+            ?  <div className='answerer-seller'>
+                {answer.answerer_name}
+               </div>
             :  <div>{answer.answerer_name}</div>
           }
         </div>
         <div>|</div>
         <Moment
-          format="MMMM,DD,YYYY">
+          format="MMMM, DD, YYYY">
             {answer.date}
         </Moment>
         <div>|</div>
@@ -66,7 +66,7 @@ const AnswerView = ({
         <AnswerReport
           handleTrackingClick={handleTrackingClick}
           handleReportClick={handleReportClick}/>
-      </AnswerActionItemStyle>
+      </div>
     </div>
   )
 }

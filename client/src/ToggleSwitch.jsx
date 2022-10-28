@@ -11,7 +11,7 @@ const Label = styled.label`
 
 const Switch = styled.div`
 position: relative;
-width: 40px;
+width: 35px;
 height: 10px;
 background: #b3b3b3;
 border-radius: 32px;
@@ -24,9 +24,8 @@ transition: 300ms all;
   position: absolute;
   width: 15px;
   height: 15px;
-  border-radius: 35px;
+  border-radius: 30px;
   top: 50%;
-  left: 4px;
   background: white;
   transform: translate(0, -50%);
 }
@@ -51,7 +50,7 @@ const ToggleSwitch = ({checked, setChecked}) => {
 
   return (
     <Label>
-      <span>{checked ? "night mode on" : "night mode off"}</span>
+      <span>{checked ? "Stark mode on" : "Stark mode off"}</span>
       <Input checked={checked} type="checkbox" onChange={handleChange} />
       <Switch />
   </Label>

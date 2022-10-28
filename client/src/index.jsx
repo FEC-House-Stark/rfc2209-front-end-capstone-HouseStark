@@ -86,16 +86,13 @@ const App = () => {
   const [productInfo, setProductInfo] = useState({});
   const [styles, setStyles] = useState({});
   const [checked, setChecked] = useState(false);
-  const [font, setFont] = useState('#7E8B7E');
   const [background, setBackground] = useState({});
 
   useEffect (()=> {
     if(checked) {
-      setBackground({background: '#282c34', color:'white'});
-      setFont('white');
+      setBackground({background: '#282c34', color:'#CACFC9'});
     } else {
       setBackground({});
-      setFont('white');
     }
   },[checked])
 

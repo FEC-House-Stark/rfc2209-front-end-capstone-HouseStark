@@ -5,7 +5,7 @@ import AddanAnswer from './Add_An_Answer.jsx';
 import QuestionReport from './Question_Report.jsx'
 import AnswersListView from './Answers_List_View.jsx'
 import QuestionHelpfulness from './Question_Helpfulness.jsx';
-import {QandAQuestionListView,QuestionBar,QuestionBarActionItem,rowFlex} from './QandA_Styles.jsx';
+import {QandAQuestionListView,QuestionBar,QuestionBarActionItem} from './QandA_Styles.jsx';
 
 
 const QuestionView = ({
@@ -105,7 +105,7 @@ const QuestionView = ({
       <div widget='QandA'
         element-name='Question_View'>
         <QuestionBar>
-          <div style={{fontWeight: 'bold', fontSize: 'medium', display:'flex', flexDirection:'row', gap:'5px'}}>
+          <div className='qanda_question_body subheadings'>
             <div>
               Q:
             </div>
@@ -113,7 +113,7 @@ const QuestionView = ({
               {getHighlightedText(question.question_body, highlight)}
             </div>
           </div>
-          <QuestionBarActionItem >
+          <div className='qanda_action_items input_fields' >
             <QuestionReport
               handleTrackingClick={handleTrackingClick}
               handleReportClick={handleReportClick}/>
@@ -130,9 +130,9 @@ const QuestionView = ({
               handleHelpfulClick={handleHelpfulClick}
               question_helpfulness={question.question_helpfulness}
               />
-          </QuestionBarActionItem>
+          </div>
         </QuestionBar>
-        <div style={rowFlex}>
+        <div className='row_flex' >
           <div style={{fontWeight: 'bold', paddingRight:'5px'}}>A: </div>
           <div>
             <AnswersListView
