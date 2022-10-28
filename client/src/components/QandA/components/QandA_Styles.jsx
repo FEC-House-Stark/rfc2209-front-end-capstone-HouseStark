@@ -4,7 +4,7 @@ const QandASearchView = styled.div`
 display: flex;
 flex-direction: column;
 align-items: stretch;
-max-height: 90vh;
+max-height: 80vh;
 overflow-y: auto;
 padding-right :15px;
 `;
@@ -28,11 +28,11 @@ padding: 10px 10px;
 gap: 10px;
 `;
 
-const QandAHeader = styled.div`
-display: grid;
-align-items: flex-start;
-text-align: left;
-`;
+// const QandAHeader = styled.div`
+// display: grid;
+// align-items: flex-start;
+// text-align: left;
+// `;
 
 const QandAHSearchBar = styled.form`
 display: grid;
@@ -102,6 +102,7 @@ const frostyStyle = {
     backdropFilter: 'blur(7px)',
     boxShadow: '0 6px 35px rgba(0,0,0,0.65)',
     borderRadius: '25px',
+    borderColor: 'rgba(255, 255, 255,0.8)',
   }
 };
 
@@ -109,7 +110,7 @@ export {
   QandASearchView,
   QandAQuestionActions,
   QandAOverViewStyle,
-  QandAHeader,
+  // QandAHeader,
   QandAHSearchBar,
   QandAQuestionListView,
   QuestionBar,

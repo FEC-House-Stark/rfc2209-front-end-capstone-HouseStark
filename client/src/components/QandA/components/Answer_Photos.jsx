@@ -16,7 +16,7 @@ const AnswerPhotos = ({
   return (
     <>
       <div
-        className='answer_photos_container'
+        className='qanda_padding_margin_zero'
         widget='QandA' element-name='Answer_Photos'>
         {photos.map((p) => {
           return <AnswerPhoto

@@ -36,7 +36,7 @@ const QandA = ({
 
   return (
     <QandAOverViewStyle >
-      <QandAHeader>QUESTION {'&'} ANSWERS</QandAHeader>
+      <h4 className='qanda_padding_margin_zero'>QUESTION {'&'} ANSWERS</h4>
       {
         questions.length
         ? <QuestionSearchBar
