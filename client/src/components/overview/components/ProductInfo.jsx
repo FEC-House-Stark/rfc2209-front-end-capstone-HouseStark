@@ -51,7 +51,7 @@ const ProductInfo = (props) => {
           }} className="link">Read all {props.numReviews} reviews.</a>
         </div>
       }
-      <h3 className="product-category">{props.productInfo.category && props.productInfo.category.toUpperCase()}</h3>
+      <h4 className="product-category">{props.productInfo.category && props.productInfo.category.toUpperCase()}</h4>
       <h1 className="product-name" style={{
         marginBottom:'20px',
       }}>{props.productInfo.name}</h1>
@@ -65,7 +65,7 @@ const ProductInfo = (props) => {
           <>
             <span style={{ color: 'red' }}>${props.style.sale_price}</span>
             &nbsp;
-            <span style={{ textDecoration: 'line-through', color: '#666' }}>${props.style.original_price}</span>
+            <span style={{ textDecoration: 'line-through'}}>${props.style.original_price}</span>
           </>
           :
           <>${props.style.original_price}</>

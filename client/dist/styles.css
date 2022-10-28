@@ -1,16 +1,12 @@
 body {
   margin: 0px;
 }
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-    display: block;
-}
 
 h1,
 h2,
 h3,
 h4,
+h5,
 p,
 li,
 .alert,
@@ -19,22 +15,41 @@ li,
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: normal;
   padding: 0;
-  margin: 10px 0;
+  margin: 10px, 0;
 }
 h3, h4 {
+  font-family: 'system-ui';
   font-weight: 300;
+}
+h3 {
+  font-size: 17px;
+  font-weight: 600;
+}
+h4,
+h5
+{
+  font-size: 14px;
+}
+h5 {
+  font-weight: bold;
+  margin: 0;
 }
 p,
 li,
 .alert,
 .link
 {
+  font-family: 'system-ui';
   font-size: 13px;
+  margin: 0;
+}
+li {
   margin: 5px 0;
 }
 
 .alert,
 .link
  {
+  font-size: 11px;
   color: #666;
 }

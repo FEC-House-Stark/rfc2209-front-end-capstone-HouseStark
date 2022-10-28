@@ -57,7 +57,7 @@ const ImageGallery = (props) => {
     'overflow': 'hidden',
     cursor: `${cursors[imageMode]}`,
     boxSizing: 'border-box',
-    zIndex: `${imageMode === MODES.ZOOM ? '': '13'}`
+    zIndex: `${imageMode === MODES.ZOOM ? '': '1'}`
   }
 
   useEffect(() => {

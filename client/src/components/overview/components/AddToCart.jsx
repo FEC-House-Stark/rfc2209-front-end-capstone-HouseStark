@@ -84,7 +84,7 @@ const AddToCart = ({ handleClick, style }) => {
   }
 
   const starStyle = {
-    color: `${favorite ? 'gold' : '#666'}`,
+    color: `${favorite ? '#a0a083' : '#666'}`,
   };
 
   const selectSizeStyle = {

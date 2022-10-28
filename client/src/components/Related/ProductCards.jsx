@@ -39,12 +39,11 @@ height: 219px;
 border-bottom: 1px solid black;
 `;
 
-const Category = styled.div`
-font-size: 15px;
+const Category = styled.p`
 margin-left:5px;
 margin-top:2px;
 `;
-const Name = styled.div`
+const Name = styled.h5`
 margin-left:5px;
 margin-top:2px;
 `;
