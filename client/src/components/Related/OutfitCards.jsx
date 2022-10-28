@@ -17,6 +17,7 @@ margin-right:20px;
 /* margin-left:20px; */
 border: 1px solid;
 border-color: black;
+box-sizing: border-box;
 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 display: flex;
 flex-direction: column;
@@ -30,19 +31,20 @@ background-color: rgba(0, 0, 0, 0.19);
 `;
 
 const OutfitCard = styled.div`
+position: relative;
 width:190px;
 height: 300px;
 margin-right:20px;
-/* margin-left:20px; */
 border: 1px solid;
+box-sizing: border-box;
 border-color: black;
-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.19);
 display: flex;
 flex-direction: column;
-flex-shrink:0;
-align-items: center;
-justify-content:center;
+flex-shrink: 0;
 cursor: pointer;
+background-color:#798478;
+color: white;
 `;
 
 const Plus = styled.div`
@@ -87,27 +89,30 @@ margin-top:2px;
 // };
 // `;
 
-const OutfitCards = ({ avgRating }) => {
-  const [data, setData] = useState([1]);
+const OutfitCards = ({ current_product, avgRating }) => {
+  const [data, setData] = useState([]);
 
+  const handleOutfit = () => {
+    setData((data) => [...data, current_product])
+  }
 
 
   return (
     <OutfitCardContainer>
-      <AddToOutfit>
+      <AddToOutfit onClick={() => handleOutfit()}>
         <Plus>+</Plus>
         <Text>Add to Outfit</Text>
       </AddToOutfit>
       {data.map((product, i) =>
         <OutfitCard id='outfit-card' key={i} >
           {/* <Star>{'star'}</Star> */}
-          {/* <Photos src={product.url} /> */}
-          <Category>{'product.category'}</Category>
-          <Name>{'product.name'}</Name>
-          <Price>{'$' + 'product.price'}</Price>
+          <Photos src={product.urls.url} />
+          <Category>{product.category}</Category>
+          <Name>{product.name}</Name>
+          <Price>{'$' + product.default_price}</Price>
           <Review>
             <Stars
-              stars={avgRating}
+              stars={product.avgRating}
               size={12} //optional
               spacing={2} //optional
               fill='#C9ADA1' //optional

@@ -130,7 +130,7 @@ const Related = ({ handleClick, product_id, setId, numReviews, avgRating, produc
   return (
     <Container className='Container'>
       <ProductList data={data} setId={setId} setOpenModal={setOpenModal} openModal={openModal} setCompare={setCompare} />
-      <OutfitList productInfo={productInfo} avgRating={avgRating}/>
+      <OutfitList productInfo={productInfo} avgRating={avgRating} styles={styles} />
       {openModal && <ComparisonModal setOpenModal={setOpenModal} compare={compare} currentProduct={productInfo} />}
     </Container>
   )

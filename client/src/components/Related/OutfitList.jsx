@@ -21,26 +21,25 @@ font-size: 13px;
 color: #4D6A6D;
 `;
 
-const OutfitList = ({ productInfo, avgRating }) => {
-  const [outfit, setOutfit] = useState([])
+const OutfitList = ({ productInfo, avgRating, styles }) => {
+  // const [outfit, setOutfit] = useState([])
   const [current_product, setCurrentPorduct] = useState([])
 
   useEffect(() => {
-
-    if (productInfo.id) {
-      let temp = productInfo
-      temp['avgRating'] = avgRating
-      console.log(temp)
+    if (productInfo.id && styles.product_id && avgRating) {
+      let data = productInfo
+      data['avgRating'] = avgRating
+      data['urls'] = styles.results[0].photos[0]
+      setCurrentPorduct(data);
     }
-
-  }, [productInfo])
+  }, [productInfo, avgRating, styles])
 
 
 
   return (
     <OutfitContainer>
       <OutfitHeader>YOUR OUTFIT</OutfitHeader>
-      <OutfitCards productInfo={productInfo} avgRating={avgRating} />
+      <OutfitCards current_product={current_product} avgRating={avgRating} />
     </OutfitContainer>
   )
 }
