@@ -41,7 +41,8 @@ const cartButtonStyle = {
   backgroundColor: '#fff',
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center'
+  alignItems: 'center',
+  cursor: 'pointer'
 }
 const formStyle = {
   width: '100%',
@@ -52,7 +53,7 @@ const formStyle = {
   flexWrap: 'wrap'
 }
 
-const AddToCart = ({ handleClick, style }) => {
+const AddToCart = ({ handleClick, style, starkMode }) => {
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedQty, setSelectedQty] = useState('-');
   const [quantity, setQuantity] = useState([]);
@@ -78,11 +79,12 @@ const AddToCart = ({ handleClick, style }) => {
     backgroundColor: '#fff',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    cursor: 'pointer'
   }
 
   const starStyle = {
-    color: `${favorite ? 'gold' : '#666'}`,
+    color: `${favorite ? '#a0a083' : '#666'}`,
   };
 
   const selectSizeStyle = {
@@ -181,7 +183,10 @@ const AddToCart = ({ handleClick, style }) => {
       {style.skus !== undefined &&
         <div widget='Overview' style={addCartStyle} element-name='AddToCart' onClick={e => {//handleClick(e);
         }}>
-          <div style={{height: '15%'}}>{noSizeCart && <>Please select a size.</>}</div>
+          <div className="alert" style={{
+            height: '15%',
+        color: `${starkMode ? 'white' : ''}`,
+          }}>{noSizeCart && <>Please select a size.</>}</div>
           <form style={formStyle}>
             <select
               value={selectedSize}

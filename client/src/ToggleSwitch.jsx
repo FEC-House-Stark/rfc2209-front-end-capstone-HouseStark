@@ -34,7 +34,7 @@ const Input = styled.input`
   display: none;
 
   &:checked + ${Switch} {
-    background: green;
+    background: #A0A083;
 
     &:before {
       transform: translate(32px, -50%);
@@ -50,7 +50,7 @@ const ToggleSwitch = ({checked, setChecked}) => {
 
   return (
     <Label>
-      <span>{checked ? "Stark mode on" : "Stark mode off"}</span>
+      <span>{checked ? "STARK MODE ON" : "STARK MODE OFF"}</span>
       <Input checked={checked} type="checkbox" onChange={handleChange} />
       <Switch />
   </Label>
