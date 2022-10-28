@@ -47,14 +47,14 @@ const ProductInfo = (props) => {
             fill='#4D6A6D' //optional
           />
           <a href="#ratings-reviews" style={{
-            color: '#666',
             paddingLeft: '10px',
-            fontSize: '15px'
-          }}>Read all {props.numReviews} reviews.</a>
+          }} className="link">Read all {props.numReviews} reviews.</a>
         </div>
       }
-      <h3 className="product-category">{props.productInfo.category}</h3>
-      <h1 className="product-name">{props.productInfo.name}</h1>
+      <h3 className="product-category">{props.productInfo.category && props.productInfo.category.toUpperCase()}</h3>
+      <h1 className="product-name" style={{
+        marginBottom:'20px',
+      }}>{props.productInfo.name}</h1>
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',

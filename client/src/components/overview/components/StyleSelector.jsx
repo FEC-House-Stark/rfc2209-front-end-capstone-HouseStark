@@ -55,9 +55,8 @@ const StyleSelector = ({ style, styles, setStyle }) => {
 
       <div style={selectorStyle} widget='Overview' element-name='StyleSelector'>
         <div style={{
-          fontSize: '16px',
           height:'10%',
-       }}><b>STYLE ></b> {style.name && style.name.toUpperCase()}</div>
+       }}><h4><b>STYLE ></b> {style.name && style.name.toUpperCase()}</h4></div>
         {/* onClick={props.handleClick}> */}
         <div style={{
           display: 'flex',
@@ -75,15 +74,13 @@ const StyleSelector = ({ style, styles, setStyle }) => {
               ))}
           </div>
         </div>
-        {styles !== undefined && scrollTop === 0 && styles.length > 8 &&
-          <div style={{
+        {styles !== undefined && scrollTop < 5 && styles.length > 8 &&
+          <div className="alert" style={{
             height: '10%',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-start',
-            alignItems: 'center',
-            fontSize: '13px',
-            color: '#666'}}>
+            alignItems: 'center',}}>
             Scroll for more styles
             <FontAwesomeIcon icon={faChevronDown}/>
           </div>

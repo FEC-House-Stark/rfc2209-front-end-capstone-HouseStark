@@ -20,8 +20,7 @@ min-width: 800px;
 height: 60px;
 box-sizing: border-box;
 display: flex;
-padding-left: 10px;
-padding-right: 10px;
+padding: 0 20px;
 justify-content:space-between;
 align-items:center;
 background-color: #4D6A6D;
@@ -170,7 +169,16 @@ const App = () => {
                 snowflakeCount={`${checked? 200: 25}`}/>
             <>
                 <Header>
-                  <Logo src={logo} /> House Stark
+                  <div style={{
+                    height: '60px',
+                    width: '410px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <Logo src={logo} />
+                  <h2>HOUSE STARK</h2>
+                  </div>
                   <div >
                     <Search></Search>
                     <ToggleSwitch
