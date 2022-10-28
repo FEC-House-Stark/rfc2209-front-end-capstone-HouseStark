@@ -432,11 +432,13 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
 
   return (
     <>
-      <h2 id='ratings-reviews'>Ratings & Reviews</h2>
-      <div className='ratingContainer' style={{display: 'flex'}}>
-      <h1 className='numberRating' style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      <h2 id='ratings-reviews'>Ratings{' &'} Reviews</h2>
+      <div className='ratingContainer row_flex'  style={{paddingRight:'10px'}}>
+        <div>
+      <h1 className='numberRating' style={{margin:'0px',paddingTop:'1px'}} >
         {avgRating.toFixed(1)}
       </h1>
+        </div>
       <div>
         <Stars
           stars={avgRating}

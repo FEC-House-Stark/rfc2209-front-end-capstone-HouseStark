@@ -105,15 +105,15 @@ const QuestionView = ({
       <div widget='QandA'
         element-name='Question_View'>
         <QuestionBar>
-          <div className='qanda_question_body subheadings'>
+          <h4 className='qanda_question_body'>
             <div>
               Q:
             </div>
             <div>
               {getHighlightedText(question.question_body, highlight)}
             </div>
-          </div>
-          <div className='qanda_action_items input_fields' >
+          </h4>
+          <div className='qanda_action_items link' >
             <QuestionHelpfulness
               handleTrackingClick={handleTrackingClick}
               handleHelpfulClick={handleHelpfulClick}

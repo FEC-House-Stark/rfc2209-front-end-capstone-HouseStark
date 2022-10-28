@@ -35,13 +35,13 @@ const AnswerView = ({
   return (
     <div widget='QandA'
       element-name='Answer_View input_fields' >
-      <div style={{fontSize:'medium'}}>
+      <p className='answer-body'>
         {answer.body}
-      </div>
+      </p>
       <AnswerPhotos
         handleTrackingClick={handleTrackingClick}
         photos={answer.photos}/>
-      <div className='qanda_action_items'>
+      <div className='qanda_action_items link' >
         <div >By </div>
         <div>
           {

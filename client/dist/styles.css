@@ -73,11 +73,11 @@ li {
   margin-left: -30px
 }
 .qanda_question_body {
-font-weight: bold ;
-/* font-size:  medium ; */
 display: flex ;
 flex-direction: row ;
-gap: 5px ;
+font-weight: bold;
+padding: 0px;
+margin: 0px;
 }
 /*Question and Answers*/
 .answer-body {
@@ -89,19 +89,19 @@ gap: 5px ;
 .qanda_action_items {
   display: flex;
   flex-direction:row;
+  justify-content: space-between;
+  text-align: right;
   gap: 10px ;
   padding: 5px 0px;
-  font-weight:100;
-  text-align: right;
-  justify-content: space-between;
-  max-width: 350px;
+  max-width: 400px;
 }
 .answerer-seller {
   font-weight: 900;
 }
 /*answer photos*/
-.answer_photos_container {
-  padding: 5px 0px;
+.qanda_padding_margin_zero {
+  padding: 0px;
+  margin: 0px;
 }
 .answer-photos {
   border:1px solid black;
@@ -114,7 +114,7 @@ gap: 5px ;
 /*more answers buttom*/
 .more-answers {
   font-size: 11px;
-  padding: 20px 0px;
+  padding: 5px 0px;
   font-weight:600;
 }
 /*buttonStyle*/
@@ -144,11 +144,8 @@ gap: 5px ;
 }
 /*modalStyle*/
 #qanda-modal_container {
-  margin: auto;
-  min-height:50%;
-  max-height: 55%;
-  min-width:50%;
-  max-width: 50%;
+  margin: 60px auto;
+  display: table;
 }
 #qanda-modal-content {
   display: flex;
