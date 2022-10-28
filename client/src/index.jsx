@@ -225,7 +225,8 @@ const App = () => {
                     avgRating={avgRating}
                     characteristics={characteristics}
                     recommended={recommended}
-                    starkMode={starkMode}/>
+                    starkMode={starkMode}
+                    productInfo={productInfo}/>
                 </Body>
             </>
               </div>

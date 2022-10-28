@@ -10,7 +10,7 @@ const colors = {
 
 
 
-var StarRating = ({currentValue, setCurrentValue}) => {
+var StarRating = ({currentValue, setCurrentValue, productInfo}) => {
   const [hoverValue, setHoverValue] = useState(undefined);
   const stars = Array(5).fill(0)
 
@@ -35,8 +35,8 @@ var StarRating = ({currentValue, setCurrentValue}) => {
   }
 
   return (
-    <div > Rate the product<div style={{color: 'red'}}>*</div>
-      <div >
+    <div > {`Rate the ${productInfo.name}`}<div style={{color: 'red'}}>*</div>
+      <div className='row_flex'>
         {stars.map((_, index) => {
           return (
             <FaStar
@@ -53,7 +53,7 @@ var StarRating = ({currentValue, setCurrentValue}) => {
             />
           )
         })}
-        <div>{starMeaning[currentValue]}</div>
+        <div >{starMeaning[currentValue]}</div>
       </div>
     </div>
   );
