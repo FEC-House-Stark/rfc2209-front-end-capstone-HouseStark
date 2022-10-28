@@ -114,9 +114,11 @@ const QuestionView = ({
             </div>
           </div>
           <div className='qanda_action_items input_fields' >
-            <QuestionReport
+            <QuestionHelpfulness
               handleTrackingClick={handleTrackingClick}
-              handleReportClick={handleReportClick}/>
+              handleHelpfulClick={handleHelpfulClick}
+              question_helpfulness={question.question_helpfulness}
+              />
             <AddanAnswer
               productInfo={productInfo}
               question_id={question.question_id}
@@ -125,11 +127,9 @@ const QuestionView = ({
               getAnswersRequest={getAnswersRequest}
               handleTrackingClick={handleTrackingClick}
               />
-            <QuestionHelpfulness
+            <QuestionReport
               handleTrackingClick={handleTrackingClick}
-              handleHelpfulClick={handleHelpfulClick}
-              question_helpfulness={question.question_helpfulness}
-              />
+              handleReportClick={handleReportClick}/>
           </div>
         </QuestionBar>
         <div className='row_flex' >

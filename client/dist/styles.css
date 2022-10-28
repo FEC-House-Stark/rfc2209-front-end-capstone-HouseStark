@@ -12,11 +12,11 @@ body {
 }
 
 .input_fields {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .footer {
-  font-size: 11px;
+  font-size: 12px;
 }
 
 /*Search Qustion MagnifyGlass*/
@@ -72,7 +72,7 @@ gap: 5px ;
 /*more answers buttom*/
 .more-answers {
   font-size: 11px;
-  padding-bottom: 10px;
+  padding: 20px 0px;
   font-weight:600;
 }
 
@@ -90,6 +90,7 @@ gap: 5px ;
 
 .qanda_button:hover {
   background-color: #768174;
+  color: white;
 }
 
 .qanda_button_modal_resize {
