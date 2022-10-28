@@ -10,6 +10,7 @@ import Reviews from './components/R&R/Reviews.jsx';
 import Related from './components/Related/Related.jsx';
 import styled from 'styled-components';
 import logo from './assets/WolfLogo.png';
+import logo_white from './assets/wolf_logo_white.png';
 import { CloudinaryContext } from "cloudinary-react";
 
 
@@ -30,8 +31,8 @@ const Search = styled.input`
 `;
 
 const Logo = styled.img`
-max-width: 100%;
-max-height: 100%;
+max-width: 80%;
+max-height: 80%;
 `;
 const Body = styled.div`
 max-width: 1000px;
@@ -176,7 +177,7 @@ const App = () => {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                   }}>
-                  <Logo src={logo} />
+                  <Logo src={checked ? logo_white : logo_white}/>
                   <h2>HOUSE STARK</h2>
                   </div>
                   <div >
