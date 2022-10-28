@@ -126,12 +126,11 @@ margin: 0px;
   width: 180px;
   cursor:pointer;
   border: 2px outset;
-  background-color: white;
 }
 .qanda_button:hover {
   background-color: #768174;
-  color: white;
 }
+
 .qanda_button_modal_resize {
   width: 80px;
   height: 15px;
