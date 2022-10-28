@@ -1,104 +1,72 @@
-import React, { useRef, useState } from "react";
-import {
-  FileUploadContainer,
-  FormField,
-  DragDropText,
-  UploadFileBtn,
-  FilePreviewContainer,
-  ImagePreview,
-  PreviewContainer,
-  PreviewList,
-  FileMetaData,
-  RemoveFileIcon,
-  InputLabel
-} from "./file-upload.styles";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { fetchPhotos, openUploadWidget } from "../../CloudinaryService.jsx";
+import { modalBoxStyle, modalViewStyle, buttonStyle, ErrorStyle, UploadPhotos, uploadPhotoStyle } from '../QandA/components/QandA_Styles.jsx'
 
-const KILO_BYTES_PER_BYTE = 1000;
-const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 500000;
+// client/src/components/QandA/components/QandA_Styles.jsx
 
-const convertNestedObjectToArray = (nestedObj) =>
-  Object.keys(nestedObj).map((key) => nestedObj[key]);
+function FileUpload({photos, setPhotos}) {
 
-const convertBytesToKB = (bytes) => Math.round(bytes / KILO_BYTES_PER_BYTE);
 
-const FileUpload = ({files, setFiles, maxFileSizeInBytes = DEFAULT_MAX_FILE_SIZE_IN_BYTES, ...otherProps}) => {
-  const fileInputField = useRef(null);
-  // const [files, setFiles] = useState({});
+  const beginUpload = tag => {
+    const uploadOptions = {
+      cloudName: "dbij37ike",
+      tags: [tag],
+      uploadPreset: "cc8qp3hn"
+    };
 
-  const handleUploadBtnClick = () => {
-    fileInputField.current.click();
-  };
-
-  const addNewFiles = (newFiles) => {
-    for (let file of newFiles) {
-      if (file.size < maxFileSizeInBytes) {
-        if (!otherProps.multiple) {
-          return { file };
+    openUploadWidget(uploadOptions, (error, uploadPhoto) => {
+      if (!error) {
+        if(uploadPhoto.event === 'success'){
+          setPhotos([...photos, uploadPhoto.info.secure_url]);
         }
-        files[file.name] = file;
+      } else {
+        console.log(error);
       }
-    }
-    return { ...files };
-  };
+    })
+  }
 
+  if (photos.length < 5) {
+    return (
+      <>
+      <div
+      style={{
+        ...buttonStyle, backgroundColor: '#899489', color: 'white', borderColor: 'white', fontSize: 'small', width: '80px', borderStyle: 'outset'
+      }}
+      onClick={(e) => {
+        e.preventDefault();
+        beginUpload()
+      }}>Upload Image
+    </div>
+    <UploadPhotos>
+    {photos.map((p,index)=> {
+      return  <img style={uploadPhotoStyle} key={index} src={p}></img>
+    })}
+  </UploadPhotos>
+  </>
+    )
+  } else {
+    return (
+      <UploadPhotos>
+    {photos.map((p,index)=> {
+      return  <img style={uploadPhotoStyle} key={index} src={p}></img>
+    })}
+  </UploadPhotos>
+    )
+  }
 
-
-
-
-
-
-  return (
-    <>
-      <FileUploadContainer>
-        <InputLabel>Label</InputLabel>
-        <DragDropText>Drag and drop your files anywhere or</DragDropText>
-        <UploadFileBtn type="button" onClick={handleUploadBtnClick}>
-          <i className="fas fa-file-upload" />
-          <span> Upload {otherProps.multiple ? "files" : "a file"}</span>
-        </UploadFileBtn>
-        <FormField
-          type="file"
-          ref={fileInputField}
-          onChange={(e) => {console.log(e.target)}}
-          title=""
-          value=""
-          {...otherProps}
-        />
-      </FileUploadContainer>
-      {/* <FilePreviewContainer>
-        <span>To Upload</span>
-        <PreviewList>
-          {Object.keys(files).map((fileName, index) => {
-            let file = files[fileName];
-            let isImageFile = file.type.split("/")[0] === "image";
-            return (
-              <PreviewContainer key={fileName}>
-                <div>
-                  {isImageFile && (
-                    <ImagePreview
-                      src={URL.createObjectURL(file)}
-                      alt={`file preview ${index}`}
-                    />
-                  )}
-                  <FileMetaData isImageFile={isImageFile}>
-                    <span>{file.name}</span>
-                    <aside>
-                      <span>{convertBytesToKB(file.size)} kb</span>
-                      <RemoveFileIcon
-                        className="fas fa-trash-alt"
-                        onClick={() => removeFile(fileName)}
-                      />
-                    </aside>
-                  </FileMetaData>
-                </div>
-              </PreviewContainer>
-            );
-          })}
-        </PreviewList>
-      </FilePreviewContainer> */}
-    </>
-  );
-};
+  // return (
+  //   <div
+  //     style={{
+  //       ...buttonStyle, backgroundColor: '#899489', color: 'white', borderColor: 'white', fontSize: 'small', width: '80px', borderStyle: 'outset'
+  //     }}
+  //     onClick={(e) => {
+  //       e.preventDefault();
+  //       beginUpload()
+  //     }}>Upload Image
+  //   </div>
+  // )
+}
 
 export default FileUpload;
 
