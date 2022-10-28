@@ -22,7 +22,7 @@ const Checkmark = styled.div`
 `;
 
 
-const StyleSelectorItem = ({ photo, selected, handleClick, index, height }) => {
+const StyleSelectorItem = ({ photo, selected, handleClick, index, height, starkMode }) => {
   const selectorItemStyle = css`
     height: 80%;
     aspect-ratio: 1/1;
@@ -43,18 +43,30 @@ const StyleSelectorItem = ({ photo, selected, handleClick, index, height }) => {
   `;
 
   return (
-    <div style={{width: '100%'}}>
+    <div style={{width: '100%', height:'100%'}}>
       <div css={selectorItemStyle} widget='Overview' element-name='StyleSelectorItem' onClick={(e) => handleClick(e, index)} />
       {selected &&
+      !starkMode &&
       <div style={{
         width: '100%',
         position: 'absolute',
         top: '10%',
         left: '68%',
       }}>
-        <Checkmark>
+         <Checkmark>
           <FontAwesomeIcon icon={faCircleCheck} />
         </Checkmark>
+        </div>}
+        {selected &&
+      starkMode &&
+      <div style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+         <img style={{width: '110%', height:'110%'}}src="https://media.giphy.com/media/nulVy4ZcnxKtq9YdEm/giphy.gif"/>
         </div>}
     </div>
   )

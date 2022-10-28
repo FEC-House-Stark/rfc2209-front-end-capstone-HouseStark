@@ -25,7 +25,8 @@ const selectorContainerStyle = {
   alignItems: 'flex-start',
   justifyContent: 'flex-start',
   flexWrap: 'wrap',
-  overflowY: 'scroll'
+  overflowY: 'auto',
+  overflowX: 'hidden'
 }
 
 
@@ -69,7 +70,7 @@ const StyleSelector = ({ style, styles, setStyle, starkMode }) => {
             {styles !== undefined &&
               styles.map((thisStyle, i) => (
                 <div key={i + thisStyle} style={selectorItemContainerStyle}>
-                  <StyleSelectorItem photo={thisStyle.photos[0].thumbnail_url} selected={thisStyle.name === style.name} handleClick={handleStyleClick} index={i} height={selector_height} />
+                  <StyleSelectorItem photo={thisStyle.photos[0].thumbnail_url} selected={thisStyle.name === style.name} handleClick={handleStyleClick} index={i} height={selector_height} starkMode={starkMode}/>
                 </div>
               ))}
           </div>
