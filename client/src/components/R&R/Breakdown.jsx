@@ -367,14 +367,14 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
     let lineStyle1 = {
       position: 'absolute',
       borderLeft: '6px solid white',
-      height: '20px',
+      height: '15px',
       left: '103px'
     }
 
     let lineStyle2 = {
       position: 'absolute',
       borderLeft: '6px solid white',
-      height: '20px',
+      height: '15px',
       right: '103px'
     }
 
