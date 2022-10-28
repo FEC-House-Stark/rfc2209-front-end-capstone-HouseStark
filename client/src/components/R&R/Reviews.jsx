@@ -15,7 +15,7 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
 
 
-const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristics, recommended }) => {
+const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristics, recommended , starkMode}) => {
   const [reviewList, setReviewList] = useState([]);
   const [fullReviewList, setFullReviewList] = useState([]);
   const [reviewCount, setReviewCount] = useState(2);
@@ -410,7 +410,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     <>
       <ReviewContainer>
         <BreakdownContainer>
-          <Breakdown avgRating={avgRating} fullReviewList={fullReviewList} numReviews={numReviews} characteristics={characteristics} filterObj={filterObj} setFilterObj={setFilterObj} />
+          <Breakdown avgRating={avgRating} fullReviewList={fullReviewList} numReviews={numReviews} characteristics={characteristics} filterObj={filterObj} setFilterObj={setFilterObj} starkMode={starkMode}/>
         </BreakdownContainer>
         <ListContainer>
           <div>{`${numReviews} reviews, sorted by `}

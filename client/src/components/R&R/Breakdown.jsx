@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 
-const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, filterObj, setFilterObj }) => {
+const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, filterObj, setFilterObj, starkMode}) => {
   const [starCountObj, setStarCountObj] = useState({});
   const [calcCharact, setCalcCharact] = useState([]);
   const [sum, setSum] = useState(0);
@@ -368,14 +368,16 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
       position: 'absolute',
       borderLeft: '6px solid white',
       height: '15px',
-      left: '103px'
+      left: '103px',
+      color: starkMode ? '#282c34' : 'white'
     }
 
     let lineStyle2 = {
       position: 'absolute',
       borderLeft: '6px solid white',
       height: '15px',
-      right: '103px'
+      right: '103px',
+      backgroundColor: starkMode ? '#282c34' : 'white'
     }
 
     let result = []
@@ -448,32 +450,32 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
       </div>
       <div>
         {`${recommendPercentageCalculator()}% of reviews recommend this product`}
-        <div style={{color: 'white', fontSize: '8px'}}>break</div>
+        <div style={{color: starkMode ? '#282c34' : 'white' , fontSize: '8px'}}>break</div>
       </div>
       <div style={containerStyle1}>
         <li id={5} onClick={(e) => { handleBar5Click(e) }}
           onMouseEnter={handleMouseEnter5}
           onMouseLeave={handleMouseLeave5}
           style={containerStyle2}>{`5 Stars`}{barRender(5)}</li>
-          <div style={{color: 'white'}}>break</div>
+          <div style={{color: starkMode ? '#282c34' : 'white' }}>break</div>
         <li id={4}
           onClick={(e) => { handleBar4Click(e) }}
           onMouseEnter={handleMouseEnter4}
           onMouseLeave={handleMouseLeave4}
           style={containerStyle2}>{`4 Stars`}{barRender(4)}</li>
-          <div style={{color: 'white'}}>break</div>
+          <div style={{color: starkMode ? '#282c34' : 'white' }}>break</div>
         <li id={3}
           onClick={(e) => { handleBar3Click(e) }}
           onMouseEnter={handleMouseEnter3}
           onMouseLeave={handleMouseLeave3}
           style={containerStyle2}>{`3 Stars`}{barRender(3)}</li>
-          <div style={{color: 'white'}}>break</div>
+          <div style={{color: starkMode ? '#282c34' : 'white' }}>break</div>
         <li id={2}
           onClick={(e) => { handleBar2Click(e) }}
           onMouseEnter={handleMouseEnter2}
           onMouseLeave={handleMouseLeave2}
           style={containerStyle2}>{`2 Stars`}{barRender(2)}</li>
-          <div style={{color: 'white'}}>break</div>
+          <div style={{color: starkMode ? '#282c34' : 'white' }}>break</div>
         <li id={1}
           onClick={(e) => { handleBar1Click(e) }}
           onMouseEnter={handleMouseEnter1}
