@@ -7,7 +7,7 @@ import Breakdown from './Breakdown.jsx'
 import StarRating from './StarRating.jsx'
 import ImageGallary from './ImageGallary.jsx'
 import { BreakdownContainer, ListContainer, ReviewContainer } from "./file-upload.styles";
-import { modalBoxStyle, modalViewStyle, buttonStyle, ErrorStyle, UploadPhotos, uploadPhotoStyle } from '../QandA/components/QandA_Styles.jsx'
+import { modalBoxStyle, modalViewStyle, buttonStyle, ErrorStyle, UploadPhotos, uploadPhotoStyle, frostyStyle } from '../QandA/components/QandA_Styles.jsx'
 import Stars from 'react-stars-display';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,7 +15,7 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
 
 
-const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristics, recommended , starkMode}) => {
+const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristics, recommended , starkMode, productInfo}) => {
   const [reviewList, setReviewList] = useState([]);
   const [fullReviewList, setFullReviewList] = useState([]);
   const [reviewCount, setReviewCount] = useState(2);
@@ -42,6 +42,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   const [photos, setPhotos] = useState([]);
   const [isOpenPhoto, setIsOpenPhoto] = useState(false);
   const [clickPhoto, setClickPhoto] = useState('')
+  const [reRenderList, setReRenderList]= useState(false);
 
   const host_url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfc/'
 
@@ -104,7 +105,11 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       .catch((err) => {
         console.log(err)
       })
-  }, [product_id, sortType, numReviews, submitFlag]);
+  }, [product_id, sortType, numReviews, submitFlag, reRenderList]);
+
+  var handleListReRender = () => {
+    setReRenderList(!reRenderList)
+  }
 
   var handleMoreReviews = () => {
     setReviewCount(numReviews)
@@ -137,6 +142,7 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     }
     axios(config)
       .then((result) => {
+        handleListReRender()
         // console.log('TEST', result);
       })
       .catch((err) => {
@@ -154,12 +160,13 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     }
     axios(config)
       .then((result) => {
+        handleListReRender()
         // console.log('TEST', result);
       })
       .catch((err) => {
         console.log('Err on helpful put req', err);
       })
-    alert('Report Submitted')
+    // alert('Report Submitted')
   }
 
   var handleReviewSubmit = () => {
@@ -216,6 +223,36 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     } else {
       alert('You are missing required fields:\n' + error.join('\n'))
     }
+  }
+
+  var nameFormatter = (name) => {
+    if (name[0] !== name[0].toUpperCase()) {
+      let replaced = name.charAt(0).toUpperCase() + name.slice(1)
+      // console.log(replaced)
+      return replaced
+    } else {
+      return name;
+    }
+  }
+
+  var dateFormatter = (date) => {
+    let calender = {
+      '01': 'January',
+      '02': 'February',
+      '03': 'March',
+      '04': 'April',
+      '05': 'May',
+      '06': 'June',
+      '07': 'July',
+      '08': 'August',
+      '09': 'September',
+      '10': 'October',
+      '11': 'November',
+      '12': 'December',
+    }
+    let split = date.split('-')
+    let result = `${calender[split[1]]} ${split[2].slice(1)}, ${split[0]}`
+    return result
   }
 
   var sendNewReview = () => {
@@ -305,6 +342,8 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
                     <>
                     <img style={{cursor: 'pointer'}} src={photo.url} height='75' width='75' onClick={(e) => {toggleModalPhoto(e)}}></img>
                     <Modal
+                    id='qanda-modal_container'
+                    style={frostyStyle}
                     isOpen={isOpenPhoto}
         onRequestClose={toggleModalPhoto}>
 <img src={clickPhoto} height='600' width='600'></img>
@@ -337,16 +376,18 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
                     fill='#ea9c46' //optional
                   />
                 </div>
-                <div style={{ marginLeft: '10px' }}>{`${item.reviewer_name}, ${item.date.slice(0, 10)}`}</div>
+                <div style={{ marginLeft: '10px' }}>{`${nameFormatter(item.reviewer_name)}, ${dateFormatter(item.date.slice(0, 10))}`}</div>
               </div>
               <span style={{ fontWeight: 'bold' }}>{item.summary}</span>
               <div>{item.body}</div>
-              <div className='review-photos'>
+              <div className='review-photos' style={{display: 'flex'}}>
                 {item.photos.map((photo, i) => {
                   return (
-                    <div key={i} >
-                    <img style={{cursor: 'pointer'}} src={photo.url} height='75' width='75' onClick={(e) => {toggleModalPhoto(e)}}></img>
+                    <div key={i} style={{padding: '5px'}} >
+                    <img style={{cursor: 'pointer', border: '1px solid black'}} src={photo.url} height='75' width='75' onClick={(e) => {toggleModalPhoto(e)}}></img>
                     <Modal
+                    id='qanda-modal_container'
+                    style={frostyStyle}
                     isOpen={isOpenPhoto}
         onRequestClose={toggleModalPhoto}>
 <img src={clickPhoto} height='600' width='600'></img>
@@ -386,8 +427,9 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
         // console.log(reconfig[item][inner])
         return (
           <li key={i} style={{ display: "flex", flexDirection: "column", alignItems: "left" }}>
-            <form>
               <label>{`Rate the ${item}`} <div style={{ color: 'red' }}>*</div></label>
+            <div className='row_flex' style={{paddingRight: '10px'}}>
+            <form>
               <input type="radio" value={'1'} name={'1'} checked={reconfig[item][0] === '1'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
               <label>1</label>
               <input type="radio" value={'2'} name={'2'} checked={reconfig[item][0] === '2'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
@@ -398,8 +440,9 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
               <label>4</label>
               <input type="radio" value={'5'} name={'5'} checked={reconfig[item][0] === '5'} onChange={(e) => { reconfig[item][1](e.target.value) }} />
               <label>5</label>
-              <div style={{ display: "flex", flexDirection: "row" }}>{reconfig[item][0] === '0' ? null : reconfig[item][inner]}</div>
             </form>
+              <div >{reconfig[item][0] === '0' ? null : reconfig[item][inner]}</div>
+              </div>
           </li>
         )
       })
@@ -422,27 +465,26 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
           </div>
           <div style={{ maxHeight: '80vh', overflowY: 'auto' }}>{listDecider()}</div>
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '90%', margin: 'auto', margin: '20px', gap: '15px' }}>
-            {reviewCount >= reviewList.length ? null : <button style={buttonStyle} data-testid="increment" onClick={handleMoreReviews}>{reviewList.length < 3 ? null : 'More Reviews'}</button>}
-            <button style={buttonStyle} onClick={toggleModal}>Add A Review + </button>
+            {reviewCount >= reviewList.length ? null : <button className='qanda_button' data-testid="increment" onClick={handleMoreReviews}>{reviewList.length < 3 ? null : 'More Reviews'}</button>}
+            <button className='qanda_button' onClick={toggleModal}>Add A Review + </button>
           </div>
         </ListContainer>
       </ReviewContainer>
-      <div>
-        <div >
           <Modal
+          id='qanda-modal_container'
             isOpen={isOpen}
             onRequestClose={toggleModal}
             contentLabel="Add A Review"
-            style={{ display: 'flex' }}
+            style={frostyStyle}
           >
-            <div className='glassPanel' >
+            <div id='qanda-modal-content'>
               <div >
-                <div onClick={(e) => { toggleModal() }}>
+                <div id='qanda-modal-close-button' onClick={(e) => { toggleModal() }}>
                   <FontAwesomeIcon icon={faCircleXmark} />
                 </div>
               </div>
               <div className='modalTopRowContainer'>
-                <StarRating currentValue={currentValue} setCurrentValue={setCurrentValue} />
+                <StarRating currentValue={currentValue} setCurrentValue={setCurrentValue} productInfo={productInfo}/>
               </div>
               <div className='modalRecommendContainer'>
                 <label>Recommend? <div style={{ color: 'red' }}>*</div></label>
@@ -480,12 +522,8 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
                 </div>
                 <button type="submit">Submit</button>
               </form>
-
-              <button onClick={toggleModal}>Close modal</button>
-            </div>
+              </div>
           </Modal>
-        </div>
-      </div>
     </>
 
   )

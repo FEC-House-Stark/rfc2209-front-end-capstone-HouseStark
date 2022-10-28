@@ -31,7 +31,7 @@ function FileUpload({photos, setPhotos}) {
       <>
       <div
       style={{
-        ...buttonStyle, backgroundColor: '#899489', color: 'white', borderColor: 'white', fontSize: 'small', width: '80px', borderStyle: 'outset'
+        ...buttonStyle, backgroundColor: '#899489', color: 'white', borderColor: 'white', fontSize: 'small', width: '80px', borderStyle: 'outset', cursor: 'pointer'
       }}
       onClick={(e) => {
         e.preventDefault();

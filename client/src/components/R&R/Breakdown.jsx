@@ -369,7 +369,7 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
       borderLeft: '6px solid white',
       height: '15px',
       left: '103px',
-      color: starkMode ? '#282c34' : 'white'
+      color: '#282c34'
     }
 
     let lineStyle2 = {
@@ -413,6 +413,7 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
             borderLeft: '8px solid transparent',
             borderRight: '8px solid transparent',
             position: 'absolute',
+            bottom: '4px',
             right: `${percent * 310}px`
           }
 
@@ -435,10 +436,12 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
   return (
     <>
       <h2 id='ratings-reviews'>Ratings & Reviews</h2>
-      <div className='ratingContainer' style={{display: 'flex'}}>
-      <h1 className='numberRating' style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      <div className='ratingContainer row_flex' style={{paddingRight: '10px', paddingBottom: '10px'}}>
+        <div >
+      <h1 className='numberRating' style={{margin: '0px', paddingTop: '1px'}}>
         {avgRating.toFixed(1)}
       </h1>
+      </div>
       <div>
         <Stars
           stars={avgRating}
