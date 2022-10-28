@@ -18,17 +18,6 @@ height: fit-content;
 gap: 20px;
 `;
 
-const buttonStyle = {
-  background:'white',
-  color:'black',
-  fontSize: '15px',
-  fontWeight:'600',
-  textAlign: 'center',
-  padding: '10px 10px 10px 10px',
-  width: '180px',
-  border: '1px solid black',
-  cursor:'pointer',
-}
 
 const QandAOverViewStyle = styled.div`
 display: grid;
@@ -53,26 +42,14 @@ height: 30px;
 gap: 10px 0px;
 `;
 
-const SearchQustionMagnifyGlass = {
-  display:'flex',
-  alignItems: 'center',
-  marginLeft: '-30px'
-}
-
-
-const rowFlex = {
-  display: 'flex',
-  flexDirection: 'row',
-}
-
 const QandAQuestionListView = styled.div`
   display: grid;
   align-items: stretch;
   gap: 5px;
   padding-top:10px;
   border-bottom: 2px ridge;
-`;
 
+`;
 
 const QuestionBar = styled.div`
   display: grid;
@@ -85,7 +62,7 @@ const QuestionBarActionItem = styled.span`
   flex-direction: row-reverse;
   gap: 20px;
   font-size: small;
-  color : #686868	;
+  font-weight:100;
   `
 const AnswersListStyle = styled.div`
   display: flex;
@@ -98,76 +75,6 @@ const AnswersListStyle = styled.div`
   padding-right: 180px;
   `
 
-const moreAnswersButton = {
-  background:'white',
-  color:'black',
-  fontSize: '11px',
-  paddingBottom:'10px',
-  fontWeight:'600'
-}
-
-
-const AnswerActionItemStyle = styled.div`
-display: flex;
-flex-direction: row;
-gap: 10px ;
-padding: 5px;
-font-size: small;
-color : #808080	;
-`
-
-
-const modalBoxStyle = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: '50%',
-    bottom: '50%',
-    minHeight:'700px',
-    minWidth:'800px',
-    transform: 'translate(-50%, -50%)',
-  },
-};
-
-const photoModalStyle = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: '50%',
-    bottom: '50%',
-    minHeight:'40vh',
-    minWidth:'60vh',
-    transform: 'translate(-50%, -50%)',
-  },
-};
-
-const photoStyle = {
-  border:'1px solid black',
-  minHeight:'100px',
-  minWidth:'100px',
-  maxHeight: '100px',
-  marginRight:'20px',
-  cursor:'pointer',
-}
-
-const modalViewStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  gap:'10px',
-}
-
-const modalImgStyle = {
-  display:'block',
-  marginLeft:'auto',
-  marginRight:'auto',
-  width:'60%',
-}
-
-const SellerFontWeight = {
-  fontWeight:'bolder',
-  color:'#505050',
-}
 
 const ErrorStyle = styled.p`
 color: red;
@@ -184,34 +91,31 @@ gap: 15px;
 padding-top: 10px;
 `;
 
-const uploadPhotoStyle = {
-  border:'1px solid black',
-  objectFit: 'scale-down',
-  maxHeight: '100px',
-}
+const frostyStyle = {
+  overlay:{
+    position: 'fixed',
+    inset: '0px',
+    backgroundColor: 'rgba(234,236,233,0.4)',
+},
+  content:{
+    backgroundColor:'rgba(234,236,233,0.1)',
+    backdropFilter: 'blur(7px)',
+    boxShadow: '0 6px 35px rgba(0,0,0,0.65)',
+    borderRadius: '25px',
+  }
+};
 
 export {
   QandASearchView,
   QandAQuestionActions,
-  SearchQustionMagnifyGlass,
-  buttonStyle,
   QandAOverViewStyle,
   QandAHeader,
   QandAHSearchBar,
   QandAQuestionListView,
-  rowFlex,
   QuestionBar,
   QuestionBarActionItem,
   AnswersListStyle,
-  moreAnswersButton,
-  AnswerActionItemStyle,
-  photoStyle,
-  modalBoxStyle,
-  modalViewStyle,
-  SellerFontWeight,
-  photoModalStyle,
-  modalImgStyle,
   ErrorStyle,
   UploadPhotos,
-  uploadPhotoStyle,
+  frostyStyle,
 }

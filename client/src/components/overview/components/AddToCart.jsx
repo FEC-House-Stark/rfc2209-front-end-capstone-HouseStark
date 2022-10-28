@@ -69,8 +69,8 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
 
   const favButtonStyle = {
     color: `${color}`,
-    width: `${!outOfStock() ? '15%' : '50px'}`,
-    height: `${row_ht}`,
+    width: `100%`,
+    height: '100%',
     border: '1pt solid #666',
     paddingLeft: '15px',
     paddingRight: '15px',
@@ -80,7 +80,13 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    backgroundImage: `url('https://media.giphy.com/media/nulVy4ZcnxKtq9YdEm/giphy.gif')`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    WebkitTextTillColor: 'transparent',
+    WebkitBackgroundClip: 'text',
+
   }
 
   const starStyle = {
@@ -185,7 +191,7 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
         }}>
           <div className="alert" style={{
             height: '15%',
-        color: `${starkMode ? 'white' : ''}`,
+            color: `${starkMode ? 'white' : ''}`,
           }}>{noSizeCart && <>Please select a size.</>}</div>
           <form style={formStyle}>
             <select
@@ -227,7 +233,19 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
             {!outOfStock() &&
               <button style={cartButtonStyle} onClick={handleCartClick}>ADD TO CART<FontAwesomeIcon icon={faCartShopping} /></button>
             }
-            <button style={favButtonStyle} onClick={handleFavClick}><FontAwesomeIcon style={starStyle} icon={favorite ? faStar : faStarRegular} /></button>
+            <div style={{
+              backgroundColor: '#FFF', width: `${!outOfStock() ? '15%' : '50px'}`,
+              height: `${row_ht}`,
+            }}>
+              <button style={favButtonStyle} onClick={handleFavClick}>
+                {starkMode ?
+                  <>{!favorite ? <FontAwesomeIcon style={starStyle} icon={faStarRegular} /> :
+                    <div style={{
+                      color: 'transparent',
+                      fontSize: '18px',
+                    }}>&#9733;</div>}</>
+                  : <FontAwesomeIcon style={starStyle} icon={favorite ? faStar : faStarRegular} />}</button>
+            </div>
 
           </form>
         </div>

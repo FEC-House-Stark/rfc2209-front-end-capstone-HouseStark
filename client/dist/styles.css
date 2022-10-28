@@ -53,3 +53,128 @@ li {
   font-size: 11px;
   color: #666;
 }
+
+.header {
+  font-size: 21px;
+}
+.subheadings {
+  font-size: 16px;
+}
+.input_fields {
+  font-size: 14px;
+}
+.footer {
+  font-size: 12px;
+}
+/*Search Qustion MagnifyGlass*/
+.qanda-magnify-glass {
+  display:flex;
+  align-items: center;
+  margin-left: -30px
+}
+.qanda_question_body {
+font-weight: bold ;
+/* font-size:  medium ; */
+display: flex ;
+flex-direction: row ;
+gap: 5px ;
+}
+/*Question and Answers*/
+.answer-body {
+  width: 100%;
+  font-size: small;
+  font-weight: 300;
+  padding-bottom: 5px;
+}
+.qanda_action_items {
+  display: flex;
+  flex-direction:row;
+  gap: 10px ;
+  padding: 5px 0px;
+  font-weight:100;
+  text-align: right;
+  justify-content: space-between;
+  max-width: 350px;
+}
+.answerer-seller {
+  font-weight: 900;
+}
+/*answer photos*/
+.answer_photos_container {
+  padding: 5px 0px;
+}
+.answer-photos {
+  border:1px solid black;
+  min-height:100px;
+  min-width:100px;
+  max-height: 120px;
+  margin-right:20px;
+  cursor:pointer;
+}
+/*more answers buttom*/
+.more-answers {
+  font-size: 11px;
+  padding: 20px 0px;
+  font-weight:600;
+}
+/*buttonStyle*/
+.qanda_button {
+  font-size: 15px;
+  font-weight:600;
+  text-align: center;
+  padding: 10px 10px 10px 10px;
+  width: 180px;
+  cursor:pointer;
+  border: 2px outset;
+  background-color: white;
+}
+.qanda_button:hover {
+  background-color: #768174;
+  color: white;
+}
+.qanda_button_modal_resize {
+  width: 80px;
+  height: 15px;
+  font-size: small;
+}
+.row_flex {
+  display: flex;
+  flex-direction: row;
+  gap:5px;
+}
+/*modalStyle*/
+#qanda-modal_container {
+  margin: auto;
+  min-height:50%;
+  max-height: 55%;
+  min-width:50%;
+  max-width: 50%;
+}
+#qanda-modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap:10px;
+}
+#qanda-answer-photos {
+  border:1px solid black;
+  object-fit: scale-down;
+  max-height: 100px;
+  cursor:pointer;
+}
+#answer-photo-zone {
+  object-fit: contain;
+  padding-right: 10px;
+}
+#qanda-modal-close-button {
+  text-align: right;
+}
+#qanda-modal-title {
+  text-align:center;
+  margin:0;
+}
+#modal-textfield-description {
+  font-size: small;
+  margin: 0;
+  padding: 0;
+}

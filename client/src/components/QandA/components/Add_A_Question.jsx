@@ -3,7 +3,7 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
-import {modalBoxStyle, modalViewStyle, buttonStyle, ErrorStyle} from './QandA_Styles.jsx';
+import {ErrorStyle} from './QandA_Styles.jsx';
 import AddaQuestionModal from './Add_A_Question_Modal.jsx';
 import isEmail from 'validator/lib/isEmail';
 
@@ -20,7 +20,7 @@ const AddaQuestion = ({
   return (
     <div>
       <div
-        style={buttonStyle}
+        className='qanda_button'
         widget='QandA'
         element-name='Add_A_Question'
         onClick={(e) => {

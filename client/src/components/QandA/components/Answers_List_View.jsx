@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import AnswerView from './Answer_View.jsx'
 import styled from 'styled-components';
-import {AnswersListStyle,moreAnswersButton} from './QandA_Styles.jsx';
+import {AnswersListStyle} from './QandA_Styles.jsx';
 
 const AnswersListView = ({
   question_id,
@@ -16,7 +16,7 @@ const AnswersListView = ({
     <AnswersListStyle>
       <div widget='QandA'
       element-name='Answers_List_View'>
-        <div style={{width:'700px', fontFamily:'Times New Roman', fontSize:'smaller', color:'#686868'}}>
+        <div className='answer-body'>
           { showAnswers.map((a) => {
             return <AnswerView
             key={a.answer_id}
@@ -29,8 +29,7 @@ const AnswersListView = ({
         <div>
           { showAnswers.length < answers.length
             ?
-            <div
-            style={moreAnswersButton}
+            <div className='more-answers'
             widget='QandA'
             element-name='More_Answers'
             onClick={(e) => {
@@ -39,8 +38,7 @@ const AnswersListView = ({
               handleTrackingClick(e);
             }}>LOAD MORE ANSWERS</div>
             :
-            <div
-            style={moreAnswersButton}
+            <div className='more-answers'
             widget='QandA'
             element-name='Less_Answers'
             onClick={(e) => {

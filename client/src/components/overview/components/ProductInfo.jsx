@@ -15,8 +15,8 @@ const prodInfoStyle = {
   position: 'relative',
 }
 const shareButtonStyle = {
-  height: '25px',
-  width: '30px',
+  height: '100%',
+  aspectRatio: '1/1',
   border: 'none',
   backgroundColor: 'transparent',
   display: 'flex',
@@ -48,14 +48,34 @@ const ProductInfo = (props) => {
           />
           <a href="#ratings-reviews" style={{
             paddingLeft: '10px',
-            color: `${props.starkMode ? 'white':''}`,
+            color: `${props.starkMode ? 'white' : ''}`,
           }} className="link">Read all {props.numReviews} reviews</a>
         </div>
       }
       <h4 className="product-category">{props.productInfo.category && props.productInfo.category.toUpperCase()}</h4>
-      <h1 className="product-name" style={{
-        marginBottom:'20px',
-      }}>{props.productInfo.name}</h1>
+
+      {props.starkMode ? <div style={{
+        backgroundImage: `url('https://media.giphy.com/media/H4cIpNCIW22FWLD4hk/giphy.gif')`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        width: '100%',
+        overflow: 'show',
+        zIndex: '0',
+        padding: '30px 0',
+        margin: '-30px 0',
+        transform: 'scaleX(-1)'
+      }}>
+        <div style={{ width: '100%', transform: 'scaleX(-1)', }}>
+          <h1 className="product-name" style={{
+            margin: '5px 0 20px',
+          }}>{props.productInfo.name}</h1>
+        </div>
+      </div>
+    :   <h1 className="product-name" style={{
+      marginBottom: '20px',
+    }}>{props.productInfo.name}</h1>
+    }
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -66,24 +86,27 @@ const ProductInfo = (props) => {
           <>
             <span style={{ color: 'red' }}>${props.style.sale_price}</span>
             &nbsp;
-            <span style={{ textDecoration: 'line-through'}}>${props.style.original_price}</span>
+            <span style={{ textDecoration: 'line-through' }}>${props.style.original_price}</span>
           </>
           :
           <>${props.style.original_price}</>
         }</h4>
         <div style={{
-          color: '#666',
+          color: `${props.starkMode ? 'white' : '#666'}`,
           display: 'flex',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          height: '25px',
+          width: '90px',
         }}>
+
           <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Facebook')}>
-            <FontAwesomeIcon style={{color: `${props.starkMode ? 'white':''}`,}} icon={faFacebook} />
+            {props.starkMode ? <img style={{ width: '110%', height: '110%' }} src="https://media.giphy.com/media/GjkCs56IPk8pvh1ncs/giphy.gif" /> : <FontAwesomeIcon icon={faFacebook} />}
           </div>
           <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Instagram')}>
-            <FontAwesomeIcon style={{color: `${props.starkMode ? 'white':''}`,}} icon={faInstagram} />
+            <FontAwesomeIcon icon={faInstagram} />
           </div>
           <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Twitter')}>
-            <FontAwesomeIcon style={{color: `${props.starkMode ? 'white':''}`,}} icon={faTwitter} />
+            {props.starkMode ? <img style={{ width: '150%', height: '150%' }} src="https://media.giphy.com/media/lnJm6Fd6mIKkORh5yT/giphy.gif" /> : <FontAwesomeIcon icon={faTwitter} />}
           </div>
         </div>
       </div>
