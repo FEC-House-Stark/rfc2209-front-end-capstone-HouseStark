@@ -9,7 +9,6 @@ import ImageGallary from './ImageGallary.jsx'
 import { BreakdownContainer, ListContainer, ReviewContainer } from "./file-upload.styles";
 import { modalBoxStyle, modalViewStyle, buttonStyle, ErrorStyle, UploadPhotos, uploadPhotoStyle, frostyStyle } from '../QandA/components/QandA_Styles.jsx'
 import Stars from 'react-stars-display';
-import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
@@ -80,7 +79,6 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     WebkitBackdropFilter: 'blur(6px)'
   }
 
-  // console.log(numReviews)
   let config1 = {
     headers: {
       'Authorization': process.env.TOKEN,
@@ -93,12 +91,10 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   }
 
   useEffect(() => {
-    // console.log(fullReviewList)
     Modal.setAppElement('body');
 
     axios.get(host_url + 'reviews/', config1)
       .then((data) => {
-        // console.log('test:', data.data.results[0].recommend)
         setReviewList(data.data.results)
         setFullReviewList(data.data.results)
       })
@@ -113,13 +109,6 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
 
   var handleMoreReviews = () => {
     setReviewCount(numReviews)
-    // if (reviewCount >= reviewList.length - 1) {
-    //   setReviewCount(reviewList.length)
-    // }
-    // if (reviewCount < reviewList.length) {
-    //   setReviewCount(reviewCount + 2)
-    // }
-    // setReviewList(reviewList.slice(0, 2))
   }
 
   var toggleModal = () => {
@@ -127,7 +116,6 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   }
 
   var toggleModalPhoto = (arg) => {
-    // console.log(typeof arg.target.src)
     setIsOpenPhoto(!isOpenPhoto)
     setClickPhoto(arg.target.src)
   }
@@ -143,7 +131,6 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     axios(config)
       .then((result) => {
         handleListReRender()
-        // console.log('TEST', result);
       })
       .catch((err) => {
         console.log('Err on helpful put req', err);
@@ -161,12 +148,10 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     axios(config)
       .then((result) => {
         handleListReRender()
-        // console.log('TEST', result);
       })
       .catch((err) => {
         console.log('Err on helpful put req', err);
       })
-    // alert('Report Submitted')
   }
 
   var handleReviewSubmit = () => {
@@ -212,7 +197,6 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
         error.push('❌ Invalid Email')
       }
     }
-    // console.log('test', newRecomended)
     if (error.length === 0) {
       sendNewReview()
       setSubmitFlag(!submitFlag)
@@ -228,7 +212,6 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   var nameFormatter = (name) => {
     if (name[0] !== name[0].toUpperCase()) {
       let replaced = name.charAt(0).toUpperCase() + name.slice(1)
-      // console.log(replaced)
       return replaced
     } else {
       return name;
@@ -256,7 +239,6 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   }
 
   var sendNewReview = () => {
-    // console.log("TEST")
 
     let reconfig = {
       Comfort: [comfortRating, setComfortRating, 223579],
@@ -268,7 +250,6 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     }
     let dataObj = {}
     for (var key in characteristics) {
-      // console.log(characteristics[key].id)
       let charKey = key
       dataObj[charKey] = characteristics[key].id
     }
@@ -297,25 +278,11 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     }
     console.log(config)
 
-    // axios.post(host_url + 'reviews', config, { headers: { 'Authorization': process.env.TOKEN } })
-    //   .then((result) => {
-    //     // console.log('TEST', result);
-    //   })
-    //   .catch((err) => {
-    //     console.log('TEST', err);
-    //   })
   }
 
   var listDecider = () => {
     if (filterObj.length) {
-      // console.log(filterObj.indexOf())
-      // setFilterList(current =>
-      //   current.filter(element => {
-      //     return filterObj.indexOf(element.rating) !== -1;
-      //   }),
-      // );
-      // console.log(filterObj)
-      // console.log(filterObj.indexOf(`${5}`))
+
       let temp = reviewList.filter((item) => {
         return filterObj.indexOf(`${item.rating}`) !== -1;
       })
@@ -424,7 +391,6 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
     return (
       temp.map((item, i) => {
         let inner = Number(reconfig[item][0]) + 1
-        // console.log(reconfig[item][inner])
         return (
           <li key={i} style={{ display: "flex", flexDirection: "column", alignItems: "left" }}>
               <label>{`Rate the ${item}`} <div style={{ color: 'red' }}>*</div></label>
@@ -448,7 +414,6 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
       })
     )
   }
-  // if filterObj.length
   return (
     <>
       <ReviewContainer>
@@ -529,7 +494,6 @@ const Reviews = ({ handleClick, product_id, numReviews, avgRating, characteristi
   )
 }
 
-// item.date.slice(0, 10)
 
 export default Reviews;
 

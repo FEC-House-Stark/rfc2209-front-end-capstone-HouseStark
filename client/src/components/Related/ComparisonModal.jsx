@@ -13,14 +13,12 @@ flex-direction: column;
 position: absolute;
 width:380px;
 max-height:150px;
-/* height: 300px; */
 background-color:#EAE0CC;
 box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.19);
 z-index: 1;
 border: 1px solid black;
 right: 0%;
 top: 0%;
-/* transform: translate(-50%, -50%); */
 overflow:auto;
 `;
 
@@ -36,19 +34,14 @@ border-bottom: 1px solid black;
 const Features = styled.div`
 display: flex;
 justify-content: space-between;
-/* box-sizing:border-box; */
 width: 100%;
 border-bottom: 1px solid black;
-/* border: 1px solid black; */
-/* padding: 5px;
-padding-left:0px; */
 font-size: 12px;
 `;
 
 const ProdHeaders = styled.div`
 display: flex;
 justify-content: space-between;
-/* box-sizing:border-box; */
 padding-top: 5px;
 width: 100%;
 font-size: 12px;
@@ -133,15 +126,9 @@ const ComparisonModal = ({ setOpenModal, compare, currentProduct }) => {
     for (var i = 0; i < allFeaturesArr.length; i++) {
       var checker = allFeaturesArr[i];
       for (var x = 0; x < compare.features.length; x++) {
-        // console.log('CHECKER AND COMPARE', checker.feature, compare.features[x].feature)
         if (checker.feature === compare.features[x].feature) {
-          // if (compare.features[x].value.includes(' ')) {
-          //   checker['compare'] = check
-          //   break;
-          // } else {
           checker['compare'] = check
           break;
-          //}
         } else {
           allFeaturesArr[i]['compare'] = '';
         }
@@ -150,22 +137,15 @@ const ComparisonModal = ({ setOpenModal, compare, currentProduct }) => {
     for (var i = 0; i < allFeaturesArr.length; i++) {
       var checker = allFeaturesArr[i];
       for (var x = 0; x < currentProduct.features.length; x++) {
-        // console.log('CHECKER AND COMPARE', checker.feature, compare.features[x].feature)
         if (checker.feature === currentProduct.features[x].feature) {
-          // if (currentProduct.features[x].value.includes(' ')) {
-          //   checker['current'] = check
-          //   break;
-          // } else {
           checker['current'] = check
           break;
-          //}
         } else {
           allFeaturesArr[i]['current'] = '';
         }
       }
     }
     setAllFeatures(allFeaturesArr)
-    // console.log(uniqueChecker, allFeaturesArr)
   }, [])
 
   let comparisonModal = useRef();

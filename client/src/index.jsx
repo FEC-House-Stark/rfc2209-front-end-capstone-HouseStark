@@ -9,7 +9,6 @@ import QandA from './components/QandA/QandA.jsx';
 import Reviews from './components/R&R/Reviews.jsx';
 import Related from './components/Related/Related.jsx';
 import styled from 'styled-components';
-import logo from './assets/WolfLogo.png';
 import logo_white from './assets/wolf_logo_white.png';
 import { CloudinaryContext } from "cloudinary-react";
 
