@@ -57,7 +57,7 @@ const Overview = (props) => {
         <ImageGallery handleClick={props.handleClick} photos={style.photos} image_width={image_width} image_height={image_height} getBodyWidth={getBodyWidth} setThumbnailRow={setThumbnailRow} product_id={props.product_id}/>
         <ProductInfo handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style} starkMode={props.starkMode}/>
         <StyleSelector handleClick={props.handleClick} styles={props.styles.results} style={style} setStyle={setStyle} starkMode={props.starkMode}/>
-        <AddToCart handleClick={props.handleClick} style={style} starkMode={props.starkMode}/>
+        <AddToCart handleClick={props.handleClick} style={style} starkMode={props.starkMode} product_name={props.productInfo.name}/>
         <ProductDesc handleClick={props.handleClick} productInfo={props.productInfo}/>
         <ProductFeat handleClick={props.handleClick} features={props.productInfo.features}/>
     </div>

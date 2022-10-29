@@ -1,20 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import AddToCartModal from './AddToCartModal.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faStar } from '@fortawesome/free-solid-svg-icons';
-import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
+import axios from 'axios';
 const { useEffect, useState, useRef } = React;
 
 const AddToCartStyle = styled.div`
   grid-column-start: 3;
   grid-row-start: 3;
 `;
-const addCartStyle = {
-  'gridColumnStart': '4',
-  'gridRowStart': '3',
-  height: '100%',
-  width: '100%'
-}
+
 const row_ht = '40%';
 const color = '#666';
 const fontSize = '13px';
@@ -53,7 +50,7 @@ const formStyle = {
   flexWrap: 'wrap'
 }
 
-const AddToCart = ({ handleClick, style, starkMode }) => {
+const AddToCart = ({ handleClick, style, starkMode, product_name, cart, setCart, openModal, setOpenModal }) => {
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedQty, setSelectedQty] = useState('-');
   const [quantity, setQuantity] = useState([]);
@@ -61,7 +58,15 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
   const [favorite, setFavorite] = useState(false);
   const [selectSizeHt, setSelectSizeHt] = useState(row_ht);
   const [noSizeCart, setNoSizeCart] = useState(false);
+  const [sku_id, setSkuId] = useState(0);
   const selectRef = useRef();
+
+  const addCartStyle = {
+    'gridColumnStart': '4',
+    'gridRowStart': '3',
+    height: '100%',
+    width: '100%',
+  }
 
   const outOfStock = () => {
     return sizes.length === 0;
@@ -125,10 +130,34 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
     if (selectedSize === '') {
       selectRef.current.focus();
       setNoSizeCart(true);
-      //selectRef.current.click();
     } else {
-      console.log(`Adding to cart!
-      Style: ${style.name} | Size: ${selectedSize} | Qty: ${selectedQty}`);
+      if (cart[sku_id] === undefined) {
+        cart[sku_id] = {
+          'qty': Number(selectedQty),
+          'size': selectedSize,
+          'photoUrl': style.photos[0].thumbnail_url,
+          'style': style.name,
+          'product_name': product_name,
+        };
+      } else {
+        cart[sku_id].qty += Number(selectedQty);
+      }
+      console.log('cart:', cart);
+      updateQuantity();
+      let config = {
+        url: '/cart',
+        method: 'post',
+        data: { sku_id },
+      }
+      // axios(config)
+      //   .then((result) => {
+      //     console.log(result);
+      //     if (cart[sku_id] !== defined) cart[sku_id] = 1;
+      //   })
+      //   .then((err) => {
+      //     console.log(err);
+      //   })
+      //setOpenModal(!openModal);
     }
   }
 
@@ -151,21 +180,27 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
     );
   }
 
+  const updateQuantity = () => {
+    for (const sku in style.skus) {
+      if (style.skus[sku].size === selectedSize) {
+        let quantityArr = [];
+        setSkuId(sku);
+        let cartQty = 0;
+        if (cart[sku] > 0) { cartQty = cart[sku] };
+        for (let i = 1; i <= style.skus[sku].quantity - cartQty; i++) {
+          quantityArr.push(i.toString());
+          if (i === 15) break;
+        }
+        setQuantity(quantityArr);
+        setSelectedQty(1);
+        break;
+      }
+    }
+  }
+
   useEffect(() => {
     if (selectedSize !== '') {
-      for (const key in style.skus) {
-        if (style.skus[key].size === selectedSize) {
-          let quantityArr = [];
-          for (let i = 1; i <= style.skus[key].quantity; i++) {
-            quantityArr.push(i.toString());
-            if (i === 15) break;
-          }
-          setQuantity(quantityArr);
-          if (selectedQty === '-') setSelectedQty(1);
-          break;
-        }
-      }
-
+      updateQuantity();
     }
   }, [selectedSize])
 
@@ -175,6 +210,7 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
     setQuantity([]);
     setFavorite(false);
     setNoSizeCart(false);
+    setSkuId(0);
     let sizesArr = []
     for (const key in style.skus) {
       if (style.skus[key].quantity > 0) {
@@ -248,6 +284,7 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
             </div>
 
           </form>
+
         </div>
       }
     </>
