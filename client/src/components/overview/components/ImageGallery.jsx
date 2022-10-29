@@ -7,19 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCompress } from '@fortawesome/free-solid-svg-icons'
 const { useState, useEffect } = React;
 
-
-const ImageGalleryStyle = styled.div`
-  grid-column-start: 2;
-  grid-row-start: 1;
-  grid-row-end: 4;
-`;
-const ImageContent = styled.div`
-
-`;
-const Image = styled.div`
-`;
-
-
 const MODES = {
   DEFAULT: 0,
   EXPANDED: 1,
@@ -53,7 +40,6 @@ const ImageGallery = (props) => {
     position: 'relative',
     height: `${props.image_height}`,
     width: `${imageMode !== MODES.DEFAULT ? `${expandedWidth}px` : '100%'}`,
-    // 'transition': `width ${transition}s`,
     'overflow': 'hidden',
     cursor: `${cursors[imageMode]}`,
     boxSizing: 'border-box',
@@ -73,9 +59,6 @@ const ImageGallery = (props) => {
     }
   }, [expandedWidth])
 
-
-
-  //if the style changes, make sure the current photoIndex is valid
   useEffect(() => {
     if (props.photos !== undefined) {
       if (photoIndex >= props.photos.length) {
@@ -160,7 +143,6 @@ const ImageGallery = (props) => {
         props.photos !== undefined &&
         <>
         <div widget='Overview' style={imageGalleryStyle} element-name='ImageGallery' onClick={(e) => {
-          //props.handleClick(e);
           handleImageClick(e);
         }}>
 

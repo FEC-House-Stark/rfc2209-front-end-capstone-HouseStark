@@ -9,7 +9,6 @@ const transition = 0.3;
 const min_thumbnail_index = n_max_thumbnails - 1;
 
 const ThumbnailCarousel = ({ photos, photoIndex, handleClick, height, expanded }) => {
-  /* styles */
   const gallery_height = expanded ? 200:height;
   const carousel_height = gallery_height * .85;
   const carousel_spacing = expanded ? 30 : carousel_height / n_max_thumbnails;
@@ -27,8 +26,6 @@ const ThumbnailCarousel = ({ photos, photoIndex, handleClick, height, expanded }
     bottom: '0',
     margin: 'auto 0',
   }
-
-  /* states */
   const [translate, setTranslate] = useState(0);
   const [thumbnailIndex, setThumbnailIndex] = useState(min_thumbnail_index);
 

@@ -223,7 +223,7 @@ const AddToCart = ({ handleClick, style, starkMode, product_name, cart, setCart,
   return (
     <>
       {style.skus !== undefined &&
-        <div widget='Overview' style={addCartStyle} element-name='AddToCart' onClick={e => {//handleClick(e);
+        <div widget='Overview' style={addCartStyle} element-name='AddToCart' onClick={e => {
         }}>
           <div className="alert" style={{
             height: '15%',

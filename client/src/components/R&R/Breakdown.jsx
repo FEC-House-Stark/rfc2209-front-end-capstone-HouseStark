@@ -27,8 +27,6 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
   }
 
   useEffect(() => {
-    // renderCharBar()
-    // console.log(filterObj)
     characteristicsCalc()
     setStarCountObj(starCounter())
   }, [fullReviewList])
@@ -49,19 +47,16 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
       countObj[fullReviewList[i].rating] += 1
       total += 1
     }
-    // console.log('TEST', calcCharact)
     setSum(total)
     return countObj
   }
 
   var characteristicsCalc = () => {
-    // console.log('TEST', characteristics)
     let result = [];
     for (var key in characteristics) {
       result.push(`${key}: ${characteristics[key].value.slice(0, 3)}`)
     }
     setCalcCharact(result)
-    // console.log(result)
   }
 
   var percentageCalc = (star) => {
@@ -259,7 +254,6 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
   };
 
   const handleBar5Click = (e) => {
-    // console.log(e.currentTarget.id)
     let key = e.currentTarget.id.toString();
     if (filterObj.indexOf(key) < 0) {
       setFilterObj(current => [...current, key]);
@@ -325,12 +319,6 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
   }
 
   var renderFilterList = () => {
-    // calcCharact.forEach((item) => {
-    //   let temp = Number(item.split(':')[1])
-    //   console.log(temp)
-    // })
-
-    // let num = e.curr❎entTarget.id;
     let reconfig = {
       1: handleBar1Click,
       2: handleBar2Click,
@@ -344,7 +332,6 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
           return (
             <div key={i} id={item} onClick={(e) => { reconfig[item](e) }} style={{ margin: '5px', border: '1px solid black', fontSize: '14px', borderRadius: '3px', cursor: 'pointer' }}>
               {`${item} star ❌`}
-              {/* <FontAwesomeIcon icon={faCircleXmark} /> */}
             </div>
           )
         })
@@ -388,7 +375,6 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
       let temp = []
       temp.push(char)
       temp.push(value)
-      // console.log(value / 5)
       result.push(temp)
     })
 
@@ -405,7 +391,6 @@ const Breakdown = ({ avgRating, fullReviewList, numReviews, characteristics, fil
       <div>
         {result.map((item, i) => {
           let percent = item[1] / 5
-          // console.log(item[0])
           let triangleStyle = {
             width: '0px',
             height: '0px',

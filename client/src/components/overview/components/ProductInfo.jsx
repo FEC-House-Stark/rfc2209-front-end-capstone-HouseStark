@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Stars from 'react-stars-display';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { FacebookShareButton, TwitterShareButton, PinterestShareButton } from 'react-share';
+import { faFacebook, faPinterest, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const ProductInfoStyle = styled.div`
   grid-column-start: 4;
@@ -27,24 +28,24 @@ const shareButtonStyle = {
 }
 
 const ProductInfo = (props) => {
-  // console.log('Product Info', props.productInfo);
   const handleSocialClick = (e, site) => {
     e.preventDefault();
     console.log(`Sharing to ${site}!`);
   }
 
+  const shareUrl = 'http://ec2-34-201-145-9.compute-1.amazonaws.com:1128/';
+  const shareDesc = `Check out these ${props.productInfo.name}'s from HOUSE STARK.`;
+
   return (
-    //<ProductInfoStyle widget="Overview">
     <div style={prodInfoStyle} widget='Overview' element-name='ProductInfo' onClick={e => {
-      //props.handleClick
     }}>
       {props.numReviews > 0 &&
         <div>
           <Stars
             stars={props.avgRating}
-            size={15} //optional
-            spacing={2} //optional
-            fill='#4D6A6D' //optional
+            size={15}
+            spacing={2}
+            fill='#4D6A6D'
           />
           <a href="#ratings-reviews" style={{
             paddingLeft: '10px',
@@ -72,10 +73,10 @@ const ProductInfo = (props) => {
           }}>{props.productInfo.name}</h1>
         </div>
       </div>
-    :   <h1 className="product-name" style={{
-      marginBottom: '20px',
-    }}>{props.productInfo.name}</h1>
-    }
+        : <h1 className="product-name" style={{
+          marginBottom: '20px',
+        }}>{props.productInfo.name}</h1>
+      }
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -100,18 +101,35 @@ const ProductInfo = (props) => {
         }}>
 
           <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Facebook')}>
-            {props.starkMode ? <img style={{ width: '110%', height: '110%' }} src="https://media.giphy.com/media/GjkCs56IPk8pvh1ncs/giphy.gif" /> : <FontAwesomeIcon icon={faFacebook} />}
+            <FacebookShareButton
+              url={`${shareUrl}`}
+              quote={`Check out these ${props.productInfo.name}'s from HOUSE STARK.`}
+              hashtag={`#${props.productInfo.category}`}
+            >
+              {props.starkMode ? <img style={{ width: '150%', height: '150%' }} src="https://media1.giphy.com/media/SKFsUhe9jUwrRtNPlq/giphy.webp?cid=790b7611hr1rqyy7bkk0ttrgm5fv3ewcb6cxlq6xpo9eps7i&rid=giphy.webp&ct=s" /> : <FontAwesomeIcon icon={faFacebook} />}
+            </FacebookShareButton>
           </div>
-          <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Instagram')}>
-            <FontAwesomeIcon icon={faInstagram} />
-          </div>
-          <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Twitter')}>
-            {props.starkMode ? <img style={{ width: '150%', height: '150%' }} src="https://media.giphy.com/media/lnJm6Fd6mIKkORh5yT/giphy.gif" /> : <FontAwesomeIcon icon={faTwitter} />}
-          </div>
+          <TwitterShareButton
+            url={`${shareUrl}`}
+            title={shareDesc}
+            hashtags={[`${props.productInfo.category}`, `${props.style.name}`]}
+          >
+            <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Twitter')}>
+              {props.starkMode ? <img style={{ width: '200%', height: '200%', marginLeft: '10px' }} src="https://media2.giphy.com/media/e6YbWDajUKSzebFVuB/giphy.webp?cid=790b7611ekx776iyi6kpc8hq9z22zqn4rb8he9a42klo4qb5&rid=giphy.webp&ct=s"/> : <FontAwesomeIcon icon={faTwitter} />}
+            </div>
+          </TwitterShareButton>
+          <PinterestShareButton
+            url={`${shareUrl}`}
+            media={`${props.style.photos !== undefined && props.style.photos[0].thumbnail_url}`}
+            description={shareDesc}
+          >
+            <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Pinterest')}>
+              {props.starkMode ? <img style={{ width: '100%', height: '100%', marginLeft: '10px' }} src="https://media.giphy.com/media/LoO7ls7FboYXwwcuC3/giphy.gif" /> : <FontAwesomeIcon icon={faPinterest} />}
+            </div>
+          </PinterestShareButton>
         </div>
       </div>
-    </div>
-    //</ProductInfoStyle>
+    </div >
   )
 }
 

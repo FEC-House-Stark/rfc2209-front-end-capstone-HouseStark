@@ -3,7 +3,6 @@ import axios from 'axios';
 import { fetchPhotos, openUploadWidget } from "../../CloudinaryService.jsx";
 import { modalBoxStyle, modalViewStyle, buttonStyle, ErrorStyle, UploadPhotos, uploadPhotoStyle } from '../QandA/components/QandA_Styles.jsx'
 
-// client/src/components/QandA/components/QandA_Styles.jsx
 
 function FileUpload({photos, setPhotos}) {
 
@@ -55,17 +54,6 @@ function FileUpload({photos, setPhotos}) {
     )
   }
 
-  // return (
-  //   <div
-  //     style={{
-  //       ...buttonStyle, backgroundColor: '#899489', color: 'white', borderColor: 'white', fontSize: 'small', width: '80px', borderStyle: 'outset'
-  //     }}
-  //     onClick={(e) => {
-  //       e.preventDefault();
-  //       beginUpload()
-  //     }}>Upload Image
-  //   </div>
-  // )
 }
 
 export default FileUpload;
