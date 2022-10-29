@@ -14,8 +14,6 @@ display: flex;
 flex-direction:column;
 align-self:center;
 position: relative;
-/* box-sizing: border-box; */
-/* border: 1px solid red; */
 `;
 
 const OutfitHeader = styled.div`

@@ -1,14 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import StyleSelectorItem from './StyleSelectorItem.jsx';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 const { useState, useRef } = React;
-
-const StyleSelectorStyle = styled.div`
-  grid-column-start: 3;
-  grid-row-start: 2;
-`;
 
 const selectorStyle = {
   'gridColumnStart': '4',
@@ -51,20 +46,16 @@ const StyleSelector = ({ style, styles, setStyle, starkMode }) => {
   }
 
   return (
-    //<StyleSelectorStyle>
     <>
-
       <div style={selectorStyle} widget='Overview' element-name='StyleSelector'>
         <div style={{
           height:'10%',
        }}><h4 style={{margin: '5px 0',}}><b>STYLE ></b> {style.name && style.name.toUpperCase()}</h4></div>
-        {/* onClick={props.handleClick}> */}
         <div style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           height: '80%',
-          // overflowY: 'auto',
         }}>
           <div style={selectorContainerStyle} ref={styleRef} onScroll={handleStyleScroll}>
             {styles !== undefined &&
@@ -90,7 +81,6 @@ const StyleSelector = ({ style, styles, setStyle, starkMode }) => {
         }
       </div>
     </>
-    //  </StyleSelectorStyle>
   )
 }
 

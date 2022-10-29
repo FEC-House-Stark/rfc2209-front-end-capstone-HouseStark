@@ -4,10 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons'
 
-const StyleSelectorStyle = styled.div`
-  grid-column-start: 3;
-  grid-row-start: 2;
-`;
 const Checkmark = styled.div`
   color: #666;
   width: 14px;

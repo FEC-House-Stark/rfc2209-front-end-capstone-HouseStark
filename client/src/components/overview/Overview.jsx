@@ -39,8 +39,6 @@ const Overview = (props) => {
 
 
   useEffect(() => {
-    //set the price
-    //if on sale
     if (props.styles.results !== undefined) {
       setStyle(props.styles.results[0]);
       for (const style of props.styles.results) {

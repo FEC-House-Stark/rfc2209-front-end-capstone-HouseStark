@@ -9,10 +9,7 @@ const Container = styled.div`
 position: relative;
 display: flex;
 flex-direction: column;
-/* border:1px solid black; */
-/* contain: content; */
 `;
-Container.displayName = 'Container';
 
 const Related = ({ handleClick, product_id, setId, numReviews, avgRating, productInfo, styles }) => {
   const [related_ids, setRelatedIds] = useState([]);

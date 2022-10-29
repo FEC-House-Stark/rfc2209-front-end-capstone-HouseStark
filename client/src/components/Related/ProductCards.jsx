@@ -12,7 +12,6 @@ box-sizing: border-box;
 display: flex;
 overflow-x: hidden;
 scroll-behavior: smooth;
-/* border:2px solid gold; */
 `;
 
 const Card = styled.div`
@@ -74,10 +73,6 @@ const ProductCards = ({ data, setId, setOpenModal, openModal, setCompare }) => {
     setOpenModal(!openModal)
     setCompare({ name, features })
   }
-
-  // useEffect(() => {
-  //   console.log(data)
-  // }, [data])
 
   return (
     <CardContainer id='card-container'>

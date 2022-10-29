@@ -28,12 +28,6 @@ padding: 10px 10px;
 gap: 10px;
 `;
 
-// const QandAHeader = styled.div`
-// display: grid;
-// align-items: flex-start;
-// text-align: left;
-// `;
-
 const QandAHSearchBar = styled.form`
 display: grid;
 align-items: stretch;
@@ -110,7 +104,6 @@ export {
   QandASearchView,
   QandAQuestionActions,
   QandAOverViewStyle,
-  // QandAHeader,
   QandAHSearchBar,
   QandAQuestionListView,
   QuestionBar,
