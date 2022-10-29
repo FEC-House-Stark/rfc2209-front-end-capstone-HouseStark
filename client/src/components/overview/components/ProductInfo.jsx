@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Stars from 'react-stars-display';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FacebookShareButton, TwitterShareButton } from 'react-share';
 import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 const ProductInfoStyle = styled.div`
@@ -25,6 +26,8 @@ const shareButtonStyle = {
   fontSize: '20px',
   cursor: 'pointer',
 }
+
+const shareUrl = 'www.google.com';
 
 const ProductInfo = (props) => {
   // console.log('Product Info', props.productInfo);
@@ -72,10 +75,10 @@ const ProductInfo = (props) => {
           }}>{props.productInfo.name}</h1>
         </div>
       </div>
-    :   <h1 className="product-name" style={{
-      marginBottom: '20px',
-    }}>{props.productInfo.name}</h1>
-    }
+        : <h1 className="product-name" style={{
+          marginBottom: '20px',
+        }}>{props.productInfo.name}</h1>
+      }
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -100,17 +103,29 @@ const ProductInfo = (props) => {
         }}>
 
           <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Facebook')}>
-            {props.starkMode ? <img style={{ width: '110%', height: '110%' }} src="https://media.giphy.com/media/GjkCs56IPk8pvh1ncs/giphy.gif" /> : <FontAwesomeIcon icon={faFacebook} />}
+            <FacebookShareButton
+              url={`${shareUrl}`}     //eg. https://www.example.com
+              quote={`Check out these cool ${props.productInfo.name}`}  //"Your Quotes"
+              hashtag={`#${props.productInfo.category}`} // #hashTag
+            >
+              {props.starkMode ? <img style={{ width: '110%', height: '110%' }} src="https://media.giphy.com/media/GjkCs56IPk8pvh1ncs/giphy.gif" /> : <FontAwesomeIcon icon={faFacebook} />}
+            </FacebookShareButton>
           </div>
           <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Instagram')}>
             <FontAwesomeIcon icon={faInstagram} />
           </div>
+          <TwitterShareButton
+            url={`${shareUrl}`}
+            title={`Check out these ${props.productInfo.name}'s from HOUSE STARK.`}
+            hashtags={[`${props.productInfo.category}`, `${props.style.name}`]}
+          >
           <div style={shareButtonStyle} onClick={e => handleSocialClick(e, 'Twitter')}>
             {props.starkMode ? <img style={{ width: '150%', height: '150%' }} src="https://media.giphy.com/media/lnJm6Fd6mIKkORh5yT/giphy.gif" /> : <FontAwesomeIcon icon={faTwitter} />}
           </div>
-        </div>
+        </TwitterShareButton>
       </div>
     </div>
+    </div >
     //</ProductInfoStyle>
   )
 }
