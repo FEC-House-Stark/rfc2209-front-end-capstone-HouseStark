@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-//import ArrowButton from './ArrowButton.jsx';
 const { useState, useEffect } = React;
 
 const selected_expand = 1.15;

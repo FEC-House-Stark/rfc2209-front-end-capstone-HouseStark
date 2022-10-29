@@ -24,16 +24,6 @@ const MoreQuestionsButton = ({
       }}>More Answered Questions
       </div>
       : null
-      // <div
-      //     className='qanda_button'
-      //     widget='QandA'
-      //     element-name='Less_Questions'
-      //     onClick={(e) => {
-      //       e.preventDefault();
-      //       handleLessQuestion();
-      //       handleTrackingClick(e);
-      //     }}>Show Less Questions
-      // </div>
     }
     </div>
   )

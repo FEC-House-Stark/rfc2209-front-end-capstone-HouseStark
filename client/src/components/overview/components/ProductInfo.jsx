@@ -30,24 +30,21 @@ const shareButtonStyle = {
 const shareUrl = 'www.google.com';
 
 const ProductInfo = (props) => {
-  // console.log('Product Info', props.productInfo);
   const handleSocialClick = (e, site) => {
     e.preventDefault();
     console.log(`Sharing to ${site}!`);
   }
 
   return (
-    //<ProductInfoStyle widget="Overview">
     <div style={prodInfoStyle} widget='Overview' element-name='ProductInfo' onClick={e => {
-      //props.handleClick
     }}>
       {props.numReviews > 0 &&
         <div>
           <Stars
             stars={props.avgRating}
-            size={15} //optional
-            spacing={2} //optional
-            fill='#4D6A6D' //optional
+            size={15}
+            spacing={2}
+            fill='#4D6A6D'
           />
           <a href="#ratings-reviews" style={{
             paddingLeft: '10px',

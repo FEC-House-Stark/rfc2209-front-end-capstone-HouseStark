@@ -14,8 +14,6 @@ display: flex;
 flex-direction:column;
 align-self:center;
 position: relative;
-/* box-sizing: border-box; */
-/* border: 1px solid red; */
 `;
 
 const ProdHeader = styled.h4`
@@ -40,9 +38,7 @@ NextButton.displayName = 'NextButton';
 const BackButton = styled.div`
 position: absolute;
 font-size: 15px;
-/* box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.19); */
 color:#798478;;
-/* background-color: white; */
 left:-15px;
 bottom: 45%;
 cursor: pointer;

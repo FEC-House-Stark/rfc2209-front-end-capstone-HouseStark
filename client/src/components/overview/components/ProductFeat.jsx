@@ -14,7 +14,6 @@ const prodFeatStyle = {
 const ProductFeat = (props) => {
 
   return (
-    //<ProductDescStyle>
     <div style={prodFeatStyle}>
       <ul style={{listStyleType: 'none',}}>
       {props.features !== undefined &&
@@ -24,7 +23,6 @@ const ProductFeat = (props) => {
       }
       </ul>
     </div>
-    //</ProductDescStyle>
   )
 }
 

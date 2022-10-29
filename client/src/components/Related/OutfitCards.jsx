@@ -12,13 +12,11 @@ box-sizing: border-box;
 display: flex;
 overflow-x: hidden;
 scroll-behavior: smooth;
-/* border:2px solid gold; */
 `;
 const AddToOutfit = styled.div`
 width:190px;
 height: 300px;
 margin-right:20px;
-/* margin-left:20px; */
 border: 1px solid;
 border-color: black;
 box-sizing: border-box;
@@ -94,8 +92,6 @@ color: black;
 `;
 
 const OutfitCards = ({ current_product, clicked, setClicked, data, setData }) => {
-  // const [data, setData] = useState([]);
-
   const handleOutfit = () => {
     if (clicked) {
       setClicked(false);

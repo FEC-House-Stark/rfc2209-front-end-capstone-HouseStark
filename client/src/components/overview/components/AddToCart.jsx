@@ -5,10 +5,6 @@ import { faCartShopping, faStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 const { useEffect, useState, useRef } = React;
 
-const AddToCartStyle = styled.div`
-  grid-column-start: 3;
-  grid-row-start: 3;
-`;
 const addCartStyle = {
   'gridColumnStart': '4',
   'gridRowStart': '3',
@@ -125,7 +121,6 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
     if (selectedSize === '') {
       selectRef.current.focus();
       setNoSizeCart(true);
-      //selectRef.current.click();
     } else {
       console.log(`Adding to cart!
       Style: ${style.name} | Size: ${selectedSize} | Qty: ${selectedQty}`);
@@ -187,7 +182,7 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
   return (
     <>
       {style.skus !== undefined &&
-        <div widget='Overview' style={addCartStyle} element-name='AddToCart' onClick={e => {//handleClick(e);
+        <div widget='Overview' style={addCartStyle} element-name='AddToCart' onClick={e => {
         }}>
           <div className="alert" style={{
             height: '15%',
