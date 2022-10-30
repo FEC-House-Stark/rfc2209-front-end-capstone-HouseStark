@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import AddToCartModal from './AddToCartModal.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
@@ -138,9 +137,16 @@ const AddToCart = ({ handleClick, style, starkMode, product_name, cart, setCart,
           'photoUrl': style.photos[0].thumbnail_url,
           'style': style.name,
           'product_name': product_name,
+          'original_price': style.original_price,
+          'sale_price': style.sale_price
         };
       } else {
         cart[sku_id].qty += Number(selectedQty);
+      }
+      if (cart.totalPrice === undefined) {
+        cart.totalPrice = Number(style.sale_price || style.original_price) * Number(selectedQty);
+      } else {
+        cart.totalPrice += Number(style.sale_price || style.original_price) * Number(selectedQty);
       }
       console.log('cart:', cart);
       updateQuantity();
@@ -157,7 +163,7 @@ const AddToCart = ({ handleClick, style, starkMode, product_name, cart, setCart,
       //   .then((err) => {
       //     console.log(err);
       //   })
-      //setOpenModal(!openModal);
+      setOpenModal(!openModal);
     }
   }
 
@@ -186,7 +192,7 @@ const AddToCart = ({ handleClick, style, starkMode, product_name, cart, setCart,
         let quantityArr = [];
         setSkuId(sku);
         let cartQty = 0;
-        if (cart[sku] > 0) { cartQty = cart[sku] };
+        if (cart[sku] !== undefined && cart[sku].qty > 0) { cartQty = cart[sku].qty };
         for (let i = 1; i <= style.skus[sku].quantity - cartQty; i++) {
           quantityArr.push(i.toString());
           if (i === 15) break;

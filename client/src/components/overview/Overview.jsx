@@ -6,6 +6,7 @@ import StyleSelector from './components/StyleSelector.jsx';
 import AddToCart from './components/AddToCart.jsx';
 import ProductDesc from './components/ProductDesc.jsx';
 import ProductFeat from './components/ProductFeat.jsx';
+import AddToCartModal from './components/AddToCartModal.jsx';
 import styled from 'styled-components';
 
 const info_height = 180;
@@ -24,6 +25,8 @@ const Overview = (props) => {
   const [style, setStyle] = useState({});
   const [onSale, setOnSale] = useState(false);
   const [thumbnailRow, setThumbnailRow] = useState(false);
+  const [cart, setCart] = useState({});
+  const [openModal, setOpenModal] = useState(false);
   const ref = useRef(null);
 
   const OverviewStyle = {
@@ -51,14 +54,17 @@ const Overview = (props) => {
 
 
   return (
+    <>
     <div style={OverviewStyle} ref={ref}>
-        <ImageGallery handleClick={props.handleClick} photos={style.photos} image_width={image_width} image_height={image_height} getBodyWidth={getBodyWidth} setThumbnailRow={setThumbnailRow} product_id={props.product_id}/>
+        <ImageGallery handleClick={props.handleClick} photos={style.photos} image_width={image_width} image_height={image_height} getBodyWidth={getBodyWidth} setThumbnailRow={setThumbnailRow} product_id={props.product_id} openModal={openModal}/>
         <ProductInfo handleClick={props.handleClick} productInfo={props.productInfo} avgRating={props.avgRating} numReviews={props.numReviews} style={style} starkMode={props.starkMode}/>
         <StyleSelector handleClick={props.handleClick} styles={props.styles.results} style={style} setStyle={setStyle} starkMode={props.starkMode}/>
-        <AddToCart handleClick={props.handleClick} style={style} starkMode={props.starkMode} product_name={props.productInfo.name}/>
+        <AddToCart handleClick={props.handleClick} style={style} starkMode={props.starkMode} product_name={props.productInfo.name} cart={cart} setCart={setCart} openModal={openModal} setOpenModal={setOpenModal}/>
         <ProductDesc handleClick={props.handleClick} productInfo={props.productInfo}/>
         <ProductFeat handleClick={props.handleClick} features={props.productInfo.features}/>
     </div>
+        <AddToCartModal cart={cart} openModal={openModal} setOpenModal={setOpenModal}/>
+        </>
   );
 }
 
