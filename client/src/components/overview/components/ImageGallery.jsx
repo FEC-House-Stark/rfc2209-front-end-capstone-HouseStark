@@ -43,12 +43,13 @@ const ImageGallery = (props) => {
     'overflow': 'hidden',
     cursor: `${cursors[imageMode]}`,
     boxSizing: 'border-box',
-    zIndex: `${imageMode === MODES.ZOOM ? '': '1'}`
+    zIndex: `${imageMode === MODES.ZOOM  || props.openModal ? '': '1'}`
   }
 
   useEffect(() => {
     window.addEventListener("resize", updateWidth);
-  }, []);
+  }, [])
+
   const updateWidth = () => {
     setExpandedWidth(props.getBodyWidth() - 40);
   }

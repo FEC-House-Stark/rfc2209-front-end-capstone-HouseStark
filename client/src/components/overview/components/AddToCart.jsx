@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faStar } from '@fortawesome/free-solid-svg-icons';
-import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
+import axios from 'axios';
 const { useEffect, useState, useRef } = React;
 
-const addCartStyle = {
-  'gridColumnStart': '4',
-  'gridRowStart': '3',
-  height: '100%',
-  width: '100%'
-}
+const AddToCartStyle = styled.div`
+  grid-column-start: 3;
+  grid-row-start: 3;
+`;
+
 const row_ht = '40%';
 const color = '#666';
 const fontSize = '13px';
@@ -49,7 +49,7 @@ const formStyle = {
   flexWrap: 'wrap'
 }
 
-const AddToCart = ({ handleClick, style, starkMode }) => {
+const AddToCart = ({ handleClick, style, starkMode, product_name, cart, setCart, openModal, setOpenModal }) => {
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedQty, setSelectedQty] = useState('-');
   const [quantity, setQuantity] = useState([]);
@@ -57,7 +57,15 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
   const [favorite, setFavorite] = useState(false);
   const [selectSizeHt, setSelectSizeHt] = useState(row_ht);
   const [noSizeCart, setNoSizeCart] = useState(false);
+  const [sku_id, setSkuId] = useState(0);
   const selectRef = useRef();
+
+  const addCartStyle = {
+    'gridColumnStart': '4',
+    'gridRowStart': '3',
+    height: '100%',
+    width: '100%',
+  }
 
   const outOfStock = () => {
     return sizes.length === 0;
@@ -122,8 +130,45 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
       selectRef.current.focus();
       setNoSizeCart(true);
     } else {
-      console.log(`Adding to cart!
-      Style: ${style.name} | Size: ${selectedSize} | Qty: ${selectedQty}`);
+      if (cart[sku_id] === undefined) {
+        cart[sku_id] = {
+          'qty': Number(selectedQty),
+          'size': selectedSize,
+          'photoUrl': style.photos[0].thumbnail_url,
+          'style': style.name,
+          'product_name': product_name,
+          'original_price': style.original_price,
+          'sale_price': style.sale_price
+        };
+      } else {
+        cart[sku_id].qty += Number(selectedQty);
+      }
+      if (cart.totalPrice === undefined) {
+        cart.totalPrice = Number(style.sale_price || style.original_price) * Number(selectedQty);
+      } else {
+        cart.totalPrice += Number(style.sale_price || style.original_price) * Number(selectedQty);
+      }
+      updateQuantity();
+      updateSizes();
+      if (cart[sku_id].qty === style.skus[sku_id].quantity) {
+        setSelectedSize('');
+        setSelectedQty('-');
+        setQuantity([]);
+      }
+      let config = {
+        url: '/cart',
+        method: 'post',
+        data: { sku_id },
+      }
+      // axios(config)
+      //   .then((result) => {
+      //     console.log(result);
+      //     if (cart[sku_id] !== defined) cart[sku_id] = 1;
+      //   })
+      //   .then((err) => {
+      //     console.log(err);
+      //   })
+      setOpenModal(!openModal);
     }
   }
 
@@ -146,21 +191,41 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
     );
   }
 
+  const updateQuantity = () => {
+    for (const sku in style.skus) {
+      if (style.skus[sku].size === selectedSize) {
+        let quantityArr = [];
+        setSkuId(sku);
+        let cartQty = 0;
+        if (cart[sku] !== undefined && cart[sku].qty > 0) { cartQty = cart[sku].qty };
+        for (let i = 1; i <= style.skus[sku].quantity - cartQty; i++) {
+          quantityArr.push(i.toString());
+          if (i === 15) break;
+        }
+        setQuantity(quantityArr);
+        setSelectedQty(1);
+        break;
+      }
+    }
+  }
+
+  const updateSizes = () => {
+    let sizesArr = [];
+    let cartQty = 0;
+    for (const key in style.skus) {
+      if (cart[key] !== undefined && cart[key].qty > 0) { cartQty = cart[key].qty };
+      if (style.skus[key].quantity - cartQty > 0) {
+        sizesArr.push(style.skus[key].size);
+      }
+      cartQty = 0;
+    }
+    setSizes(sizesArr);
+  }
+
   useEffect(() => {
     if (selectedSize !== '') {
-      for (const key in style.skus) {
-        if (style.skus[key].size === selectedSize) {
-          let quantityArr = [];
-          for (let i = 1; i <= style.skus[key].quantity; i++) {
-            quantityArr.push(i.toString());
-            if (i === 15) break;
-          }
-          setQuantity(quantityArr);
-          if (selectedQty === '-') setSelectedQty(1);
-          break;
-        }
-      }
-
+      console.log('updating');
+      updateQuantity();
     }
   }, [selectedSize])
 
@@ -170,13 +235,8 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
     setQuantity([]);
     setFavorite(false);
     setNoSizeCart(false);
-    let sizesArr = []
-    for (const key in style.skus) {
-      if (style.skus[key].quantity > 0) {
-        sizesArr.push(style.skus[key].size);
-      }
-    }
-    setSizes(sizesArr);
+    setSkuId(0);
+    updateSizes();
   }, [style])
 
   return (
@@ -243,6 +303,7 @@ const AddToCart = ({ handleClick, style, starkMode }) => {
             </div>
 
           </form>
+
         </div>
       }
     </>

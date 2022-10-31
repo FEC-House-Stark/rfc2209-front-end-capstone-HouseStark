@@ -38,7 +38,7 @@ const ArrowButton = ({handleClick, direction, active, height, carousel_height, h
       ${position[direction]}
       height: ${button_height}px;
       color: #666;
-      background: white;
+      background: rgba(255, 255, 255, .6);
       width: 25px;
       justify-content: center;
       border-radius: 50%;
