@@ -148,8 +148,13 @@ const AddToCart = ({ handleClick, style, starkMode, product_name, cart, setCart,
       } else {
         cart.totalPrice += Number(style.sale_price || style.original_price) * Number(selectedQty);
       }
-      console.log('cart:', cart);
       updateQuantity();
+      updateSizes();
+      if (cart[sku_id].qty === style.skus[sku_id].quantity) {
+        setSelectedSize('');
+        setSelectedQty('-');
+        setQuantity([]);
+      }
       let config = {
         url: '/cart',
         method: 'post',
@@ -204,8 +209,22 @@ const AddToCart = ({ handleClick, style, starkMode, product_name, cart, setCart,
     }
   }
 
+  const updateSizes = () => {
+    let sizesArr = [];
+    let cartQty = 0;
+    for (const key in style.skus) {
+      if (cart[key] !== undefined && cart[key].qty > 0) { cartQty = cart[key].qty };
+      if (style.skus[key].quantity - cartQty > 0) {
+        sizesArr.push(style.skus[key].size);
+      }
+      cartQty = 0;
+    }
+    setSizes(sizesArr);
+  }
+
   useEffect(() => {
     if (selectedSize !== '') {
+      console.log('updating');
       updateQuantity();
     }
   }, [selectedSize])
@@ -217,13 +236,7 @@ const AddToCart = ({ handleClick, style, starkMode, product_name, cart, setCart,
     setFavorite(false);
     setNoSizeCart(false);
     setSkuId(0);
-    let sizesArr = []
-    for (const key in style.skus) {
-      if (style.skus[key].quantity > 0) {
-        sizesArr.push(style.skus[key].size);
-      }
-    }
-    setSizes(sizesArr);
+    updateSizes();
   }, [style])
 
   return (

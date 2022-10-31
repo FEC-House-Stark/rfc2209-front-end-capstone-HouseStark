@@ -9,7 +9,10 @@ align-items: center;
 height: 125px;
 width: 100%;
 padding: 10px 0;
-border-bottom: 1pt solid #666;
+border-top: .5pt solid #666;
+&:nth-child(1) {
+  border-top: none;
+}
 `;
 const CartImage = styled.div`
 height: 80%;
@@ -36,8 +39,11 @@ const Category = styled.p`
   width: 60px;
 `;
 const SaleTag = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
   color: red;
-  padding-left: 5px;
+  padding: 0 0 5px 5px;
   font-style: italic;
 `
 const Price = styled.div`
@@ -47,7 +53,7 @@ const Price = styled.div`
 `
 
 
-const CartItem = ({ item, i }) => {
+const CartItem = ({ item}) => {
   return (
     <CartItemStyle>
       <CartImage style={{
@@ -58,18 +64,19 @@ const CartItem = ({ item, i }) => {
       }}>
 
       </CartImage>
-      <div key={i}>
-        <h3>{item.product_name}</h3>
+      <div>
+        <h4>{item.product_name}</h4>
         <CartDetailList>
           <CartDetailListItem><Category>Style</Category>{item.style}</CartDetailListItem>
           <CartDetailListItem><Category>Size</Category>{item.size}</CartDetailListItem>
           <CartDetailListItem><Category>Quantity</Category>{item.qty}</CartDetailListItem>
           <CartDetailListItem><Category>Price</Category>{item.sale_price !== null ?
-          <Price>{item.sale_price}<SaleTag>sale</SaleTag></Price>
+          <Price>${item.sale_price}</Price>
           :
-          item.original_price}</CartDetailListItem>
+          <Price>${item.original_price}</Price>}</CartDetailListItem>
       </CartDetailList>
     </div>
+    {item.sale_price !== null && <SaleTag>sale</SaleTag>}
     </CartItemStyle >
   );
 }

@@ -21,7 +21,7 @@ const frostyStyle = {
     borderColor: 'rgba(255, 255, 255,0.8)',
     zIndex: '999',
     height: '50vh',
-    width: '50vw',
+    width: '30.9vw',
     minWidth: '400px',
     minHeight: '400px',
     transform: 'translate(-50%, -50%)',
@@ -86,7 +86,7 @@ const AddToCartModal = ({
       <CartItemsStyle>
         {Object.keys(cart).map((key, i) => {
           if (key !== 'totalPrice') {
-            return <CartItem item={cart[key]} i={i} />
+            return <CartItem item={cart[key]} i={i} key={key + i}/>
           }
         })}
       </CartItemsStyle>

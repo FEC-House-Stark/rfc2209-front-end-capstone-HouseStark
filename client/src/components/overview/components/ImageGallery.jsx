@@ -48,7 +48,8 @@ const ImageGallery = (props) => {
 
   useEffect(() => {
     window.addEventListener("resize", updateWidth);
-  }, []);
+  }, [])
+
   const updateWidth = () => {
     setExpandedWidth(props.getBodyWidth() - 40);
   }
