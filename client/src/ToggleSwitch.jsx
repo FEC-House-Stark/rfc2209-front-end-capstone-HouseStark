@@ -37,7 +37,7 @@ const Input = styled.input`
     background: #A0A083;
 
     &:before {
-      transform: translate(32px, -50%);
+      transform: translate(20px, -50%);
     }
   }
 `;
